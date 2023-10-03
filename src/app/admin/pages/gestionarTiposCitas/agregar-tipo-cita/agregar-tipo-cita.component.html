@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <h2>Formulario para Gestionar Tipos de Citas</h2>
+    <form [formGroup]="tiposCitasForm" (ngSubmit)="guardarTipoCita()">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Nombre" required>
+      </div>
+      <div class="form-group">
+        <label for="duracion">Duración (minutos)</label>
+        <input type="number" class="form-control" id="duracion" formControlName="duracion" placeholder="Duración" required>
+        <div *ngIf="tiposCitasForm.get('duracion').hasError('min')" class="text-danger">
+          La duración debe ser de al menos 1 minuto.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="precio">Precio</label>
+        <input type="number" class="form-control" id="precio" formControlName="precio" placeholder="Precio" required>
+        <div *ngIf="tiposCitasForm.get('precio').hasError('min')" class="text-danger">
+          El precio no puede ser negativo.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea class="form-control" id="descripcion" formControlName="descripcion" placeholder="Descripción"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+  </div>
+  

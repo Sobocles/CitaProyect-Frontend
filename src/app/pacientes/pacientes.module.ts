@@ -5,6 +5,9 @@ import { FormularioCitaComponent } from './pages/formulario-cita/formulario-cita
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { PacientesRoutingModule } from './pacientes-routing.module';
 import { MaterialModule } from '../material/material.module';
+import { SharedModule } from '../shared/shared.module';
+import { HistorialMedicoComponent } from './pages/historial-medico/historial-medico.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -14,12 +17,14 @@ import { MaterialModule } from '../material/material.module';
     AgendarCitaComponent,
     FormularioCitaComponent,
     LayoutPageComponent,
- 
+    HistorialMedicoComponent,
   ],
   imports: [
     CommonModule,
     PacientesRoutingModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule,
+    RouterModule
   ]
 })
 export class PacientesModule { }

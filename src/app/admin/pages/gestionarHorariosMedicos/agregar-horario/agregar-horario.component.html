@@ -1,0 +1,28 @@
+<form [formGroup]="horarioMedicoForm">
+    <div class="form-group">
+      <label for="nombreDia">Nombre del Día</label>
+      <input type="text" class="form-control" id="nombreDia" formControlName="nombreDia" placeholder="Nombre del Día">
+    </div>
+    <div class="form-group">
+      <label for="horaInicio">Hora de Inicio</label>
+      <input type="time" class="form-control" id="horaInicio" formControlName="horaInicio">
+    </div>
+    <div class="form-group">
+      <label for="horaFin">Hora de Finalización</label>
+      <input type="time" class="form-control" id="horaFin" formControlName="horaFin">
+    </div>
+    <div class="form-group">
+      <label for="intervaloCitas">Intervalo entre Citas (minutos)</label>
+      <input type="number" class="form-control" id="intervaloCitas" formControlName="intervaloCitas">
+    </div>
+    <div class="form-group">
+      <label for="inicioColacion">Hora de Inicio de Colación</label>
+      <input type="time" class="form-control" id="inicioColacion" formControlName="inicioColacion">
+    </div>
+    <div class="form-group">
+      <label for="finColacion">Hora de Finalización de Colación</label>
+      <input type="time" class="form-control" id="finColacion" formControlName="finColacion">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Horario</button>
+  </form>
+  
