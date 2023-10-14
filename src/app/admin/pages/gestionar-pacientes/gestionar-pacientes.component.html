@@ -1,96 +1,110 @@
 
-<div class="row animated fadeIn fast">
+<!--
+<div class="row animated fadeIn fast"
+>
     <div class="col-12">
         <div class="card">
             <div class="card-body">
 
                 <input type="text"
                         class="form-control"
-                        placeholder="Buscar pacientes..."
-                       > <!--CUANDO SE PRESIONE UNA TECLA BUSQUE EL TERMINO KEYUP ES PARA VER LAS LETRAS QUE SE ESCRIBEN EN TIEMPO REAL MIENTRAS SE EPREISONA UNA LETRA-->
+                        placeholder="Buscar medico..."
+                        #txtTermino
+                        (keyup)="buscar( txtTermino.value )"/>
 
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-<div class="container-fluid">
-    <div class="row">
-      <div class="col">
-        <!-- Contenido principal aquí -->
-      </div>
-      <div class="col-auto">
-        <a routerLink="/agregar-paciente" class="btn btn-primary">Agregar paciente</a>
-      </div>
-    </div>
-  </div>
 
-<div class="row animated fadeIn fast"> <!--SI NO ESTA CARGADO-->
+
+
+<div class="row" 
+>
     <div class="col-12">
         <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Total de pacientes: </h4>
-                <h6 class="card-subtitle">pacientes registrados en mi aplicacion</h6>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="w100">Nombre</th>
-                                <th>Duracion</th>
-                                <th>Precio</th>
-                                <th>descripcion</th>
-                                <th>Especialidad</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center"> <!--Abrir modal se activa cuando se hace click en la umagen del usuario (se le pasa el usuario de la imagen)-->
-                                </td>
-                                <td></td>                         
-                                <td></td>              
-                                
-                                
-                                <td>
-                                    <!-- si el usuario selecciona la opción "Admin" en el <select>, el valor del 
-                                        usuario.role se actualizará a "ADMIN_ROLE" (como aparece en los option del select)
-                                        . Si el usuario selecciona la opción "User", el valor del usuario.role se 
-                                        actualizará a "USER_ROLE eso es porque usuario.role esta enlazado al ngModel es decir
-                                        que cuando el usuario le de click a alguna de las opciones se activa el evento change lo que hace que se active la funcion cambiar rol"-->
-                             
-                                </td>
+            <div class="card-body">      
+                
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title">Medicos ({{ pacientes.length }})</h4>
+                        <h6 class="card-subtitle">
+                            Pacientes registrados en mi aplicación
+                        </h6>
+                    </div>
+                    <!--BOTON DE CREAR MEDICO-->
+                    <div class="col">
+                        <div class="text-right">
+                            <a class="btn btn-primary"
+                               routerLink="/agregar-paciente">
+                                <i class="fa fa-hospital-o"></i> 
+                                Crear Paciente
+                            </a>
+                        </div>
+                    </div>
 
-                                <!--ESTO ES PARA QUE EN LA TABLA EN EL APARTADO DE AUTH APAREZCA SI EL USUARIO ES DE GOOGLE O UN USUARIO NORMAL QUE SE REGISTRO EN LA PAGINA-->
-                                <td>
-                                
-                                </td>
-           
-                               
-                                
-                                <!--SIMBOLITO PARA ELIMINAR USUARIO-->
-                                <td class="text-nowrap text-center">
-                                    <a data-toggle="tooltip"
-                                     data-original-title="Borrar"
-                                     class="cursor"
-                                     > <!--SE ENVIA A LA FUNCION EL USUARIO QUE SE QUIERE ELIMINAR CUANDO SE LE HACE CLICK AL SIMBOLITO EL QUE SE CRE EN EL NG*FOR DE ARRIBA-->
-                                         <i class="fa fa-close text-danger"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
-                <!--ESTA CONDICION SE HACE PARA QUE CUANDO SE TECLEA EN LA BARRA DE BUSQUEDA Y SE CARGAN LOS RESULTADOS DE BUSQUEDA DESAPARESCAN LOS BOTONES SIGUIENTES Y ANTERIOR EN LA PANTALLA-->
-                <div> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
-                    <button  class="btn btn-secondary">Anteriores</button>
-                    &nbsp; <!--Esto es para que exista una pequeña separacion entre ambos-->
-                    <button  class="btn btn-secondary">Siguiente</button>
+
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>email</th>
+                        <th>fecha_nacimiento</th>
+                        <th>Telefono</th>
+                        <th>direccion</th>
+                        <!-- Agrega más columnas según tus necesidades -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!--
+                        export interface Paciente {
+                        rut: string;
+                        nombre: string;
+                        apellidos: string;
+                        email: string;
+                        password?: string;
+                        fecha_nacimiento: string;
+                        telefono: string;
+                        direccion: string;
+                    }
+
+                      -->
+                      <tr *ngFor="let paciente of pacientes">
+                        <td>{{ paciente.rut }}</td>
+                        <td>{{ paciente.nombre }}</td>
+                        <td>{{ paciente.apellidos }}</td>
+                        <td>{{ paciente.email }}</td>
+                        <td>{{ paciente.fecha_nacimiento }}</td>
+                        <td>{{ paciente.telefono }}</td>
+                        <td>{{ paciente.direccion }}</td>
+
+                        <!-- Aquí puedes agregar botones de acciones para cada paciente -->
+                        <td>
+                          <div class="icon-container">
+                            <a class="cursor"
+                              data-toggle="tooltip" 
+                              data-original-title="Borrar"
+                              (click)="borrarPaciente( paciente )"> 
+                              <i class="fa fa-close text-danger"></i> 
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-            
+                
+                
+             <!--<button class="btn btn-secondary">Anteriores</button>
+                &nbsp;
+                <button class="btn btn-secondary">Siguiente</button> -->
             </div>
         </div>
     </div>
 
 </div>
-
-

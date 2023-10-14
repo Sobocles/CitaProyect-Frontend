@@ -9,9 +9,6 @@ import { SharedModule } from '../shared/shared.module';
 import { HistorialMedicoComponent } from './pages/historial-medico/historial-medico.component';
 import { RouterModule } from '@angular/router';
 
-
-
-
 @NgModule({
   declarations: [
     AgendarCitaComponent,

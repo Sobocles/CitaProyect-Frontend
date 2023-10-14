@@ -6,9 +6,11 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { AdminModule } from './admin/admin.module';
+
 import { PacientesModule } from './pacientes/pacientes.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AdminModule } from './admin/admin.module';
+
 
 
 
@@ -27,7 +29,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     AdminModule,
     PacientesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

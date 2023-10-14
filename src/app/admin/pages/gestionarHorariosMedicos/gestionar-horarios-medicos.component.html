@@ -24,7 +24,20 @@
       </div>
     </div>
   </div>
-
+<!--
+    export interface HorarioMedico {
+    idHorario?: number; // El signo de interrogación indica que es opcional, ya que se autoincrementa en la base de datos
+    diaSemana: string;
+    horaInicio: string;
+    horaFinalizacion: string;
+    hora_inicio_colacion?: string;
+    hora_fin_colacion?: string;
+    duracionCitas: number;
+    rutMedico: string;
+    disponibilidad: boolean;
+    fechaCreacion?: Date; // Se asumirá que el servidor establecerá la fecha de creación automáticamente
+  }
+-->
 <div class="row animated fadeIn fast"> <!--SI NO ESTA CARGADO-->
     <div class="col-12">
         <div class="card">
@@ -33,55 +46,63 @@
                 <h6 class="card-subtitle">Usuarios registrados en mi aplicacion</h6>
                 <div class="table-responsive">
                     <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="w100">Nombre</th>
-                                <th>Dia</th>
-                                <th>Hora_inicio</th>
-                                <th>Hora finalizacion</th>
-                                <th>Intervalo entre citas</th>
-                                <th>Inicio colacion</th>
-                                <th>Fin colacion</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center"> <!--Abrir modal se activa cuando se hace click en la umagen del usuario (se le pasa el usuario de la imagen)-->
-                                </td>
-                                <td></td>                         
-                                <td></td>              
-                                
-                                
-                                <td>
-                                    <!-- si el usuario selecciona la opción "Admin" en el <select>, el valor del 
-                                        usuario.role se actualizará a "ADMIN_ROLE" (como aparece en los option del select)
-                                        . Si el usuario selecciona la opción "User", el valor del usuario.role se 
-                                        actualizará a "USER_ROLE eso es porque usuario.role esta enlazado al ngModel es decir
-                                        que cuando el usuario le de click a alguna de las opciones se activa el evento change lo que hace que se active la funcion cambiar rol"-->
-                             
-                                </td>
-
-                                <!--ESTO ES PARA QUE EN LA TABLA EN EL APARTADO DE AUTH APAREZCA SI EL USUARIO ES DE GOOGLE O UN USUARIO NORMAL QUE SE REGISTRO EN LA PAGINA-->
-                                <td>
-                                
-                                </td>
-           
-                               
-                                
-                                <!--SIMBOLITO PARA ELIMINAR USUARIO-->
-                                <td class="text-nowrap text-center">
-                                    <a data-toggle="tooltip"
-                                     data-original-title="Borrar"
-                                     class="cursor"
-                                     > <!--SE ENVIA A LA FUNCION EL USUARIO QUE SE QUIERE ELIMINAR CUANDO SE LE HACE CLICK AL SIMBOLITO EL QUE SE CRE EN EL NG*FOR DE ARRIBA-->
-                                         <i class="fa fa-close text-danger"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                      <thead>
+                        <tr>
+         
+                          <th>diaSemana</th>
+                          <th>horaInicio</th>
+                          <th>horaFinalizacion</th>
+                          <th>hora_inicio_colacion</th>
+                          <th>hora_fin_colacion</th>
+                          <th>duracionCitas</th>
+                          
+                          <th>rutMedico</th>
+                          <th>disponibilidad</th>
+                          <th>fechaCreacion</th>
+                          <th>Acciones</th>
+                          <!-- Agrega más columnas según tus necesidades -->
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let horario of horarios">
+                          <td>{{ horario.diaSemana }}</td>
+                          <td>{{ horario.horaInicio }}</td>
+                          <td>{{ horario.horaFinalizacion }}</td>
+                          <td>{{ horario.hora_inicio_colacion }}</td>
+                          <td>{{ horario.hora_fin_colacion}}</td>
+                          <td>{{ horario.duracionCitas }}</td>
+                          <td>{{ horario.medico.nombre }}</td>
+                          
+                          <td>{{ horario.disponibilidad }}</td>
+                          <td>{{ horario.fechaCreacion }}</td>
+              
+                          <!-- Aquí puedes agregar botones de acciones para cada médico -->
+              <!--BOTON PARA BORRAR MEDICO-->
+              <td>
+                <div class="icon-container">
+                  <a class="cursor"
+                    data-toggle="tooltip" 
+                    data-original-title="Borrar"
+                    (click)="borrarHorario( horario )"> 
+                    <i class="fa fa-close text-danger"></i> 
+                  </a>
                 </div>
+                  <div class="icon-container">
+                    <a class="cursor"
+                      data-toggle="tooltip" 
+                      data-original-title="Editar"
+                    > 
+                      <i class="fa fa-pencil text-primary"></i> 
+                    </a>
+                  </div>
+                </td>
+                
+                
+                
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 <!--ESTA CONDICION SE HACE PARA QUE CUANDO SE TECLEA EN LA BARRA DE BUSQUEDA Y SE CARGAN LOS RESULTADOS DE BUSQUEDA DESAPARESCAN LOS BOTONES SIGUIENTES Y ANTERIOR EN LA PANTALLA-->
                 <div> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
                     <button  class="btn btn-secondary">Anteriores</button>

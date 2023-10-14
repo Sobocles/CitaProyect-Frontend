@@ -1,30 +1,54 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TipoCitaService } from '../../services/tipo-cita.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { Tipo_cita, tipoCitaResponse } from '../../interface/tipoCita';
+
 
 @Component({
-  selector: 'app-agregar-tipos-citas',
+  selector: 'app-agregar-tipo-cita',
   templateUrl: './agregar-tipo-cita.component.html',
   styleUrls: ['./agregar-tipo-cita.component.scss']
 })
-export class GestionarTiposCitasComponent {
-  tiposCitasForm: FormGroup;
+export class AgregarTipoCitaComponent {
 
-  constructor(private formBuilder: FormBuilder) {
-    this.tiposCitasForm = this.formBuilder.group({
-      nombre: ['', Validators.required],
-      duracion: ['', [Validators.required, Validators.min(1)]],
-      precio: ['', [Validators.required, Validators.min(0)]],
-      descripcion: ['']
+  formularioTipoCita: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private TipoCitaService: TipoCitaService
+  ) {
+    this.formularioTipoCita = this.fb.group({
+      tipo_cita: ['', Validators.required],
+      precio: ['', Validators.required],
+      especialidad_medica: ['', Validators.required],
+      color_etiqueta: ['#3498db', Validators.required]
     });
   }
 
-  guardarTipoCita() {
-    if (this.tiposCitasForm.valid) {
-      // Aquí puedes realizar la lógica para guardar el tipo de cita
-      console.log(this.tiposCitasForm.value);
+  crearTipoCita() {
+    if (this.formularioTipoCita.valid) {
+      const formData: Tipo_cita = this.formularioTipoCita.value;
+      console.log(formData);
+      this.TipoCitaService.crearTipoCita(formData).subscribe(
+        (respuesta: tipoCitaResponse) => {
+          console.log(respuesta);
+          Swal.fire('Mensaje', 'Registro exitoso', 'success');
+          this.router.navigateByUrl('/gestionar-tipo-cita');
+        },
+        (err) => {
+          Swal.fire('Error', err.error.msg, 'error');
+        }
+      );
     } else {
-      // El formulario no es válido, puedes mostrar un mensaje de error o
-      // realizar alguna acción para indicar que se deben corregir los campos.
+      Swal.fire('Error', 'Por favor, complete el formulario correctamente', 'error');
     }
   }
+
+  
+  
 }
+
+

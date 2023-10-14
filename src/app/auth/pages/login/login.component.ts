@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   
 
   miFormulario: FormGroup = this.fb.group({
-    username: ['', [Validators.required]], // Cambia 'usuario' a 'username'
+    email: ['', [Validators.required, Validators.email]], // Cambia 'username' a 'email'
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
@@ -30,15 +31,12 @@ export class LoginComponent implements OnInit {
 
   login() {
     console.log(this.miFormulario.value);
-    const { password, username } = this.miFormulario.value;
-    this.authService.login(username, password)
+    const { password, email } = this.miFormulario.value;
+    this.authService.login(email, password)
     .subscribe( resp => {
      
-       //SE GUARDA EL EMAIL EN EL LOCAL STORAGE CON EL NOMBRE EMAIL
+      this.router.navigateByUrl('/Agendar-cita');
      
-
-    // Navegar al Dashboard
-    this.router.navigateByUrl('/');
     
     }, (err) => {
     //Si sucede un error
