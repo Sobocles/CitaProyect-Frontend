@@ -1,0 +1,15 @@
+.custom-day {
+    border: 1px solid #007BFF;  /* Color del borde azul (puedes cambiarlo según tus preferencias) */
+    transition: background-color 0.3s, transform 0.3s;  /* Efectos suaves al pasar el mouse */
+
+    /* Puedes agregar más estilos aquí si lo consideras necesario */
+}
+
+.custom-day:hover {
+    background-color: #e9ecef;  /* Color de fondo al pasar el mouse */
+    transform: scale(1.05);  /* Efecto de "zoom" al pasar el mouse */
+}
+
+
+
+

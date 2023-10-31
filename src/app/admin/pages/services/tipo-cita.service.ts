@@ -4,6 +4,7 @@ import { environment } from 'src/environment/environment';
 import { Medico } from '../interface/medicos';
 import { Observable } from 'rxjs';
 import { Tipo_cita, tipoCitaResponse } from '../interface/tipoCita';
+import { HorarioMedico } from '../interface/horarioMedico';
 
 const base_url = environment.base_url;
 
@@ -22,10 +23,11 @@ export class TipoCitaService {
   get headers() {
     return { 
       headers: {
-      'x-token': this.token //ESTE ES EL GET TOKEN
+      'Authorization': `Bearer ${this.token}`
       }
     }
-  }
+}
+
 
   constructor( private http: HttpClient) { }
 
@@ -36,7 +38,7 @@ export class TipoCitaService {
 
   
   crearTipoCita(formData: Tipo_cita): Observable<tipoCitaResponse> {
-    return this.http.post<tipoCitaResponse>(`${base_url}/tipo_cita`, formData);
+    return this.http.post<tipoCitaResponse>(`${base_url}/tipo_cita`, formData, this.headers);
   }
 
   borrarTipoCita( id: number ){
@@ -44,6 +46,8 @@ export class TipoCitaService {
     const url = `${ base_url }/tipo_cita/${ id }`;
     return this.http.delete( url, this.headers );
   }
+
+  
 
   /*
       crearTipoCita(formData: Tipo_cita): Observable<tipoCitaResponse> {

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MedicoService } from '../../services/medico.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { TipoCitaService } from '../../services/tipo-cita.service';
 @Component({
   selector: 'app-agregarmedico',
   templateUrl: './agregarmedico.component.html',
@@ -15,7 +16,7 @@ export class AgregarmedicoComponent {
 
   constructor(private formBuilder: FormBuilder, private MedicoService: MedicoService, private router: Router) {
     this.formulario = this.formBuilder.group({
-      id: ['', Validators.required],
+      rut: ['', Validators.required],
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -26,6 +27,8 @@ export class AgregarmedicoComponent {
       titulo: [''], 
     });
   }
+
+
   crearMedico() {
     const formData = this.formulario.value;
     console.log(formData);

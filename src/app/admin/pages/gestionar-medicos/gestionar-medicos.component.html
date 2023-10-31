@@ -1,5 +1,5 @@
 
-<!--
+
 <div class="row animated fadeIn fast"
 >
     <div class="col-12">
@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-</div> -->
+</div> 
 
 
 
@@ -67,7 +67,7 @@
                     <tbody>
                       <tr *ngFor="let medico of medicos">
                         <td>{{ medico.foto }}</td>
-                        <td>{{ medico.id }}</td>
+                        <td>{{ medico.rut }}</td>
                         <td>{{ medico.nombre }}</td>
                         <td>{{ medico.apellidos }}</td>
                         <td>{{ medico.telefono }}</td>
@@ -75,7 +75,7 @@
                         <td>{{ medico.direccion }}</td>
                         
                         <td>{{ medico.nacionalidad }}</td>
-                        <td>{{ medico.titulos }}</td>
+                        <td>{{ medico.especialidad_medica }}</td>
                         <!-- Aquí puedes agregar botones de acciones para cada médico -->
             <!--BOTON PARA BORRAR MEDICO-->
             <td>
@@ -104,11 +104,11 @@
                   </table>
                 </div>
                 
-                <div> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
-                    <button (click)="cambiarPagina(-5)" class="btn btn-secondary">Anteriores</button>
-                    &nbsp; <!--Esto es para que exista una pequeña separacion entre ambos-->
-                    <button (click)="cambiarPagina(5)" class="btn btn-secondary">Siguiente</button>
-                </div>
+                <div *ngIf="txtTermino.value.length === 0"> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
+                  <button (click)="cambiarPagina(-5)" class="btn btn-secondary">Anteriores</button>
+                  &nbsp; <!--Esto es para que exista una pequeña separacion entre ambos-->
+                  <button (click)="cambiarPagina(5)" class="btn btn-secondary">Siguiente</button>
+              </div>
             </div>
         </div>
     </div>

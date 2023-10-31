@@ -28,24 +28,27 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
+//gestionar-pacientes
+login() {
+  const { password, email } = this.miFormulario.value;
 
-  login() {
-    console.log(this.miFormulario.value);
-    const { password, email } = this.miFormulario.value;
-    this.authService.login(email, password)
-    .subscribe( resp => {
-     
-      this.router.navigateByUrl('/Agendar-cita');
-     
-    
-    }, (err) => {
-    //Si sucede un error
-    //console.log(err);
-    Swal.fire('Error', err.error.msg, 'error');
- 
-//console.log(this.loginForm.value)
-//this.router.navigateByUrl('/');
-});
-  }
+  this.authService.login(email, password)
+    .subscribe(resp => {
+      console.log(resp);
+      if (resp.userOrMedico.rol === 'ADMIN_ROLE') {
+        this.router.navigateByUrl('/gestionar-pacientes');
+      } else if (resp.userOrMedico.rol === 'USER_ROLE') {
+        this.router.navigateByUrl('/Agendar-cita');
+      } else if (resp.userOrMedico.rol === 'MEDICO_ROLE') { // Verificar si el rol es MEDICO_ROLE
+        this.router.navigateByUrl('/gestionar-historiales'); // Redirigir a gestionar-historiales
+      } else {
+        console.error('Rol de usuario no reconocido');
+        // Opcionalmente, puedes manejar un caso por defecto, como redirigir al inicio o mostrar un error
+        // this.router.navigateByUrl('/ruta-por-defecto');
+      }
+    });
+}
+
+
   
 }

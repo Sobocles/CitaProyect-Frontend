@@ -1,18 +1,19 @@
-
-<div class="row animated fadeIn fast">
+<div class="row animated fadeIn fast"
+>
     <div class="col-12">
         <div class="card">
             <div class="card-body">
 
                 <input type="text"
                         class="form-control"
-                        placeholder="Buscar historial..."
-                       > <!--CUANDO SE PRESIONE UNA TECLA BUSQUE EL TERMINO KEYUP ES PARA VER LAS LETRAS QUE SE ESCRIBEN EN TIEMPO REAL MIENTRAS SE EPREISONA UNA LETRA-->
+                        placeholder="Buscar Horario..."
+                        #txtTermino
+                        (keyup)="buscar( txtTermino.value )"/>
 
             </div>
         </div>
     </div>
-</div>
+</div> 
 
 <div class="container-fluid">
     <div class="row">
@@ -87,14 +88,14 @@
                     <i class="fa fa-close text-danger"></i> 
                   </a>
                 </div>
-                  <div class="icon-container">
-                    <a class="cursor"
-                      data-toggle="tooltip" 
-                      data-original-title="Editar"
-                    > 
-                      <i class="fa fa-pencil text-primary"></i> 
-                    </a>
-                  </div>
+                <div class="icon-container">
+                  <a class="cursor"
+                    data-toggle="tooltip" 
+                    data-original-title="Editar"
+                    (click)="editarHorario( horario )"> 
+                    <i class="fa fa-pencil text-primary"></i> 
+                  </a>
+                </div>
                 </td>
                 
                 

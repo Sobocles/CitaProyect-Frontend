@@ -4,20 +4,24 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { AgendarCitaComponent } from './pages/agendar-cita/agendar-cita.component';
 import { FormularioCitaComponent } from './pages/formulario-cita/formulario-cita.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HistorialMedicoComponent } from './pages/historial-medico/historial-medico.component';
+import { BusquedaMedicoComponent } from './pages/busqueda-medico/busqueda-medico.component';
+import { HistorialComponent } from '../medicos/historial/historial.component';
+import { HistorialPacienteComponent } from './pages/historial-paciente/historial-paciente.component';
+import { AuthGuard } from '../auth/guards/auth.guard';
+
 
 const routes: Routes = [
   {
     path: '',
-    component: LayoutPageComponent,
+    component: LayoutPageComponent, canActivate: [AuthGuard],
     children: [
-      { path: 'Agendar-cita', component: AgendarCitaComponent },
+      { path: 'Agendar-cita', component: AgendarCitaComponent, canActivate: [AuthGuard] },
 
-      { path: 'formulario-cita', component: FormularioCitaComponent },
+      { path: 'formulario-cita', component: FormularioCitaComponent, canActivate: [AuthGuard] },
 
-      { path: 'historial-medico', component: HistorialMedicoComponent },
+      { path: 'busqueda-medico', component: BusquedaMedicoComponent, canActivate: [AuthGuard] },
 
-      { path: '**', redirectTo: 'Agendar-cita' },
+      { path: 'historial', component: HistorialPacienteComponent, canActivate: [AuthGuard] },
     ]
   }
 ];

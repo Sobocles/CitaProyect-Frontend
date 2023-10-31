@@ -4,6 +4,7 @@ import { HorarioMedicoService } from '../services/horario-medico.service';
 import { HorarioMedico, HorarioResponse } from '../interface/horarioMedico';
 import Swal from 'sweetalert2';
 import { Medico } from '../interface/medicos';
+import { BusquedasService } from '../services/busquedas.service';
 
 
 @Component({
@@ -15,9 +16,9 @@ export class GestionarHorariosMedicosComponent implements OnInit {
 
   public totalHorarios: number = 0;
 
-  horarios: HorarioMedico[] = [];
+  public horarios: HorarioMedico[] = [];
 
-  constructor(private HorarioMedicoService: HorarioMedicoService, private router: Router){}
+  constructor(private HorarioMedicoService: HorarioMedicoService, private router: Router, private BusquedasService: BusquedasService){}
 
   ngOnInit(): void {
     this.cargaHorario()
@@ -39,8 +40,8 @@ export class GestionarHorariosMedicosComponent implements OnInit {
             
             this.cargaHorario();
             Swal.fire(
-              'Horario borrado',
-              `Horario ${ horario.idHorario } fue eliminado correctamente`,
+              'Cita borradoa',
+              `Cita numero ${ horario.idHorario } fue eliminada correctamente`,
               'success'
             );
             
@@ -54,9 +55,29 @@ export class GestionarHorariosMedicosComponent implements OnInit {
   cargaHorario() {
     this.HorarioMedicoService.cargarHorario()
       .subscribe((response: HorarioResponse) => {
-        console.log(response);
+   
         this.horarios = response.horario;
       });
   }
+
+  editarHorario(horario: HorarioMedico) {
+ 
+    this.router.navigate(['/editar-horario', horario.idHorario]);
+  }
+
+  buscar(termino: string): void {
+
+    if (termino.length === 0) {
+     
+        return; // Termina la ejecución si no hay término a buscar
+    }
+
+    this.BusquedasService.buscar('horario_medico', termino)
+    .subscribe((resp: HorarioMedico[]) => {  // Cambia el tipo a HorarioMedico[] para que coincida con la estructura esperada
+      this.horarios = resp;
+      console.log(this.horarios);
+  });  
+         
+}
 
 }

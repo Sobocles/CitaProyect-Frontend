@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PacienteService } from '../../services/paciente.service';
+import { PacienteService } from '../../services/usuario.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 

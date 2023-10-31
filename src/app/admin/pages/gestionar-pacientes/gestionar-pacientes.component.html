@@ -1,5 +1,5 @@
 
-<!--
+
 <div class="row animated fadeIn fast"
 >
     <div class="col-12">
@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-</div> -->
+</div> 
 
 
 
@@ -28,7 +28,7 @@
                 
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Medicos ({{ pacientes.length }})</h4>
+                        <h4 class="card-title">Paciente ({{ pacientes.length }})</h4>
                         <h6 class="card-subtitle">
                             Pacientes registrados en mi aplicación
                         </h6>
@@ -57,6 +57,8 @@
                         <th>fecha_nacimiento</th>
                         <th>Telefono</th>
                         <th>direccion</th>
+                        <th>rol</th>
+                        <th>acciones</th>
                         <!-- Agrega más columnas según tus necesidades -->
                       </tr>
                     </thead>
@@ -82,7 +84,15 @@
                         <td>{{ paciente.fecha_nacimiento }}</td>
                         <td>{{ paciente.telefono }}</td>
                         <td>{{ paciente.direccion }}</td>
-
+                        <td>
+                            <select class="form-control"
+                            [(ngModel)]="paciente.rol"
+                            (change)="cambiarRole( paciente )">
+                              <option value="ADMIN_ROLE">Admin</option>
+                              <option value="USER_ROLE">User</option>
+                            </select>
+                        </td>
+                        
                         <!-- Aquí puedes agregar botones de acciones para cada paciente -->
                         <td>
                           <div class="icon-container">

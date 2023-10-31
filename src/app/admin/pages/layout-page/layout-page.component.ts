@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SidebarService } from 'src/app/shared/sidebar.service';
 
 @Component({
   selector: 'app-layout-page2',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./layout-page.component.scss']
 })
 export class LayoutPageComponent {
+  
+  constructor(private sidebarService: SidebarService){}
+
+  ngOnInit(): void {
+
+    this.sidebarService.cargarMenu();
+  
+
+  }
 
 }

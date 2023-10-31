@@ -1,0 +1,27 @@
+<div *ngIf="bloques.length > 0">
+    <h2>Horarios disponibles</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Médico</th>
+                <th>Hora Inicio</th>
+                <th>Hora Fin</th>
+                <th>Precio</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let bloque of bloques">
+                <td>{{ bloque.medicoNombre }}</td>
+                <td>{{ bloque.hora_inicio }}</td>
+                <td>{{ bloque.hora_fin }}</td>
+                <td>{{ bloque.precio }}</td>
+                <td><button class="btn btn-primary" (click)="agendarCita(bloque)">Agendar Cita</button></td>
+            </tr>
+        </tbody>
+        
+    </table>
+</div>
+<div *ngIf="bloques.length === 0">
+    <h2>No hay bloques disponibles</h2>
+</div>

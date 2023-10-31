@@ -2,47 +2,49 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <h2 class="text-center mb-4">Formulario de Registro de Cita Médica</h2>
-        <form >
-          <div class="form-group">
+        <form [formGroup]="formulario" (ngSubmit)="crearCita()">
+          <div class="form-group mb-3">
             <label for="motivo">Motivo de la Cita</label>
             <input type="text" class="form-control" id="motivo" formControlName="motivo" placeholder="Motivo">
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="rutPaciente">Rut del Paciente</label>
-              <input type="text" class="form-control" id="rutPaciente" formControlName="rutPaciente" placeholder="Rut del Paciente">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="rutMedico">Rut del Médico</label>
-              <input type="text" class="form-control" id="rutMedico" formControlName="rutMedico" placeholder="Rut del Médico">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
+          <select class="form-control mb-3" id="rut_paciente" formControlName="rut_paciente">
+            <option *ngFor="let paciente of pacientes" [value]="paciente.rut">{{ paciente.nombre }}</option>
+        </select>
+        
+        <!-- Para Rut del Médico -->
+        <select class="form-control mb-3" id="rut_medico" formControlName="rut_medico">
+          <option [value]="null">Selecciona un médico</option>
+          <option *ngFor="let medico of medicos" [value]="medico.id">{{ medico.nombre }} (RUT: {{ medico.id }})</option>
+        </select>
+
+<select class="form-control mb-3" id="tipoCita" formControlName="idTipoCita">
+  <option *ngFor="let tipoCita of tiposCita" [value]="tipoCita.idTipo">{{ tipoCita.tipo_cita }}</option>
+</select>
+
+
+          <div class="form-row mb-3">
+            <div class="form-group col-md-6 mb-3">
               <label for="fecha">Fecha de la Cita</label>
               <input type="date" class="form-control" id="fecha" formControlName="fecha">
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 mb-3">
               <label for="horaInicio">Hora de Inicio</label>
-              <input type="time" class="form-control" id="horaInicio" formControlName="horaInicio">
+              <input type="time" class="form-control" id="horaInicio" formControlName="hora_inicio">
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
+          <div class="form-row mb-3">
+            <div class="form-group col-md-6 mb-3">
               <label for="horaFin">Hora de Fin</label>
-              <input type="time" class="form-control" id="horaFin" formControlName="horaFin">
+              <input type="time" class="form-control" id="horaFin" formControlName="hora_fin">
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 mb-3">
               <label for="estado">Estado</label>
               <select class="form-control" id="estado" formControlName="estado">
-                <option value="Programada">Programada</option>
-                <option value="En Progreso">En Progreso</option>
-                <option value="Finalizada">Finalizada</option>
-                <option value="Cancelada">Cancelada</option>
+
               </select>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group mb-3">
             <label for="descripcion">Descripción</label>
             <textarea class="form-control" id="descripcion" formControlName="descripcion" rows="3" placeholder="Descripción"></textarea>
           </div>
@@ -51,57 +53,4 @@
       </div>
     </div>
   </div>
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <h2 class="text-center mb-4">Formulario de Registro de Cita Médica</h2>
-        <form >
-          <div class="form-group">
-            <label for="motivo">Motivo de la Cita</label>
-            <input type="text" class="form-control" id="motivo" formControlName="motivo" placeholder="Motivo">
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="rutPaciente">Rut del Paciente</label>
-              <input type="text" class="form-control" id="rutPaciente" formControlName="rutPaciente" placeholder="Rut del Paciente">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="rutMedico">Rut del Médico</label>
-              <input type="text" class="form-control" id="rutMedico" formControlName="rutMedico" placeholder="Rut del Médico">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="fecha">Fecha de la Cita</label>
-              <input type="date" class="form-control" id="fecha" formControlName="fecha">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="horaInicio">Hora de Inicio</label>
-              <input type="time" class="form-control" id="horaInicio" formControlName="horaInicio">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="horaFin">Hora de Fin</label>
-              <input type="time" class="form-control" id="horaFin" formControlName="horaFin">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="estado">Estado</label>
-              <select class="form-control" id="estado" formControlName="estado">
-                <option value="Programada">Programada</option>
-                <option value="En Progreso">En Progreso</option>
-                <option value="Finalizada">Finalizada</option>
-                <option value="Cancelada">Cancelada</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="descripcion">Descripción</label>
-            <textarea class="form-control" id="descripcion" formControlName="descripcion" rows="3" placeholder="Descripción"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block">Registrar Cita Médica</button>
-        </form>
-      </div>
-    </div>
-  </div>
-    
+  

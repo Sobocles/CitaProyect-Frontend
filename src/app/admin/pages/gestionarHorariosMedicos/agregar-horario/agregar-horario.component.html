@@ -31,7 +31,7 @@
           <label for="rutMedico">Médico</label>
           <select class="form-control" id="rutMedico" formControlName="rut_medico">
             <option [value]="null">Selecciona un médico</option>
-            <option *ngFor="let medico of medicos" [value]="medico.id">{{ medico.nombre }} (RUT: {{ medico.id }})</option>
+            <option *ngFor="let medico of medicos" [value]="medico.rut">{{ medico.nombre }} (RUT: {{ medico.rut }})</option>
           </select>
         </div>
         <div class="form-group mt-3">

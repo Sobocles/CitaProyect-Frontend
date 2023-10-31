@@ -18,17 +18,24 @@ export class HorarioMedicoService {
   get headers() {
     return { 
       headers: {
-      'x-token': this.token //ESTE ES EL GET TOKEN
+      'Authorization': `Bearer ${this.token}`
       }
     }
-  }
+}
+
 
 
   constructor( private http: HttpClient) { }
 
   crearHorario( formData: HorarioMedico  ){    
-    return this.http.post<HorarioMedico>(`${base_url}/horario_medico`,formData)
+    return this.http.post<HorarioMedico>(`${base_url}/horario_medico`,formData, this.headers)
 
+  }
+
+  obtenerHorarioPorId(  horarioId: number ){ //aca role no viene como parametro (viene email y nombre en this.perfilForm.value) pero aun asi funciona ya que role simplemente se ignora
+    
+    return this.http.get(`${ base_url }/horario_medico/${horarioId}`, this.headers) //Para actualizar los datos del usuario se necesita enviar al backend El id que se obtiene de un metodo get que me da el id del usuario logeado que es el mismo que esta intentando actualizar sus datos, la data que se quiere actualizar que es enviada por un formulario y los header con el token de acceso
+     
   }
 
   cargarHorario(desde: number = 0) {
@@ -42,12 +49,10 @@ export class HorarioMedicoService {
     return this.http.delete( url, this.headers );
   }
 
-  obtenerhorarioPorId(  medicoId:string ){ //aca role no viene como parametro (viene email y nombre en this.perfilForm.value) pero aun asi funciona ya que role simplemente se ignora
-    
-
-    return this.http.put(`${ base_url }/horario_medico/${medicoId}`, this.headers) //Para actualizar los datos del usuario se necesita enviar al backend El id que se obtiene de un metodo get que me da el id del usuario logeado que es el mismo que esta intentando actualizar sus datos, la data que se quiere actualizar que es enviada por un formulario y los header con el token de acceso
-     
+  editarHorario(horario: HorarioMedico): Observable<any> {
+    return this.http.put(`${ base_url }/horario_medico/${horario.idHorario}`, horario, this.headers);
   }
+
 
 
 }

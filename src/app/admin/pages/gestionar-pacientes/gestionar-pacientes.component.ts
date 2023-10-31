@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PacienteService } from '../services/paciente.service';
+import { PacienteService } from '../services/usuario.service';
 import { Router } from '@angular/router';
-import { Paciente } from '../interface/paciente';
+import { Paciente, UsuariosResponse } from '../interface/paciente';
 import Swal from 'sweetalert2';
+import { BusquedasService } from '../services/busquedas.service';
+
 @Component({
   selector: 'app-gestionar-pacientes',
   templateUrl: './gestionar-pacientes.component.html',
@@ -13,7 +15,7 @@ export class GestionarPacientesComponent implements OnInit {
   
   pacientes: Paciente [] = [];
 
-  constructor(private PacienteService: PacienteService, private router: Router){}
+  constructor(private PacienteService: PacienteService, private router: Router, private BusquedasService: BusquedasService){}
 
   ngOnInit(){
     this.cargaPacientes();
@@ -22,8 +24,8 @@ export class GestionarPacientesComponent implements OnInit {
 
   cargaPacientes() {
     this.PacienteService.cargarPacientes()
-      .subscribe((response: any) => { // Asegúrate de que estás tipando la respuesta como 'any' o el tipo correcto
-        this.pacientes = response.usuarios; // Asigna la propiedad 'medicos' de la respuesta al arreglo 'medicos'
+      .subscribe((response: UsuariosResponse) => { // Asegúrate de que estás tipando la respuesta como 'any' o el tipo correcto
+        this.pacientes = response.usuarios // Asigna la propiedad 'medicos' de la respuesta al arreglo 'medicos'
         console.log(this.pacientes);
       });
   }
@@ -55,6 +57,29 @@ export class GestionarPacientesComponent implements OnInit {
     })
 
   }
+
+  cambiarRole( paciente: Paciente ){
+
+    this.PacienteService.guardarUsuario(paciente)
+    .subscribe( resp => {
+      console.log(resp);
+    })
+  }
+  buscar(termino: string): void {
+    console.log(termino);
+    if (termino.length === 0) {
+        return; // Termina la ejecución si no hay término a buscar
+    }
+
+    this.BusquedasService.buscar('usuarios', termino)
+    .subscribe(resp => {
+      console.log("Respuesta completa:", resp);
+      this.pacientes = resp; // Cambio aquí: asigna directamente resp
+      console.log("this.pacientes después de asignar:", this.pacientes);
+    });           
+}
+
+
 
 
 }

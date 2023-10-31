@@ -1,0 +1,94 @@
+
+
+<div class="row animated fadeIn fast"
+>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <input type="text"
+                        class="form-control"
+                        placeholder="Buscar medico..."
+                        #txtTermino
+                        (keyup)="buscar( txtTermino.value )"/>
+
+            </div>
+        </div>
+    </div>
+</div>  
+
+                    <!--BOTON DE CREAR MEDICO-->
+                    <div class="col">
+                        <div class="text-right">
+                            <a class="btn btn-primary"
+                               routerLink="/agregar-cita">
+                                <i class="fa fa-hospital-o"></i> 
+                                Crear cita Medica
+                            </a>
+                        </div>
+                    </div>
+
+         
+
+
+<div class="row animated fadeIn fast"> 
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Total de usuarios: </h4>
+                <h6 class="card-subtitle">Usuarios registrados en mi aplicacion</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Fecha</th>
+                                <th>Paciente</th>
+                                <th>Medico</th>
+                                <th>Tipo_cita</th>
+                                <th>Estado</th>
+                                <th>Hora_inicio</th>
+                                <th>Hora_fin</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cita of citas">
+                                <!-- Suponiendo que la propiedad "nombre" exista en tu objeto de citas, ya que no la vi en el ejemplo proporcionado -->
+                                <th>{{ cita.idCita }}</th>
+                                <td>{{ cita.fecha }}</td>
+                                <td>{{ cita.paciente.nombre }}</td>
+                                <td>{{ cita.medico.nombre }}</td>
+                           
+                                <td>{{ cita.estado }}</td>
+                                <td>{{ cita.hora_inicio }}</td>
+                                <td>{{ cita.hora_fin }}</td>
+                                <td class="text-nowrap text-center">
+                                    <!-- Aquí puedes agregar la lógica para las acciones, como eliminar una cita -->
+                                    <a data-toggle="tooltip"
+                                       data-original-title="Borrar"
+                                       class="cursor"
+                                       (click)="borrarCita(cita)">
+                                        <i class="fa fa-close text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!--ESTA CONDICION SE HACE PARA QUE CUANDO SE TECLEA EN LA BARRA DE BUSQUEDA Y SE CARGAN LOS RESULTADOS DE BUSQUEDA DESAPARESCAN LOS BOTONES SIGUIENTES Y ANTERIOR EN LA PANTALLA-->
+                <div> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
+                    <button  class="btn btn-secondary">Anteriores</button>
+                    &nbsp; <!--Esto es para que exista una pequeña separacion entre ambos-->
+                    <button  class="btn btn-secondary">Siguiente</button>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

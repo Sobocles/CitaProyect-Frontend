@@ -4,6 +4,7 @@ import { TipoCitaService } from '../services/tipo-cita.service';
 import { Medico } from '../interface/medicos';
 import { Tipo_cita, tipoCitaResponse } from '../interface/tipoCita';
 import Swal from 'sweetalert2';
+import { BusquedasService } from '../services/busquedas.service';
 
 @Component({
   selector: 'app-gestionar-tipos-citas',
@@ -12,11 +13,11 @@ import Swal from 'sweetalert2';
 })
 export class GestionarTiposCitasComponent implements OnInit{
 
-  tiposCitas: Tipo_cita[] = [];
+  public tiposCitas: Tipo_cita[] = [];
   public desde: number = 0;
   public totalUsuarios: number = 0;
 
-  constructor(private TipoCitaService: TipoCitaService, private router: Router){}
+  constructor(private TipoCitaService: TipoCitaService, private router: Router, private BusquedasService: BusquedasService){}
 
   ngOnInit(): void {
     this.cargaTipocita()
@@ -25,7 +26,7 @@ export class GestionarTiposCitasComponent implements OnInit{
     this.TipoCitaService.cargaTipocita(this.desde)
       .subscribe((response: tipoCitaResponse) => {
         this.tiposCitas = response.tipo_cita; // Asigna el arreglo tipo_cita de la respuesta a tiposCitas
-        console.log(this.tiposCitas);
+
       });
   }
 
@@ -55,7 +56,23 @@ export class GestionarTiposCitasComponent implements OnInit{
       }
     })
 
+    
+
   }
+
+  buscar(termino: string): void {
+
+    if (termino.length === 0) {
+     
+        return; // Termina la ejecución si no hay término a buscar
+    }
+
+    this.BusquedasService.buscar('tipo_cita', termino)
+    .subscribe((resp: Tipo_cita[]) => {  // Cambia el tipo a HorarioMedico[] para que coincida con la estructura esperada
+      this.tiposCitas = resp;
+  });  
+         
+}  
 
 
 

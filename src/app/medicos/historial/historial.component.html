@@ -1,0 +1,43 @@
+<form [formGroup]="historialMedicoForm" (ngSubmit)="guardarHistorial()">
+    <div class="mb-3">
+        <label for="paciente" class="form-label">Paciente:</label>
+        <select class="form-control" id="paciente" formControlName="rut_paciente">
+          <option *ngFor="let paciente of pacientes" [value]="paciente.rut">{{ paciente.nombre }}</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="medico" class="form-label">Médico:</label>
+        <select class="form-control" id="medico" formControlName="rut_medico">
+          <option *ngFor="let medico of medicos" [value]="medico.rut">{{ medico.nombre }}</option>
+        </select>
+      </div>
+    <div class="mb-3">
+      <label for="diagnostico" class="form-label">Diagnóstico:</label>
+      <input type="text" class="form-control" id="diagnostico" formControlName="diagnostico">
+    </div>
+  
+    <div class="mb-3">
+      <label for="medicamento" class="form-label">Medicamento:</label>
+      <input type="text" class="form-control" id="medicamento" formControlName="medicamento">
+    </div>
+  
+    <div class="mb-3">
+      <label for="notas" class="form-label">Notas:</label>
+      <textarea class="form-control" id="notas" formControlName="notas"></textarea>
+    </div>
+  
+    <div class="mb-3">
+      <label for="fecha_consulta" class="form-label">Fecha de Consulta:</label>
+      <input type="date" class="form-control" id="fecha_consulta" formControlName="fecha_consulta">
+    </div>
+  
+    <div class="mb-3">
+      <label for="archivo" class="form-label">Archivo:</label>
+      <input type="file" class="form-control" id="archivo" formControlName="archivo">
+    </div>
+  
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  
+  </form>
+  
+  

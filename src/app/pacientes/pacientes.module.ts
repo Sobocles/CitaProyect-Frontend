@@ -2,26 +2,37 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgendarCitaComponent } from './pages/agendar-cita/agendar-cita.component';
 import { FormularioCitaComponent } from './pages/formulario-cita/formulario-cita.component';
-import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
+
 import { PacientesRoutingModule } from './pacientes-routing.module';
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
-import { HistorialMedicoComponent } from './pages/historial-medico/historial-medico.component';
 import { RouterModule } from '@angular/router';
+import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BusquedaMedicoComponent } from './pages/busqueda-medico/busqueda-medico.component';
+import { HistorialPacienteComponent } from './pages/historial-paciente/historial-paciente.component';
+
+
 
 @NgModule({
   declarations: [
     AgendarCitaComponent,
     FormularioCitaComponent,
     LayoutPageComponent,
-    HistorialMedicoComponent,
+    BusquedaMedicoComponent,
+    HistorialPacienteComponent,
+ 
+
+
   ],
   imports: [
     CommonModule,
     PacientesRoutingModule,
     MaterialModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PacientesModule { }

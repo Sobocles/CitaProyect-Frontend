@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SidebarService } from '../sidebar.service'; // Asegúrate de que la ruta al servicio sea correcta
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,14 +9,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  public sidebarItems = [
-    { label: 'Agendar cita', icon: 'label', url: './Agendar-cita' },
-    { label: 'historial Medico', icon: 'add', url: './historial-medico' },
-    { label: 'Buscar', icon: 'search', url: './search' },
-  ];
 
   constructor(
-    private router: Router
+    private router: Router,
+    public sidebarService: SidebarService,
+    private authService: AuthService
   ) {}
-  
+
+  onLogout() {
+    this.authService.logout();
+    this.router.navigate(['/auth']); // o donde sea tu página de login
+  }
+
+  // Resto del código de tu componente
 }

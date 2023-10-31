@@ -32,20 +32,32 @@ export class RegisterComponent implements OnInit {
 
   registrar() {
     if (this.miFormulario.valid) {
-      const formData = this.miFormulario.value;
-      console.log(formData);
+        const formData = this.miFormulario.value;
+        console.log(formData);
 
-      // Llama al servicio AuthService para crear el usuario
-      this.AuthService.crearUsuario(formData).subscribe(
-        (respuesta) => {
-           // Navegar al Dashboard ya que el registro fue EXITOSO!!
-           console.log(respuesta);
-        this.router.navigateByUrl('/');
-        
-      }, (err) => {
-        Swal.fire('Error', err.error.msg, 'error'); //al incluir err.error.msg se Accede al mensaje de error incluido en el backenend en caso de que el correo ya este registrado
-      } );
+        // Llama al servicio AuthService para crear el usuario
+        this.AuthService.crearUsuario(formData).subscribe(
+            (respuesta) => {
+                console.log(respuesta);
+
+                // Mostrar una alerta de éxito usando SweetAlert2
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Registro completado!',
+                    text: 'Te has registrado exitosamente.',
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => {
+                    // Navegar al Dashboard ya que el registro fue EXITOSO!!
+                    this.router.navigateByUrl('/');
+                });
+
+            },
+            (err) => {
+                Swal.fire('Error', err.error.msg, 'error'); 
+            }
+        );
     } 
-  }
+}
 
 }

@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PacientesModule } from './pacientes/pacientes.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AdminModule } from './admin/admin.module';
+import { MedicosModule } from './medicos/medicos.module';
 
 
 
@@ -30,6 +31,7 @@ import { AdminModule } from './admin/admin.module';
     AdminModule,
     PacientesModule,
     ReactiveFormsModule,
+    MedicosModule
 
   ],
   providers: [],

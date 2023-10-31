@@ -15,7 +15,7 @@ export class EditarMedicoComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private MedicoService: MedicoService, private ActivatedRoute: ActivatedRoute, private router: Router) {
     this.formulario = this.formBuilder.group({
-      id: ['', Validators.required],
+      rut: ['', Validators.required],
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],

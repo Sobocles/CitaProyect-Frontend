@@ -1,0 +1,11 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 10vh; /* Esto asegura que el formulario esté centrado verticalmente en la vista */
+  }
+  
+  form {
+    width: 100%;
+    max-width: 500px; /* Ajusta este valor según la anchura que prefieras para tu formulario */
+  }

@@ -1,17 +1,19 @@
-<div class="row animated fadeIn fast">
+<div class="row animated fadeIn fast"
+>
     <div class="col-12">
         <div class="card">
             <div class="card-body">
 
                 <input type="text"
                         class="form-control"
-                        placeholder="Buscar historial..."
-                       > <!--CUANDO SE PRESIONE UNA TECLA BUSQUE EL TERMINO KEYUP ES PARA VER LAS LETRAS QUE SE ESCRIBEN EN TIEMPO REAL MIENTRAS SE EPREISONA UNA LETRA-->
+                        placeholder="Buscar Horario..."
+                        #txtTermino
+                        (keyup)="buscar( txtTermino.value )"/>
 
             </div>
         </div>
     </div>
-</div>
+</div> 
 
 <div class="container-fluid">
     <div class="row">
@@ -39,6 +41,7 @@
                           <th>Tipo cita</th>
                           <th>Precio</th>
                           <th>Especialidad Medica</th>
+                          <th>acciones</th>
 
 
                         </tr>
@@ -47,6 +50,7 @@
                         <tr *ngFor="let tipocita of tiposCitas">
                           <td>{{tipocita.idTipo}}</td>
                           <td>{{tipocita.tipo_cita}}</td>
+                          <td>{{tipocita.precio}}</td>
                           <td>{{tipocita.especialidad_medica}}</td>
                           <td>{{tipocita.color_etiqueta}}</td>
 

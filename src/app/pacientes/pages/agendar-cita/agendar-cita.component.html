@@ -1,1 +1,29 @@
-<p>agendar-cita works!</p>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Botón para agendar cita -->
+        <div class="col-12 text-center mb-4">
+            <button class="btn btn-primary" routerLink="/formulario-cita">Agendar Cita Médica</button>
+        </div>
+
+        <!-- Rectángulos para días de la semana -->
+        <div class="col-md-4">
+            <div class="d-flex flex-column mb-5">
+                <div *ngFor="let horario of horarioClinicas" class="p-3 m-2 rounded-circle bg-light text-center custom-day">
+                    {{ horario.dia.charAt(0).toUpperCase() + horario.dia.slice(1) }}
+                    <br>
+                    <span *ngIf="horario.horarioApertura && horario.horarioCierre">
+                        {{ horario.horarioApertura }} - {{ horario.horarioCierre }}
+                    </span>
+                    <span *ngIf="!horario.horarioApertura && !horario.horarioCierre">
+                        Cerrado
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Espacio para el calendario -->
+        <div class="col-md-6">
+            <!-- Aquí iría el componente FullCalendar -->
+        </div>
+    </div>
+</div>

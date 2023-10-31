@@ -1,11 +1,17 @@
 export interface Paciente {
-    rut: string;
-    nombre: string;
-    apellidos: string;
-    email: string;
-    password: string;
-    fecha_nacimiento: string;
-    telefono: string;
-    direccion: string;
-  }
+  ok: boolean,
+  rut: string;
+  nombre: string;
+  apellidos: string;
+  email: string;
+  fecha_nacimiento: string;
+  telefono: string;
+  direccion: string;
+  rol: string;
+  toral:number;
+}
+
+export interface UsuariosResponse {
+  usuarios: Paciente[];
+}
   

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Medico } from '../interface/medicos';
+import { Medico, MedicoResponse } from '../interface/medicos';
 import { MedicoService } from '../services/medico.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { BusquedasService } from '../services/busquedas.service';
+import { TipoCitaService } from '../services/tipo-cita.service';
 
 
 @Component({
@@ -14,24 +16,27 @@ import Swal from 'sweetalert2';
 
 export class GestionarMedicosComponent implements OnInit {
 
-  medicos: Medico[] = [];
+  public medicos: Medico[] = [];
   public desde: number = 0;
   public totalUsuarios: number = 0;
 
-  constructor(private MedicoService: MedicoService, private router: Router){}
+ 
+
+  constructor(private MedicoService: MedicoService, private router: Router, private BusquedasService: BusquedasService){}
   ngOnInit(){
     this.cargaMedicos();
   }
 
-
   cargaMedicos() {
     this.MedicoService.cargarMedicos(this.desde)
-      .subscribe((response: any) => { // Asegúrate de que estás tipando la respuesta como 'any' o el tipo correcto
+      .subscribe((response: MedicoResponse) => { // Asegúrate de que estás tipando la respuesta como 'any' o el tipo correcto
         this.totalUsuarios = response.totalMedicos;
         this.medicos = response.medicos; // Asigna la propiedad 'medicos' de la respuesta al arreglo 'medicos'
-        console.log(this.medicos);
+
       });
   }
+
+  
 
   borrarMedico( medico: Medico ) {
 
@@ -44,7 +49,7 @@ export class GestionarMedicosComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         
-        this.MedicoService.borrarMedico( medico.id )
+        this.MedicoService.borrarMedico( medico.rut )
           .subscribe( resp => {
             
             this.cargaMedicos();
@@ -63,7 +68,7 @@ export class GestionarMedicosComponent implements OnInit {
 
   editarMedico(medico: Medico) {
  
-    this.router.navigate(['/editar-medico', medico.id]);
+    this.router.navigate(['/editar-medico', medico.rut]);
   }
 
   cambiarPagina( valor: number ) { //El valor indica que cantidad de usuarios se mostraran en cada pagina (+5 para el boton suguiente, -5 para anterior)
@@ -76,5 +81,22 @@ export class GestionarMedicosComponent implements OnInit {
     }
     this.cargaMedicos(); //Luego de hacer las validaciones se muestran los usuarios
   }
+
+  buscar(termino: string): void {
+    console.log(termino);
+    if (termino.length === 0) {
+     
+        return; // Termina la ejecución si no hay término a buscar
+    }
+
+    this.BusquedasService.buscar('medicos', termino)
+  
+    .subscribe((resp: any) => {  // Cambia el tipo a 'any' para no tener problemas con el tipado
+      console.log(resp);
+      this.medicos = resp;
+      console.log(this.medicos);
+  });           
+}
+
 
 }

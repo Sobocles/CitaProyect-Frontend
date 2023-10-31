@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Medico } from '../interface/medicos'
+import { Medico, MedicoResponse } from '../interface/medicos'
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, pipe, tap } from 'rxjs';
 import { environment } from 'src/environment/environment';
@@ -16,21 +16,21 @@ export class MedicoService {
   get token(): string {
     return localStorage.getItem('token') || '';
   }
-
   get headers() {
     return { 
       headers: {
-      'x-token': this.token //ESTE ES EL GET TOKEN
+      'Authorization': `Bearer ${this.token}`
       }
     }
-  }
+}
+
 
 
   constructor( private http: HttpClient) { }
 
   crearMedico( formData: Medico  ): Observable<Medico>{
     console.log('creando medico')    
-    return this.http.post(`${base_url}/medicos`,formData)
+    return this.http.post(`${base_url}/medicos`,formData, this.headers)
         .pipe(
             tap( (resp:any) => { 
              
@@ -39,10 +39,10 @@ export class MedicoService {
         )
   }
 
-  cargarMedicos(desde: number = 0 ) {
+  cargarMedicos(desde: number = 0 ):Observable<MedicoResponse> {
     //localhost:3000/api/usuarios?desde=0
     const url = `${ base_url }/medicos?desde=${ desde }`;
-    return this.http.get<Medico[]>( url, this.headers)
+    return this.http.get<MedicoResponse>( url, this.headers)
        
         
   }
@@ -61,7 +61,7 @@ export class MedicoService {
   }
 
   editarMedico(medico: Medico): Observable<any> {
-    return this.http.put(`${ base_url }/medicos/${medico.id}`, medico);
+    return this.http.put(`${ base_url }/medicos/${medico.rut}`, medico, this.headers);
   }
 
 
