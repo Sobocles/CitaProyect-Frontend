@@ -1,0 +1,24 @@
+<form [formGroup]="formulario">
+    <div class="form-group mb-3">
+      <label for="tipo_cita">Tipo de Cita</label>
+      <input type="text" id="tipo_cita" formControlName="tipo_cita" class="form-control">
+    </div>
+    
+    <div class="form-group mb-3">
+      <label for="precio">Precio</label>
+      <input type="number" id="precio" formControlName="precio" class="form-control">
+    </div>
+    
+    <div class="form-group mb-3">
+      <label for="especialidad_medica">Especialidad Médica</label>
+      <input type="text" id="especialidad_medica" formControlName="especialidad_medica" class="form-control">
+    </div>
+    
+    <div class="form-group mb-3">
+      <label for="color_etiqueta">Color de Etiqueta</label>
+      <input type="color" id="color_etiqueta" formControlName="color_etiqueta" class="form-control">
+    </div>
+  
+    <button type="submit" class="btn btn-primary">Crear Tipo Cita</button>
+  </form>
+  

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HorarioMedico, HorarioResponse } from '../interface/horarioMedico';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environment/environment';
+import { BloquesResponse } from 'src/app/pacientes/pages/interfaces/busqueda-medicos';
 
 const base_url = environment.base_url;
 
@@ -52,6 +53,12 @@ export class HorarioMedicoService {
   editarHorario(horario: HorarioMedico): Observable<any> {
     return this.http.put(`${ base_url }/horario_medico/${horario.idHorario}`, horario, this.headers);
   }
+
+  buscarHorarioDisponible(formData:any): Observable<BloquesResponse> {
+    console.log('ESTE ES EL FORMDATA',formData);
+    const url = `${base_url}/busqueda_cita`;
+    return this.http.post<BloquesResponse>(url, formData);
+}
 
 
 

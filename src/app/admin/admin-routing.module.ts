@@ -2,19 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { RouterModule, Routes } from '@angular/router';
-import { GestionarPacientesComponent } from './pages/gestionar-pacientes/gestionar-pacientes.component';
+import { GestionarPacientesComponent } from './pages/gestionar-pacientes/gestionar-pacientes/gestionar-pacientes.component';
 import { GestionarCitasMedicasComponent } from './pages/gestionarCitasMedicas/gestionar-citas/gestionar-citas-medicas.component';
-import { GestionarTiposCitasComponent } from './pages/gestionarTiposCitas/gestionar-tipos-citas.component';
-import { GestionarHorariosMedicosComponent } from './pages/gestionarHorariosMedicos/gestionar-horarios-medicos.component';
+import { GestionarTiposCitasComponent } from './pages/gestionarTiposCitas/gestionar-tipos-citas/gestionar-tipos-citas.component';
+import { GestionarHorariosMedicosComponent } from './pages/gestionarHorariosMedicos/gestionar-horarios-medicos/gestionar-horarios-medicos.component';
 import { AgregarPacienteComponent } from './pages/gestionar-pacientes/agregar-paciente/agregar-paciente.component';
 import { AgregarHorarioMedicoComponent } from './pages/gestionarHorariosMedicos/agregar-horario/agregar-horario.component';
-import { GestionarMedicosComponent } from './pages/gestionar-medicos/gestionar-medicos.component';
+import { GestionarMedicosComponent } from './pages/gestionar-medicos/gestiona-medicos/gestionar-medicos.component';
 import { AgregarCitaMedicaComponent } from './pages/gestionarCitasMedicas/agregar-cita-medica/agregar-cita-medica.component';
 import { AgregarmedicoComponent } from './pages/gestionar-medicos/agregarmedico/agregarmedico.component';
 import { AgregarTipoCitaComponent } from './pages/gestionarTiposCitas/agregar-tipo-cita/agregar-tipo-cita.component';
 import { EditarMedicoComponent } from './pages/gestionar-medicos/editar-medico/editar-medico.component';
 import { EditarHorarioComponent } from './pages/gestionarHorariosMedicos/editar-horario/editar-horario.component';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { EditarUsuarioComponent } from './pages/gestionar-pacientes/editar-usuario/editar-usuario.component';
+import { EditarTipoCitaComponent } from './pages/gestionarTiposCitas/editar-tipo-cita/editar-tipo-cita.component';
 
 
 const routes: Routes = [
@@ -25,6 +27,10 @@ const routes: Routes = [
       { path: 'gestionar-pacientes', component: GestionarPacientesComponent , canActivate: [AuthGuard] },
       {
         path: 'agregar-paciente', component: AgregarPacienteComponent, canActivate: [AuthGuard]  // El componente al que deseas redirigir
+      },
+      {
+        path: 'editar-usuario/:id', 
+        component: EditarUsuarioComponent, canActivate: [AuthGuard] 
       },
       {
         path: 'gestionar-medicos', component: GestionarMedicosComponent, canActivate: [AuthGuard] // El componente al que deseas redirigir
@@ -55,6 +61,8 @@ const routes: Routes = [
       { path: 'gestionar-tipo-cita', component: GestionarTiposCitasComponent, canActivate: [AuthGuard]  },
 
       { path: 'agregar-tipo-cita', component: AgregarTipoCitaComponent, canActivate: [AuthGuard]  },
+
+      { path: 'editar-tipoCita/:id', component: EditarTipoCitaComponent, canActivate: [AuthGuard]  },
     
 
     

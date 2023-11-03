@@ -12,8 +12,9 @@ export interface CitaMedica {
         nombre: string;
     };
     tipoCita: {
-        tipo_cita: string;  // Cambiado de 'especialidad_medica' a 'tipo_cita'
+        especialidad_medica: string;  // Cambiado de 'especialidad_medica' a 'tipo_cita'
     };
+    
 }
 
 export interface CitasResponse {

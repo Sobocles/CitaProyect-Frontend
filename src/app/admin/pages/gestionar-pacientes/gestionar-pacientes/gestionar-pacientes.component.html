@@ -8,7 +8,7 @@
 
                 <input type="text"
                         class="form-control"
-                        placeholder="Buscar medico..."
+                        placeholder="Buscar Usuario..."
                         #txtTermino
                         (keyup)="buscar( txtTermino.value )"/>
 
@@ -28,7 +28,7 @@
                 
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Paciente ({{ pacientes.length }})</h4>
+                        <h4 class="card-title">Paciente ({{ totalUsuarios }})</h4>
                         <h6 class="card-subtitle">
                             Pacientes registrados en mi aplicación
                         </h6>
@@ -96,23 +96,34 @@
                         <!-- Aquí puedes agregar botones de acciones para cada paciente -->
                         <td>
                           <div class="icon-container">
-                            <a class="cursor"
-                              data-toggle="tooltip" 
-                              data-original-title="Borrar"
-                              (click)="borrarPaciente( paciente )"> 
-                              <i class="fa fa-close text-danger"></i> 
-                            </a>
+                              <a class="cursor"
+                                 data-toggle="tooltip" 
+                                 data-original-title="Borrar"
+                                 (click)="borrarPaciente( paciente )"> 
+                                 <i class="fa fa-close text-danger"></i> 
+                              </a>
                           </div>
-                        </td>
+                          <div class="icon-container">
+                              <a class="cursor"
+                                 data-toggle="tooltip" 
+                                 data-original-title="Editar"
+                                 (click)="editarUsuario( paciente )"> 
+                                 <i class="fa fa-pencil text-primary"></i> 
+                              </a>
+                          </div>
+                      </td>
+                      
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 
                 
-             <!--<button class="btn btn-secondary">Anteriores</button>
-                &nbsp;
-                <button class="btn btn-secondary">Siguiente</button> -->
+                <div *ngIf="txtTermino.value.length === 0"> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
+                  <button (click)="cambiarPagina(-5)" class="btn btn-secondary">Anteriores</button>
+                  &nbsp; <!--Esto es para que exista una pequeña separacion entre ambos-->
+                  <button (click)="cambiarPagina(5)" class="btn btn-secondary">Siguiente</button>
+              </div>
             </div>
         </div>
     </div>

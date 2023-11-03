@@ -12,9 +12,13 @@ export interface HorarioMedico {
     fechaCreacion: string;
     medico: {
       nombre: string;
+      especialidad_medica: string;
+      
     };
+ 
   }
  
   export interface HorarioResponse {
-    horario: HorarioMedico[];
+    total: number;
+    horarios: HorarioMedico[];
   }

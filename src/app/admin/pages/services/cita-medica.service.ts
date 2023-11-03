@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environment/environment';
-import { CitasResponse } from '../interface/cita_medica';
+import { CitaMedica, CitasResponse } from '../interface/cita_medica';
 import { Observable } from 'rxjs';
+import { CitasResponsex } from '../interface/cita_medicaResponse';
 
 const base_url = environment.base_url;
 
@@ -25,8 +26,8 @@ export class CitaMedicaService {
   constructor( private http: HttpClient) { }
 
   
-  crearCitaMedica( formData: CitasResponse  ){    
-    return this.http.post<CitasResponse>(`${base_url}/cita_medica`,formData, this.headers)
+  crearCitaMedica( formData: any ){    
+    return this.http.post<any>(`${base_url}/cita_medica`,formData, this.headers)
 
   }
 

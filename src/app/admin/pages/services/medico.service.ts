@@ -47,6 +47,14 @@ export class MedicoService {
         
   }
 
+  cargarAllmedicos( ):Observable<MedicoResponse> {
+    //localhost:3000/api/usuarios?desde=0
+    const url = `${ base_url }/medicos/all`;
+    return this.http.get<MedicoResponse>( url, this.headers)
+       
+        
+  }
+
   borrarMedico( id: string ){
     console.log(id);
     const url = `${ base_url }/medicos/${ id }`;
@@ -55,7 +63,7 @@ export class MedicoService {
 
   obtenerMedicoPorId(  medicoId:string ){ //aca role no viene como parametro (viene email y nombre en this.perfilForm.value) pero aun asi funciona ya que role simplemente se ignora
     
-
+    console.log(medicoId);
     return this.http.put(`${ base_url }/medicos/${medicoId}`, this.headers) //Para actualizar los datos del usuario se necesita enviar al backend El id que se obtiene de un metodo get que me da el id del usuario logeado que es el mismo que esta intentando actualizar sus datos, la data que se quiere actualizar que es enviada por un formulario y los header con el token de acceso
      
   }

@@ -6,6 +6,11 @@
         <div class="card">
             <div class="card-body">
 
+              <div class="alert alert-warning" role="alert">
+                Si ya tienes medicos en tu aplicacion, registra su horario laboral
+                <a href="/gestionar-horarios-medicos" class="btn btn-info">   Aqui</a>
+              </div>
+
                 <input type="text"
                         class="form-control"
                         placeholder="Buscar medico..."
@@ -28,7 +33,7 @@
                 
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Medicos ({{ medicos.length }})</h4>
+                        <h4 class="card-title">total de medicos ({{ totalUsuarios }})</h4>
                         <h6 class="card-subtitle">
                             Medicos registrados en mi aplicación
                         </h6>
@@ -59,7 +64,7 @@
                         <th>Dirección</th>
                         
                         <th>Nacionalidad</th>
-                        <th>Títulos</th>
+                        <th>Especialidad</th>
                         <th>Acciones</th>
                         <!-- Agrega más columnas según tus necesidades -->
                       </tr>
@@ -79,7 +84,7 @@
                         <!-- Aquí puedes agregar botones de acciones para cada médico -->
             <!--BOTON PARA BORRAR MEDICO-->
             <td>
-                <div class="icon-container">
+                <div class="icon-container icon-delete">
                   <a class="cursor"
                     data-toggle="tooltip" 
                     data-original-title="Borrar"

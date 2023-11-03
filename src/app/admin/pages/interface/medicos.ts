@@ -1,6 +1,6 @@
 export interface MedicoResponse {
   ok: boolean;
-  totalMedicos: number;
+  total: number;
   medicos: Medico[];
 }
 
@@ -14,6 +14,7 @@ export interface Medico {
   foto: string;
   nacionalidad: string;
   especialidad_medica: string;
+  password: string;
 
 }
 

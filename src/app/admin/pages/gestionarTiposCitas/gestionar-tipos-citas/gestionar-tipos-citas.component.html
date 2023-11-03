@@ -21,7 +21,7 @@
         <!-- Contenido principal aquí -->
       </div>
       <div class="col-auto">
-        <a routerLink="/agregar-horario-medico" class="btn btn-primary">Agregar tipo Cita</a>
+        <a routerLink="/agregar-tipo-cita" class="btn btn-primary">Agregar tipo Cita</a>
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@
                           <td>{{tipocita.tipo_cita}}</td>
                           <td>{{tipocita.precio}}</td>
                           <td>{{tipocita.especialidad_medica}}</td>
-                          <td>{{tipocita.color_etiqueta}}</td>
+                     
 
               <td>
                 <div class="icon-container">
@@ -67,7 +67,7 @@
                     <a class="cursor"
                       data-toggle="tooltip" 
                       data-original-title="Editar"
-                    > 
+                      (click)="editarTipoCita( tipocita )"> 
                       <i class="fa fa-pencil text-primary"></i> 
                     </a>
                   </div>
@@ -80,11 +80,11 @@
                     </table>
                   </div>
                 <!--ESTA CONDICION SE HACE PARA QUE CUANDO SE TECLEA EN LA BARRA DE BUSQUEDA Y SE CARGAN LOS RESULTADOS DE BUSQUEDA DESAPARESCAN LOS BOTONES SIGUIENTES Y ANTERIOR EN LA PANTALLA-->
-                <div> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
-                    <button  class="btn btn-secondary">Anteriores</button>
-                    &nbsp; <!--Esto es para que exista una pequeña separacion entre ambos-->
-                    <button  class="btn btn-secondary">Siguiente</button>
-                </div>
+                <div *ngIf="txtTermino.value.length === 0"> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
+                  <button (click)="cambiarPagina(-5)" class="btn btn-secondary">Anteriores</button>
+                  &nbsp; <!--Esto es para que exista una pequeña separacion entre ambos-->
+                  <button (click)="cambiarPagina(5)" class="btn btn-secondary">Siguiente</button>
+              </div>
             
             </div>
         </div>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TipoCitaService } from '../services/tipo-cita.service';
-import { Medico } from '../interface/medicos';
-import { Tipo_cita, tipoCitaResponse } from '../interface/tipoCita';
+import { TipoCitaService } from '../../services/tipo-cita.service';
+import { Medico } from '../../interface/medicos';
+import { Tipo_cita, tipoCitaResponse } from '../../interface/tipoCita';
 import Swal from 'sweetalert2';
-import { BusquedasService } from '../services/busquedas.service';
+import { BusquedasService } from '../../services/busquedas.service';
 
 @Component({
   selector: 'app-gestionar-tipos-citas',
@@ -15,7 +15,7 @@ export class GestionarTiposCitasComponent implements OnInit{
 
   public tiposCitas: Tipo_cita[] = [];
   public desde: number = 0;
-  public totalUsuarios: number = 0;
+  public totalTipoCitas: number = 0;
 
   constructor(private TipoCitaService: TipoCitaService, private router: Router, private BusquedasService: BusquedasService){}
 
@@ -72,7 +72,27 @@ export class GestionarTiposCitasComponent implements OnInit{
       this.tiposCitas = resp;
   });  
          
-}  
+}
+
+    editarTipoCita( tipoCita:any ){
+      this.router.navigate(['/editar-tipoCita', tipoCita.idTipo]);
+    }
+
+
+    cambiarPagina( valor: number ) {
+    
+      this.desde +=valor;
+
+      if( this.desde < 0){
+        this.desde = 0;
+      } else if( this.desde >= this.totalTipoCitas ){ 
+        this.desde -= valor;
+      }
+      this.cargaTipocita();
+
+    }
+
+
 
 
 

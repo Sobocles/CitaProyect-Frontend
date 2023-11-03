@@ -73,11 +73,13 @@ borrarCita( cita: any ) {
 cargarCitas() {
   this.CitaMedicaService.cargarCitaMedica()
     .subscribe((response: CitasResponse) => { 
-      console.log('aqui',response);
+      console.log('aqui esta las citas',response);
       this.citas = response.citas; 
-      console.log(this.citas);
+      console.log('arreglo de citas',this.citas);
 
     });
 }
+
+
 
 }

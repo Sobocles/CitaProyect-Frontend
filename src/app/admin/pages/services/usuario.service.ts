@@ -28,9 +28,15 @@ export class PacienteService  {
   constructor( private http: HttpClient) { }
 
 
-  cargarPacientes():Observable<UsuariosResponse> {
+  cargarPacientes( desde:number=0):Observable<UsuariosResponse> {
     //localhost:3000/api/usuarios?desde=0
-    const url = `${ base_url }/usuarios`;
+    const url = `${ base_url }/usuarios?desde=${ desde }`;
+    return this.http.get<UsuariosResponse>( url, this.headers)      
+  }
+
+  cargarAllPacientes():Observable<UsuariosResponse> {
+    //localhost:3000/api/usuarios?desde=0
+    const url = `${ base_url }/usuarios/all`;
     return this.http.get<UsuariosResponse>( url, this.headers)      
   }
 
@@ -48,6 +54,13 @@ export class PacienteService  {
   guardarUsuario(paciente: Paciente){
     console.log(paciente);
     return this.http.put(`${ base_url }/usuarios/${paciente.rut}`, paciente, this.headers);
+  }
+
+  obtenerUsuarioPorId(  usuarioId:string ){ //aca role no viene como parametro (viene email y nombre en this.perfilForm.value) pero aun asi funciona ya que role simplemente se ignora
+    
+    console.log(usuarioId);
+    return this.http.put(`${ base_url }/usuarios/${usuarioId}`, this.headers) //Para actualizar los datos del usuario se necesita enviar al backend El id que se obtiene de un metodo get que me da el id del usuario logeado que es el mismo que esta intentando actualizar sus datos, la data que se quiere actualizar que es enviada por un formulario y los header con el token de acceso
+     
   }
 
 }

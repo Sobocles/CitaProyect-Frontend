@@ -29,13 +29,14 @@ export class EditarMedicoComponent implements OnInit {
   ngOnInit() {
     this.ActivatedRoute.params.subscribe(params => {
       const medicoId = params['id'];
+      console.log('id',medicoId)
       if (medicoId) {
         // Obtén los datos del médico y llénalos en el formulario
         this.MedicoService.obtenerMedicoPorId(medicoId).subscribe((response: any) => {
           const medico = response.medico;
-          console.log(medico);
+          console.log('este es',medico);
           this.formulario.patchValue({
-            id: medico.id,
+            rut: medico.rut,
             nombre: medico.nombre,
             apellidos: medico.apellidos,
             email: medico.email,

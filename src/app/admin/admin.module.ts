@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GestionarHorariosMedicosComponent } from './pages/gestionarHorariosMedicos/gestionar-horarios-medicos.component';
+import { GestionarHorariosMedicosComponent } from './pages/gestionarHorariosMedicos/gestionar-horarios-medicos/gestionar-horarios-medicos.component';
 import { GestionarCitasMedicasComponent } from './pages/gestionarCitasMedicas/gestionar-citas/gestionar-citas-medicas.component';
-import { GestionarTiposCitasComponent } from './pages/gestionarTiposCitas/gestionar-tipos-citas.component';
+import { GestionarTiposCitasComponent } from './pages/gestionarTiposCitas/gestionar-tipos-citas/gestionar-tipos-citas.component';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
-import { GestionarPacientesComponent } from './pages/gestionar-pacientes/gestionar-pacientes.component';
+import { GestionarPacientesComponent } from './pages/gestionar-pacientes/gestionar-pacientes/gestionar-pacientes.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
@@ -14,11 +14,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgregarPacienteComponent } from './pages/gestionar-pacientes/agregar-paciente/agregar-paciente.component';
 import { AgregarHorarioMedicoComponent } from './pages/gestionarHorariosMedicos/agregar-horario/agregar-horario.component';
 import { AgregarCitaMedicaComponent } from './pages/gestionarCitasMedicas/agregar-cita-medica/agregar-cita-medica.component';
-import { GestionarMedicosComponent } from './pages/gestionar-medicos/gestionar-medicos.component';
+import { GestionarMedicosComponent } from './pages/gestionar-medicos/gestiona-medicos/gestionar-medicos.component';
 import { AgregarmedicoComponent } from './pages/gestionar-medicos/agregarmedico/agregarmedico.component';
 import { AgregarTipoCitaComponent } from './pages/gestionarTiposCitas/agregar-tipo-cita/agregar-tipo-cita.component';
 import { EditarMedicoComponent } from './pages/gestionar-medicos/editar-medico/editar-medico.component';
 import { EditarHorarioComponent } from './pages/gestionarHorariosMedicos/editar-horario/editar-horario.component';
+import { EditarUsuarioComponent } from './pages/gestionar-pacientes/editar-usuario/editar-usuario.component';
+import { EditarTipoCitaComponent } from './pages/gestionarTiposCitas/editar-tipo-cita/editar-tipo-cita.component';
 
 
 
@@ -46,6 +48,8 @@ import { EditarHorarioComponent } from './pages/gestionarHorariosMedicos/editar-
     AgregarTipoCitaComponent,
     EditarMedicoComponent,
     EditarHorarioComponent,
+    EditarUsuarioComponent,
+    EditarTipoCitaComponent,
   
 
   

@@ -32,13 +32,13 @@ export class BusquedasService {
             map((resp: any) => {
                 switch (tipo) {
                     case 'medicos':
-                        return resp.resultados;
+                        return resp.citas;
                     case 'usuarios':
-                        return resp.resultados;
+                        return resp.citas;
                     case 'horario_medico':
-                        return resp.resultados;
+                        return resp.citas;
                     case 'tipo_cita':
-                        return resp.resultados; // Asumiendo que la respuesta para 'tipo_cita' tiene una clave 'resultados' (puede necesitar ajuste si no es así).
+                        return resp.citas; // Asumiendo que la respuesta para 'tipo_cita' tiene una clave 'resultados' (puede necesitar ajuste si no es así).
                     case 'cita_medica':
                         return resp.resultados; // Asumo que la respuesta para 'cita_medica' tiene una clave 'citas', basándome en el ejemplo que diste anteriormente.
                     default:
@@ -46,6 +46,14 @@ export class BusquedasService {
                 }
             })
         );
+}
+
+cargarMedicos() {
+  //localhost:3000/api/usuarios?desde=0
+  const url = `${ base_url }/busqueda_cita`;
+  return this.http.get( url, this.headers)
+     
+      
 }
 
 

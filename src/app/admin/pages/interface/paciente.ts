@@ -13,5 +13,6 @@ export interface Paciente {
 
 export interface UsuariosResponse {
   usuarios: Paciente[];
+  total: number;
 }
   

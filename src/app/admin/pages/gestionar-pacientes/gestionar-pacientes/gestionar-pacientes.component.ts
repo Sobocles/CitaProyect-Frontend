@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PacienteService } from '../services/usuario.service';
+import { PacienteService } from '../../services/usuario.service';
 import { Router } from '@angular/router';
-import { Paciente, UsuariosResponse } from '../interface/paciente';
+import { Paciente, UsuariosResponse } from '../../interface/paciente';
 import Swal from 'sweetalert2';
-import { BusquedasService } from '../services/busquedas.service';
+import { BusquedasService } from '../../services/busquedas.service';
 
 @Component({
   selector: 'app-gestionar-pacientes',
@@ -14,6 +14,8 @@ import { BusquedasService } from '../services/busquedas.service';
 export class GestionarPacientesComponent implements OnInit {
   
   pacientes: Paciente [] = [];
+  public desde: number = 0;
+  public totalUsuarios: number = 0;
 
   constructor(private PacienteService: PacienteService, private router: Router, private BusquedasService: BusquedasService){}
 
@@ -23,10 +25,11 @@ export class GestionarPacientesComponent implements OnInit {
 
 
   cargaPacientes() {
-    this.PacienteService.cargarPacientes()
-      .subscribe((response: UsuariosResponse) => { // Asegúrate de que estás tipando la respuesta como 'any' o el tipo correcto
-        this.pacientes = response.usuarios // Asigna la propiedad 'medicos' de la respuesta al arreglo 'medicos'
-        console.log(this.pacientes);
+    this.PacienteService.cargarPacientes(this.desde)
+      .subscribe((response: UsuariosResponse) => { 
+        this.totalUsuarios = response.total,
+        this.pacientes = response.usuarios 
+
       });
   }
 
@@ -79,6 +82,36 @@ export class GestionarPacientesComponent implements OnInit {
     });           
 }
 
+editarUsuario(usuario: Paciente) {
+  console.log('este paciente',usuario);
+  this.router.navigate(['/editar-usuario', usuario.rut]);
+}
+
+/*
+    cambiarPagina( valor: number ) { 
+    this.desde +=valor;
+
+    if( this.desde < 0){
+      this.desde = 0;
+    } else if( this.desde >= this.totalUsuarios ){ 
+      this.desde -= valor;
+    }
+    this.cargaMedicos(); 
+  }
+*/
+
+    cambiarPagina( valor: number ) {
+      console.log(valor);
+      this.desde +=valor;
+
+      if( this.desde < 0){
+        this.desde = 0;
+      } else if( this.desde >= this.totalUsuarios ){ 
+        this.desde -= valor;
+      }
+      this.cargaPacientes();
+
+    }
 
 
 
