@@ -1,4 +1,4 @@
-export interface CitaMedica {
+interface CitaMedica {
     idCita: number;
     motivo: string;
     fecha: string;
@@ -16,9 +16,8 @@ export interface CitaMedica {
     };
   }
   
-  export interface CitasResponse {
+  interface CitasResponse {
     ok: boolean;
     citas: CitaMedica[];
-    total?: number; // La propiedad total es opcional porque solo aparece en una de las respuestas
   }
   

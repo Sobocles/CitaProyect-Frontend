@@ -14,6 +14,8 @@ import { HorarioMedicoService } from '../../services/horario-medico.service';
 })
 export class AgregarHorarioMedicoComponent implements OnInit {
   horarioMedicoForm: FormGroup;
+  // En tu componente TypeScript
+    diasDeLaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
   medicos: Medico[] = [];
 

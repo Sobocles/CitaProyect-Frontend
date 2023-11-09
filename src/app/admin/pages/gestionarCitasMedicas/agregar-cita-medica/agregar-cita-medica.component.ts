@@ -63,6 +63,7 @@ export class AgregarCitaMedicaComponent implements OnInit {
       descripcion: ['', [Validators.required]],
       idTipoCita: ['', [Validators.required]],
     });
+    this.selectedMedico = {};
    this.cargaMedicos();
    this.cargaPacientes();
     this.cargaTipocita();
@@ -70,17 +71,17 @@ export class AgregarCitaMedicaComponent implements OnInit {
   }
 
   onMedicoSelected(event: any): void {
-    const selectedRut = event.target.value;
-    console.log(selectedRut);
-    const medicoSeleccionado = this.medicosDisponibles.find(medico => medico.rutMedico === selectedRut);
-    console.log(medicoSeleccionado);
-    if (medicoSeleccionado) {
-      this.horaInicio = medicoSeleccionado.hora_inicio;
-      this.horaFin = medicoSeleccionado.hora_fin;
-      this.idTipo =    medicoSeleccionado.idTipoCita;
-    
+    // Si estás usando [(ngModel)] no necesitas tomar el valor del evento
+    // ya que `selectedMedico` será actualizado automáticamente con el objeto médico seleccionado.
+    // Solo actualiza los otros valores basados en `selectedMedico` que ya tiene el valor correcto.
+    console.log('AQUI ESTA EL MEDICO SELECCIONADO',this.selectedMedico);
+    if (this.selectedMedico) {
+      this.horaInicio = this.selectedMedico.hora_inicio;
+      this.horaFin = this.selectedMedico.hora_fin;
+      this.idTipo = this.selectedMedico.idTipoCita;
     }
-}
+  }
+  
 
 
   guardarCita() {
@@ -99,7 +100,7 @@ export class AgregarCitaMedicaComponent implements OnInit {
         hora_inicio: this.horaInicio,
         hora_fin: this.horaFin,
         rut_paciente: this.selectedPaciente,  // Modificado para ser una cadena directamente
-        rut_medico: this.selectedMedico,      // Modificado para ser una cadena directamente
+        rut_medico: this.selectedMedico.rutMedico,      // Modificado para ser una cadena directamente
         tipo_cita: this.selectedTipoCita,  // Modificado el nombre de la propiedad a 'tipo_cita'
         idTipoCita: this.idTipo,
         estado: 'en_curso'   
@@ -158,7 +159,12 @@ export class AgregarCitaMedicaComponent implements OnInit {
         this.HorarioMedicoService.buscarHorarioDisponible(formData).subscribe(
             (response) => {
                 this.medicosDisponibles = response.bloques;
-                console.log(this.medicosDisponibles);
+                console.log('ARRAY DE MEDICOS DISPONIBLES',this.medicosDisponibles)
+                this.medicosDisponibles.forEach((medico) => {
+                  console.log('RUT del médico:', medico.rutMedico);
+                });
+                
+           
                 if (this.medicosDisponibles.length === 0) {
                     Swal.fire('Información', 'No hay médicos disponibles para la fecha seleccionada.', 'info');
                 }

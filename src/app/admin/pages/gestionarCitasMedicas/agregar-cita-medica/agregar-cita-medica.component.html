@@ -38,15 +38,19 @@
 </div>
 
   
-  <div class="form-group mb-3" *ngIf="medicosDisponibles && medicosDisponibles.length">
-    <label for="medico">Médicos disponibles</label>
-    <select class="form-control" id="medico" [(ngModel)]="selectedMedico" name="medico" (change)="onMedicoSelected($event)">
-      <option *ngFor="let medico of medicosDisponibles" [value]="medico.rutMedico">{{ medico.medicoNombre }} {{ medico.idTipoCita }}  ({{ medico.hora_inicio }} - {{ medico.hora_fin }})</option>
+<div class="form-group mb-3" *ngIf="medicosDisponibles && medicosDisponibles.length">
+  <label for="medico">Médicos disponibles</label>
+  <select class="form-control" id="medico" [(ngModel)]="selectedMedico" name="medico" (change)="onMedicoSelected($event)">
+    <option *ngFor="let medico of medicosDisponibles" [ngValue]="medico">{{ medico.medicoNombre }} {{ medico.idTipoCita }}  ({{ medico.hora_inicio }} - {{ medico.hora_fin }})</option>
   </select>
   
-  
-  </div>
-
+</div>
+<div *ngIf="selectedMedico && selectedMedico.rutMedico">
+  <!-- Aquí puedes mostrar información de selectedMedico sabiendo que está definido -->
+  <p>Nombre del Médico: {{ selectedMedico.medicoNombre }}</p>
+  <p>Horario: {{ selectedMedico.hora_inicio }} - {{ selectedMedico.hora_fin }}</p>
+  <!-- ...otra información relevante del médico... -->
+</div>
 
 <!-- Al final de tu formulario -->
 <button type="submit" class="btn btn-primary">Guardar Cita</button>

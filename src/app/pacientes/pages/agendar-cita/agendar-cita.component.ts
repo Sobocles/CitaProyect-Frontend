@@ -16,12 +16,12 @@ export class AgendarCitaComponent implements OnInit{
   constructor(private TipoCitaService: TipoCitaService, private HorarioClinicaService: HorarioClinicaService){}
 
 
-  ngOnInit(): void {
-    this.HorarioClinicaService.cargarHorarioClinica()
-.subscribe((resp: HorarioClinicaResponse) => { 
+      ngOnInit(): void {
+        this.HorarioClinicaService.cargarHorarioClinica()
+    .subscribe((resp: HorarioClinicaResponse) => { 
 
-    this.horarioClinicas = resp.horariosClinica;
-});
+        this.horarioClinicas = resp.horariosClinica;
+    });
 
   }
 

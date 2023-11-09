@@ -48,11 +48,11 @@ export class FormularioCitaComponent {
 
   enviarFormulario() {
     const formData = this.form.value;
-    console.log(formData);
+    console.log('AQUI ESTA LA DATA',formData);
     this.BusquedaMedicoService.buscarHorarioDisponible(formData)
       .subscribe((resp: BloquesResponse) => {
         this.BusquedaMedicoService.actualizarBloques(resp.bloques);
-        console.log(resp);
+        console.log('Aqui esta la respuesta de los medicos disponibles',resp);
         this.router.navigate(['/busqueda-medico']);
       
       });

@@ -5,8 +5,18 @@
       <form [formGroup]="horarioMedicoForm" (ngSubmit)="crearHorario()">
         <div class="form-group mt-3">
           <label for="diaSemana">Día de la Semana</label>
-          <input type="text" class="form-control" id="diaSemana" formControlName="diaSemana" placeholder="Lunes">
+          <select class="form-control" id="diaSemana" formControlName="diaSemana" required>
+            <option value="">Seleccione día de la semana</option>
+            <option value="Lunes">Lunes</option>
+            <option value="Martes">Martes</option>
+            <option value="Miércoles">Miércoles</option>
+            <option value="Jueves">Jueves</option>
+            <option value="Viernes">Viernes</option>
+            <option value="Sábado">Sábado</option>
+            <option value="Domingo">Domingo</option>
+          </select>
         </div>
+        
         <div class="form-group mt-3">
           <label for="horaInicio">Hora de Inicio</label>
           <input type="time" class="form-control" id="horaInicio" formControlName="horaInicio" placeholder="08:00:00">
@@ -19,11 +29,12 @@
 
         <div class="form-group">
           <label for="rutMedico">Médico</label>
-          <select class="form-control" id="rutMedico" formControlName="rut_medico">
-            <option [value]="null">Selecciona un médico</option>
+          <select class="form-control" id="rutMedico" formControlName="rut_medico" required>
+            <option value="">Selecciona un médico</option>
             <option *ngFor="let medico of medicos" [value]="medico.rut">{{ medico.nombre }} (RUT: {{ medico.rut }})</option>
           </select>
         </div>
+        
         <div class="form-group mt-3">
           <label for="disponibilidad">Disponibilidad</label>
           <select class="form-control" id="disponibilidad" formControlName="disponibilidad">

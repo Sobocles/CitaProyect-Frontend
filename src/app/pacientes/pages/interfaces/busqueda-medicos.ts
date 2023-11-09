@@ -3,6 +3,7 @@ export interface Bloque {
     hora_inicio: string;
     hora_fin: string;
     precio: number;
+    especialidad: string;
 }
 
 export interface BloquesResponse {

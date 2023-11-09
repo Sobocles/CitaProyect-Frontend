@@ -40,7 +40,7 @@ export class BusquedasService {
                     case 'tipo_cita':
                         return resp.citas; // Asumiendo que la respuesta para 'tipo_cita' tiene una clave 'resultados' (puede necesitar ajuste si no es así).
                     case 'cita_medica':
-                        return resp.resultados; // Asumo que la respuesta para 'cita_medica' tiene una clave 'citas', basándome en el ejemplo que diste anteriormente.
+                        return resp; // Asumo que la respuesta para 'cita_medica' tiene una clave 'citas', basándome en el ejemplo que diste anteriormente.
                     default:
                         return [];
                 }

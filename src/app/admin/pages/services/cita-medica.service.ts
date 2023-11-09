@@ -31,6 +31,20 @@ export class CitaMedicaService {
 
   }
 
+  crearCitaMedicaPaciente(formData: any, rutPaciente: string) {
+    // Incluye el rutPaciente en el objeto formData
+    const data = {
+      ...formData,
+      rutPaciente: rutPaciente // Suponiendo que el backend espera una propiedad 'rutPaciente'
+    };
+
+    console.log('AQUI ESTA LA DATA',data);
+    
+    // Ahora, envía solo data y las opciones (que incluyen los headers)
+    return this.http.post<any>(`${base_url}/cita_medica/crearCitapaciente`, data, this.headers);
+  }
+  
+
   obtenerCitaMedicaPorId(  horarioId: number ):Observable<CitasResponse>{ //aca role no viene como parametro (viene email y nombre en this.perfilForm.value) pero aun asi funciona ya que role simplemente se ignora
     
     return this.http.get<CitasResponse>(`${ base_url }/cita_medica/${horarioId}`, this.headers) //Para actualizar los datos del usuario se necesita enviar al backend El id que se obtiene de un metodo get que me da el id del usuario logeado que es el mismo que esta intentando actualizar sus datos, la data que se quiere actualizar que es enviada por un formulario y los header con el token de acceso
@@ -38,6 +52,7 @@ export class CitaMedicaService {
   }
 
   cargarCitaMedica(desde: number = 0) {
+    console.log('aqui esta el desde',desde)
     const url = `${base_url}/cita_medica?desde=${desde}`;
     return this.http.get<CitasResponse>(url, this.headers);
   }
@@ -45,6 +60,13 @@ export class CitaMedicaService {
   borrarCitaMedica( id: number ){
     const url = `${ base_url }/cita_medica/${ id }`;
     return this.http.delete( url, this.headers );
+  }
+
+  actualizarCita(id: number, data: any): Observable<any> {
+    console.log(id);
+    console.log(data);
+    const url = `${ base_url }/cita_medica/${ id }`;
+    return this.http.put(url, data, this.headers);
   }
 
 }

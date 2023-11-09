@@ -8,6 +8,7 @@ import { BusquedaMedicoComponent } from './pages/busqueda-medico/busqueda-medico
 import { HistorialComponent } from '../medicos/historial/historial.component';
 import { HistorialPacienteComponent } from './pages/historial-paciente/historial-paciente.component';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,8 @@ const routes: Routes = [
       { path: 'busqueda-medico', component: BusquedaMedicoComponent, canActivate: [AuthGuard] },
 
       { path: 'historial', component: HistorialPacienteComponent, canActivate: [AuthGuard] },
+
+      { path: 'payment-success', component: PaymentSuccessComponent},
     ]
   }
 ];

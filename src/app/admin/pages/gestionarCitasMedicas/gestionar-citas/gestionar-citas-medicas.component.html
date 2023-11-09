@@ -5,7 +5,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-
+                    
                 <input type="text"
                         class="form-control"
                         placeholder="Buscar Citas medica..."
@@ -36,7 +36,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Total de Citas medica: </h4>
-                <h6 class="card-subtitle">Citas registrados en mi aplicacion</h6>
+                <h6 class="card-subtitle">Citas registrados en mi aplicacion ({{totalCitas}})</h6>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -46,7 +46,7 @@
                                 <th>Paciente</th>
                                 <th>Medico</th>
                                 <th>Tipo_cita</th>
-                
+                                <th>Estado</th>
                                 <th>Hora_inicio</th>
                                 <th>Hora_fin</th>
                                 <th>Acciones</th>
@@ -60,7 +60,14 @@
                                 <td>{{ cita.paciente.nombre }}</td>
                                 <td>{{ cita.medico.nombre }}</td>
                                 <td>{{ cita.motivo }}</td>
-           
+                                <td>
+                                    <select class="form-control" [(ngModel)]="cita.estado" (change)="cambioEstado(cita)">
+                                        <option value="en_curso">En Curso</option>
+                                        <option value="terminado">Terminado</option>
+                                        <option value="no_asistio">No Asistió</option>
+                                    </select>
+                                  </td>
+                                  
                                 <td>{{ cita.hora_inicio }}</td>
                                 <td>{{ cita.hora_fin }}</td>
                                 <td class="text-nowrap text-center">
@@ -76,7 +83,11 @@
                         </tbody>
                     </table>
                 </div>
-       
+                <div *ngIf="txtTermino.value.length === 0"> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
+                    <button (click)="cambiarPagina(-5)" class="btn btn-secondary">Anteriores</button>
+                    &nbsp; <!--Esto es para que exista una pequeña separacion entre ambos-->
+                    <button (click)="cambiarPagina(5)" class="btn btn-secondary">Siguiente</button>
+                </div>
             </div>
         </div>
     </div>

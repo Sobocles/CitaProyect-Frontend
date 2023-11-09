@@ -11,6 +11,7 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BusquedaMedicoComponent } from './pages/busqueda-medico/busqueda-medico.component';
 import { HistorialPacienteComponent } from './pages/historial-paciente/historial-paciente.component';
+import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 
 
 
@@ -21,6 +22,7 @@ import { HistorialPacienteComponent } from './pages/historial-paciente/historial
     LayoutPageComponent,
     BusquedaMedicoComponent,
     HistorialPacienteComponent,
+    PaymentSuccessComponent,
  
 
 

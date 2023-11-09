@@ -7,6 +7,7 @@
                 <th>Hora Inicio</th>
                 <th>Hora Fin</th>
                 <th>Precio</th>
+                <th>Especialidad medica</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -16,6 +17,7 @@
                 <td>{{ bloque.hora_inicio }}</td>
                 <td>{{ bloque.hora_fin }}</td>
                 <td>{{ bloque.precio }}</td>
+                <td>{{ bloque.especialidad }}</td>
                 <td><button class="btn btn-primary" (click)="agendarCita(bloque)">Agendar Cita</button></td>
             </tr>
         </tbody>

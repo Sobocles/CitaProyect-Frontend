@@ -24,10 +24,17 @@ export class BusquedaMedicoService {
     actualizarBloques(data: Bloque[]): void {
       this.bloquesSubject.next(data);
     }
-
+/*
     pagarCita(precio: number): Observable<any> {
       const url = `${base_url}/paypal/create-order`; // Sustituye con el endpoint correcto
       return this.http.post(url, { appointmentPrice: precio });
+    }
+ */  
+
+    pagarCita(precio: number, especialidad: string, idCita: number): Observable<any> {
+      const url = `${base_url}/mercadoPago/create-order`;
+      // Incluye ambos, el precio y la especialidad, en el cuerpo de la petición
+      return this.http.post(url, { precio: precio, motivo: especialidad, idCita });
     }
     
   
