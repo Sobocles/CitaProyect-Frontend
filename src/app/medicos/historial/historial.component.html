@@ -1,4 +1,7 @@
 <form [formGroup]="historialMedicoForm" (ngSubmit)="guardarHistorial()">
+  <div class="text-center mb-4">
+    <h2>Redactar Historial Médico</h2>
+</div>
     <div class="mb-3">
         <label for="paciente" class="form-label">Paciente:</label>
         <select class="form-control" id="paciente" formControlName="rut_paciente">
@@ -8,8 +11,10 @@
       <div class="mb-3">
         <label for="medico" class="form-label">Médico:</label>
         <select class="form-control" id="medico" formControlName="rut_medico">
-          <option *ngFor="let medico of medicos" [value]="medico.rut">{{ medico.nombre }}</option>
+          <option [value]="AuthService.medico.rut">{{ AuthService.medico.nombre }}</option>
         </select>
+        
+        
       </div>
     <div class="mb-3">
       <label for="diagnostico" class="form-label">Diagnóstico:</label>
@@ -31,10 +36,6 @@
       <input type="date" class="form-control" id="fecha_consulta" formControlName="fecha_consulta">
     </div>
   
-    <div class="mb-3">
-      <label for="archivo" class="form-label">Archivo:</label>
-      <input type="file" class="form-control" id="archivo" formControlName="archivo">
-    </div>
   
     <button type="submit" class="btn btn-primary">Guardar</button>
   

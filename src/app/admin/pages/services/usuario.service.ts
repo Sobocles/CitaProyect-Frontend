@@ -40,6 +40,12 @@ export class PacienteService  {
     return this.http.get<UsuariosResponse>( url, this.headers)      
   }
 
+  cargarAllPacientesEnCurso():Observable<UsuariosResponse> {
+    //localhost:3000/api/usuarios?desde=0
+    const url = `${ base_url }/usuarios/allCurso`;
+    return this.http.get<UsuariosResponse>( url, this.headers)      
+  }
+
   borrarPaciente( id: string ){
     console.log(id);
     const url = `${ base_url }/usuarios/${ id }`;

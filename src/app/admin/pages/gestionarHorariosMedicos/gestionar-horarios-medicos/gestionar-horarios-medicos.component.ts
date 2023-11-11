@@ -42,8 +42,8 @@ export class GestionarHorariosMedicosComponent implements OnInit {
             
             this.cargaHorario();
             Swal.fire(
-              'Cita borradoa',
-              `Cita numero ${ horario.idHorario } fue eliminada correctamente`,
+              'Horario borradoa',
+              `Horario medico numero ${ horario.idHorario } fue eliminado correctamente`,
               'success'
             );
             

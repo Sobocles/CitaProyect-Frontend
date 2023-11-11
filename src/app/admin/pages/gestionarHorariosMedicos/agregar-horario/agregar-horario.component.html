@@ -5,26 +5,42 @@
       <form [formGroup]="horarioMedicoForm" (ngSubmit)="crearHorario()">
         <div class="form-group mt-3">
           <label for="diaSemana">Día de la Semana</label>
-          <select class="form-control" id="diaSemana" formControlName="diaSemana" required>
+          <select class="form-control" id="diaSemana" formControlName="diaSemana">
             <option value="">Seleccione día de la semana</option>
-            <option value="Lunes">Lunes</option>
-            <option value="Martes">Martes</option>
-            <option value="Miércoles">Miércoles</option>
-            <option value="Jueves">Jueves</option>
-            <option value="Viernes">Viernes</option>
-            <option value="Sábado">Sábado</option>
-            <option value="Domingo">Domingo</option>
+            <!-- Opciones de días -->
+            <option value="lunes">Lunes</option>
+            <option value="martes">Martes</option>
+            <option value="miercoles">Miércoles</option>
+            <option value="jueves">Jueves</option>
+            <option value="viernes">Viernes</option>
+            <option value="sabado">Sábado</option>
+            <option value="domingo">Domingo</option>
           </select>
+          <!-- Alerta para campo requerido -->
+          <div *ngIf="horarioMedicoForm.controls['diaSemana'].touched && horarioMedicoForm.controls['diaSemana'].errors?.['required']" class="alert alert-danger">
+            Este campo es obligatorio.
+          </div>
         </div>
+        
         
         <div class="form-group mt-3">
           <label for="horaInicio">Hora de Inicio</label>
           <input type="time" class="form-control" id="horaInicio" formControlName="horaInicio" placeholder="08:00:00">
+          <!-- Alerta para campo requerido -->
+          <div *ngIf="horarioMedicoForm.controls['horaInicio'].touched && horarioMedicoForm.controls['horaInicio'].errors?.['required']" class="alert alert-danger">
+            Este campo es obligatorio.
+          </div>
         </div>
+        
         <div class="form-group mt-3">
           <label for="horaFinalizacion">Hora de Finalización</label>
           <input type="time" class="form-control" id="horaFinalizacion" formControlName="horaFinalizacion" placeholder="12:00:00">
+          <!-- Alerta para campo requerido -->
+          <div *ngIf="horarioMedicoForm.controls['horaFinalizacion'].touched && horarioMedicoForm.controls['horaFinalizacion'].errors?.['required']" class="alert alert-danger">
+            Este campo es obligatorio.
+          </div>
         </div>
+        
 
 
         <div class="form-group">

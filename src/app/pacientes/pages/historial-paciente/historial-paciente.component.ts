@@ -10,9 +10,9 @@ import { Usuario } from 'src/app/models/usuario';
 })
 export class HistorialPacienteComponent implements OnInit {
 
-
-
   historialMedico: Historial[] = []; 
+  public desde: number = 0;
+  public totalHistoriales: number = 0;
 
   constructor(private historialService: HistorialService, private authservice: AuthService){}
 
@@ -25,7 +25,23 @@ export class HistorialPacienteComponent implements OnInit {
     }
 }
 
+  buscar(termino:any){
 
+  }
+
+
+  cambiarPagina( valor: number ) {
+    
+    this.desde +=valor;
+
+    if( this.desde < 0){
+      this.desde = 0;
+    } else if( this.desde >= this.totalHistoriales ){ 
+      this.desde -= valor;
+    }
+   
+
+  }
 
   cargarHistorialMedico(rut: string) {
     this.historialService.obtenerHistorialPorId(rut)

@@ -10,6 +10,7 @@ import { HistorialComponent } from './historial/historial.component';
 import { GestionarHistorialesComponent } from './gestionar-historiales/gestionar-historiales.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from "../shared/shared.module";
+import { VerCitasMedicasComponent } from './ver-citas-medicas/ver-citas-medicas.component';
 
 
 
@@ -20,6 +21,7 @@ import { SharedModule } from "../shared/shared.module";
         LayoutPageComponent,
         HistorialComponent,
         GestionarHistorialesComponent,
+        VerCitasMedicasComponent,
     ],
     imports: [
         CommonModule,

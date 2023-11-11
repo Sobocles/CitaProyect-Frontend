@@ -12,7 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BusquedaMedicoComponent } from './pages/busqueda-medico/busqueda-medico.component';
 import { HistorialPacienteComponent } from './pages/historial-paciente/historial-paciente.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
-
+import { PaymentFailureComponent } from './pages/payment-failure/payment-failure.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; 
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
     BusquedaMedicoComponent,
     HistorialPacienteComponent,
     PaymentSuccessComponent,
+    PaymentFailureComponent
  
 
 
@@ -34,7 +36,8 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
     SharedModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FullCalendarModule,
   ]
 })
 export class PacientesModule { }

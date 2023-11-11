@@ -30,23 +30,44 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
 //gestionar-pacientes
 login() {
-  const { password, email } = this.miFormulario.value;
+  const { email, password } = this.miFormulario.value;
 
-  this.authService.login(email, password)
-    .subscribe(resp => {
+  this.authService.login(email, password).subscribe(
+    resp => {
       console.log(resp);
+      // Aquí se maneja la lógica de redirección según el rol del usuario
       if (resp.userOrMedico.rol === 'ADMIN_ROLE') {
         this.router.navigateByUrl('/gestionar-pacientes');
       } else if (resp.userOrMedico.rol === 'USER_ROLE') {
         this.router.navigateByUrl('/Agendar-cita');
-      } else if (resp.userOrMedico.rol === 'MEDICO_ROLE') { // Verificar si el rol es MEDICO_ROLE
-        this.router.navigateByUrl('/gestionar-historiales'); // Redirigir a gestionar-historiales
+      } else if (resp.userOrMedico.rol === 'MEDICO_ROLE') {
+        this.router.navigateByUrl('/agregar-historial');
       } else {
         console.error('Rol de usuario no reconocido');
-        // Opcionalmente, puedes manejar un caso por defecto, como redirigir al inicio o mostrar un error
-        // this.router.navigateByUrl('/ruta-por-defecto');
+        // Aquí puedes manejar un caso por defecto
       }
-    });
+    },
+    error => {
+      // Manejo de errores de autenticación
+      console.error('Error en el login:', error);
+      let mensaje = 'Error en la autenticación';
+
+      // Personaliza este mensaje según la respuesta del backend
+      if (error.status === 400) {
+        mensaje = 'Contraseña incorrecta';
+      } else if (error.status === 404) {
+        mensaje = 'Correo no encontrado';
+      } else if (error.status === 500) {
+        mensaje = 'Problema del servidor, intente más tarde';
+      }
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: mensaje
+      });
+    }
+  );
 }
 
 

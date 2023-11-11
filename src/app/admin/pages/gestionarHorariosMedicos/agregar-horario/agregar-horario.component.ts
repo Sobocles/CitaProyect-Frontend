@@ -15,7 +15,7 @@ import { HorarioMedicoService } from '../../services/horario-medico.service';
 export class AgregarHorarioMedicoComponent implements OnInit {
   horarioMedicoForm: FormGroup;
   // En tu componente TypeScript
-    diasDeLaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+ 
 
   medicos: Medico[] = [];
 
@@ -31,10 +31,9 @@ export class AgregarHorarioMedicoComponent implements OnInit {
       horaFinalizacion: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
       hora_inicio_colacion: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
       hora_fin_colacion: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
-      duracionCitas: [null, [Validators.required, Validators.min(1)]],
       rut_medico: ['', [Validators.required, Validators.pattern(/^(\d{1,3}(?:\.\d{3}){2}-[\dkK])$/)]],
       disponibilidad: [],
-      fechaCreacion: [null, [Validators.required]],
+  
     });
   }
   ngOnInit(): void {
@@ -54,17 +53,33 @@ export class AgregarHorarioMedicoComponent implements OnInit {
   crearHorario() {
     const formData = this.horarioMedicoForm.value;
     console.log(formData);
-
+  
     this.HorarioMedicoService.crearHorario(formData).subscribe(
-      (respuesta:any) => {
-         // Navegar al Dashboard ya que el registro fue EXITOSO!!
-         console.log(respuesta);
-         Swal.fire('Mensaje', respuesta, 'success');
-      this.router.navigateByUrl('/gestionar-horarios-medicos');
-      
-    }, (err) => {
-      Swal.fire('Error', err.error.msg, 'error'); //al incluir err.error.msg se Accede al mensaje de error incluido en el backenend en caso de que el correo ya este registrado
-    } );
+      (respuesta: any) => {
+        // Mostrar mensaje de éxito
+        Swal.fire({
+          title: 'Horario Creado',
+          text: 'El horario médico ha sido creado con éxito.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        }).then((result) => {
+          // Navegar al Dashboard después de cerrar el SweetAlert
+          if (result.isConfirmed) {
+            this.router.navigateByUrl('/gestionar-horarios-medicos');
+          }
+        });
+      },
+      (err) => {
+        // Mostrar mensaje de error
+        Swal.fire({
+          title: 'Error al Crear Horario',
+          text: err.error.msg, // Mensaje de error del backend
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        });
+      }
+    );
   }
+  
 
 }

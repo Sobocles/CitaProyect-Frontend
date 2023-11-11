@@ -5,6 +5,8 @@ import { PacienteService } from 'src/app/admin/pages/services/usuario.service';
 import { MedicoService } from 'src/app/admin/pages/services/medico.service';
 import { UsuariosResponse } from '../usuarios';
 import { MedicoResponse } from 'src/app/admin/pages/interface/medicos';
+import { AuthService } from '../../auth/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-historial',
@@ -17,7 +19,7 @@ export class HistorialComponent implements OnInit {
     medicos: any[] = [];
     pacientes: any[] = [];
 
-  constructor(private fb: FormBuilder, private HistorialService: HistorialService, private usuarioService: PacienteService, private medico: MedicoService) { 
+  constructor(private fb: FormBuilder, private HistorialService: HistorialService, private usuarioService: PacienteService, private medico: MedicoService, public AuthService: AuthService) { 
     this.historialMedicoForm = this.fb.group({
       id_historial_medico: ['', Validators.required],
       diagnostico: ['', Validators.required],
@@ -26,14 +28,16 @@ export class HistorialComponent implements OnInit {
       fecha_consulta: ['', Validators.required],
       archivo: ['', Validators.required],
       rut_paciente: ['', Validators.required],
-      rut_medico: ['', Validators.required]
+      rut_medico: [this.AuthService.medico.rut, Validators.required],
     });
   }
   ngOnInit(): void {
-    this.usuarioService.cargarPacientes()
+    console.log('AQUI ESTA EL MEDICO',this.AuthService.medico);
+    this.usuarioService.cargarAllPacientesEnCurso()
     .subscribe((pacientes: UsuariosResponse) => {
+      console.log('AQUI ESTAN LOS PACIENTES',pacientes)
       this.pacientes = pacientes.usuarios;
-      console.log(pacientes);
+      console.log('AQUI ESTA EL ARREGLO DE PACIENTES',pacientes);
     });
     
     this.medico.cargarMedicos()
@@ -44,13 +48,28 @@ export class HistorialComponent implements OnInit {
   
 
   guardarHistorial() {
-    this.HistorialService.crearHistorial(this.historialMedicoForm.value).subscribe(response => {
-      console.log(response);
-      // Aquí manejas lo que quieres hacer después de guardar el historial. Por ejemplo, mostrar un mensaje de éxito.
-    }, error => {
-      console.error(error);
-      // Maneja aquí los errores. Por ejemplo, mostrar un mensaje de error.
-    });
+    this.HistorialService.crearHistorial(this.historialMedicoForm.value).subscribe(
+      response => {
+        console.log(response);
+        // Muestra un mensaje de éxito con SweetAlert
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'El historial médico ha sido guardado correctamente.',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        });
+      },
+      error => {
+        console.error(error);
+        // Aquí puedes manejar los errores, por ejemplo, mostrar un mensaje de error.
+        Swal.fire({
+          title: 'Error',
+          text: 'Hubo un problema al guardar el historial médico.',
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
+      }
+    );
   }
 
   

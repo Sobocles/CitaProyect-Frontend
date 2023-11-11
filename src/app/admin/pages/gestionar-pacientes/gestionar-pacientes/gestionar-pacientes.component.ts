@@ -37,7 +37,7 @@ export class GestionarPacientesComponent implements OnInit {
 
     Swal.fire({
       title: '¿Borrar paciente?',
-      text: `Esta a punto de borrar a ${ paciente.nombre } tenga en cuenta que se eliminaran los historiales en los que el`,
+      text: `Esta a punto de borrar a ${ paciente.nombre } tenga en cuenta que se eliminaran los historiales y citas medicas en los que el paciente este registrado`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Si, borrarlo'

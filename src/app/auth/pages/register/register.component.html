@@ -8,18 +8,31 @@
         <mat-form-field>
           <mat-label>Nombre</mat-label>
           <input type="text" matInput formControlName="nombre" placeholder="Nombre">
+          <mat-error *ngIf="miFormulario?.get('nombre')?.invalid && miFormulario?.get('nombre')?.touched">
+            El nombre es requerido
+          </mat-error>
+          
         </mat-form-field>
+        
       </div>
+      
       <div class="flex flex-column w-50 pr-2">
         <mat-form-field>
           <mat-label>Apellidos</mat-label>
           <input type="text" matInput formControlName="apellidos" placeholder="Apellidos">
+          <mat-error *ngIf="miFormulario?.get('apellidos')?.invalid && miFormulario?.get('apellidos')?.touched">
+            Los apellidos son requeridos
+          </mat-error>
         </mat-form-field>
       </div>
       <div class="flex flex-column w-50 pr-2">
         <mat-form-field>
           <mat-label>RUT</mat-label>
           <input type="text" matInput formControlName="rut" placeholder="RUT">
+          <mat-error *ngIf="miFormulario?.get('rut')?.errors?.['rutInvalid'] && miFormulario?.get('rut')?.touched">
+            El RUT no es válido
+          </mat-error>
+          
         </mat-form-field>
       </div>
       <!-- Grupo 2: Apellidos y Email -->
@@ -28,6 +41,9 @@
         <mat-form-field>
           <mat-label>Email</mat-label>
           <input type="email" matInput formControlName="email" placeholder="Email">
+          <mat-error *ngIf="miFormulario?.get('email')?.invalid && miFormulario?.get('email')?.touched">
+            {{ miFormulario.get('email')?.errors?.['email'] ? 'Email no válido' : 'El Email es requerido' }}
+          </mat-error>
         </mat-form-field>
       </div>
 
@@ -36,18 +52,22 @@
         <mat-form-field>
           <mat-label>Contraseña</mat-label>
           <input type="password" matInput formControlName="password" placeholder="Contraseña">
+          <mat-error *ngIf="miFormulario?.get('password')?.errors?.['passwordStrength'] && miFormulario?.get('password')?.touched">
+            La contraseña debe tener al menos una mayúscula, un número y un símbolo (.,'!#$%^&*()_+-)
+          </mat-error>
+          
         </mat-form-field>
       </div>
-      <div class="flex flex-column w-50 pl-2">
-        <mat-form-field>
-          <mat-label>Confirmar Contraseña</mat-label>
-          <input type="password" matInput formControlName="confirmPassword" placeholder="Confirmar Contraseña">
-        </mat-form-field>
-      </div>
+
       <div class="flex flex-column w-50 pl-2">
         <mat-form-field>
           <mat-label>Fecha de Nacimiento</mat-label>
           <input type="date" matInput formControlName="fecha_nacimiento">
+          <mat-error *ngIf="miFormulario.get('fecha_nacimiento')?.errors?.['menorDeEdad']">
+            Debes tener al menos 18 años para registrarte.
+          </mat-error>
+          
+          
         </mat-form-field>
       </div>
 
@@ -56,12 +76,19 @@
         <mat-form-field>
           <mat-label>Teléfono</mat-label>
           <input type="text" matInput formControlName="telefono" placeholder="Teléfono">
+          <mat-error *ngIf="miFormulario?.get('telefono')?.errors?.['telefonoInvalido'] && miFormulario?.get('telefono')?.touched">
+            El número de teléfono (debe ser +56 9 XXXX-XXXX)
+          </mat-error>
+          
         </mat-form-field>
       </div>
       <div class="flex flex-column w-100">
         <mat-form-field>
           <mat-label>Dirección</mat-label>
           <input type="text" matInput formControlName="direccion" placeholder="Dirección">
+          <mat-error *ngIf="miFormulario?.get('direccion')?.invalid && miFormulario?.get('direccion')?.touched">
+            La dirección es requerida
+          </mat-error>
         </mat-form-field>
       </div>
     </div>

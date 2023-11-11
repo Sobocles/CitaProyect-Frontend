@@ -7,7 +7,7 @@ export interface tipoCitaResponse {
     tipo_cita: string;
     precio: number;
     especialidad_medica: string;
-    color_etiqueta: string;
+    duracion_cita: number;
     createdAt: string;
     updatedAt: string;
   }

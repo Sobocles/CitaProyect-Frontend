@@ -1,23 +1,54 @@
 <form [formGroup]="formularioTipoCita" (ngSubmit)="crearTipoCita()">
   <div class="form-group mb-3">
-    <label for="tipo_cita">Tipo de Cita</label>
-    <input type="text" id="tipo_cita" formControlName="tipo_cita" class="form-control">
+    <label>Tipo de Cita</label>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="consultaGeneral" formControlName="tipo_cita" value="Consulta General">
+      <label class="form-check-label" for="consultaGeneral">Consulta General</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="especialidad" formControlName="tipo_cita" value="Especialidad">
+      <label class="form-check-label" for="especialidad">Especialidad</label>
+    </div>
   </div>
-  
-  <div class="form-group mb-3">
-    <label for="precio">Precio</label>
-    <input type="number" id="precio" formControlName="precio" class="form-control">
-  </div>
-  
-  <div class="form-group mb-3">
+
+  <div class="form-group mb-3" *ngIf="formularioTipoCita.get('tipo_cita')?.value === 'Especialidad'">
     <label for="especialidad_medica">Especialidad Médica</label>
     <input type="text" id="especialidad_medica" formControlName="especialidad_medica" class="form-control">
   </div>
   
   <div class="form-group mb-3">
-    <label for="color_etiqueta">Color de Etiqueta</label>
-    <input type="color" id="color_etiqueta" formControlName="color_etiqueta" class="form-control">
+    <label for="precio">Precio</label>
+    <input type="text" id="precio" formControlName="precio" class="form-control">
+    <!-- Mensajes de error para Precio -->
+    <div *ngIf="formularioTipoCita.controls['precio'].touched">
+      <div *ngIf="formularioTipoCita.controls['precio'].errors?.['required']" class="alert alert-danger">
+        El precio es requerido.
+      </div>
+      <div *ngIf="formularioTipoCita.controls['precio'].errors?.['pattern']" class="alert alert-danger">
+        Solo se permiten números en el precio.
+      </div>
+    </div>
   </div>
 
+  
+  
+
+  <div class="form-group mb-3">
+    <label for="duracion_cita">Duración de la Cita (solo minutos)</label>
+    <input type="text" id="duracion_cita" formControlName="duracion_cita" class="form-control">
+    <!-- Mensajes de error para Duración de la Cita -->
+    <div *ngIf="formularioTipoCita.controls['duracion_cita'].touched">
+      <div *ngIf="formularioTipoCita.controls['duracion_cita'].errors?.['required']" class="alert alert-danger">
+        La duración de la cita es requerida.
+      </div>
+      <div *ngIf="formularioTipoCita.controls['duracion_cita'].errors?.['pattern']" class="alert alert-danger">
+        Solo se permiten números enteros para representar minutos.
+      </div>
+    </div>
+  </div>
+  
+  
+
+  
   <button type="submit" class="btn btn-primary">Crear Tipo Cita</button>
 </form>

@@ -9,6 +9,7 @@ import { HistorialComponent } from '../medicos/historial/historial.component';
 import { HistorialPacienteComponent } from './pages/historial-paciente/historial-paciente.component';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
+import { PaymentFailureComponent } from './pages/payment-failure/payment-failure.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,8 @@ const routes: Routes = [
       { path: 'historial', component: HistorialPacienteComponent, canActivate: [AuthGuard] },
 
       { path: 'payment-success', component: PaymentSuccessComponent},
+
+      { path: 'payment-failure', component: PaymentFailureComponent},
     ]
   }
 ];

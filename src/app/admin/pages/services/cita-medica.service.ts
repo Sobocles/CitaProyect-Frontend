@@ -4,7 +4,7 @@ import { environment } from 'src/environment/environment';
 import { CitaMedica, CitasResponse } from '../interface/cita_medica';
 import { Observable } from 'rxjs';
 import { CitasResponsex } from '../interface/cita_medicaResponse';
-
+import { CitaMedicaF } from '../../../pacientes/pages/interfaces/payment'
 const base_url = environment.base_url;
 
 @Injectable({
@@ -48,6 +48,18 @@ export class CitaMedicaService {
   obtenerCitaMedicaPorId(  horarioId: number ):Observable<CitasResponse>{ //aca role no viene como parametro (viene email y nombre en this.perfilForm.value) pero aun asi funciona ya que role simplemente se ignora
     
     return this.http.get<CitasResponse>(`${ base_url }/cita_medica/${horarioId}`, this.headers) //Para actualizar los datos del usuario se necesita enviar al backend El id que se obtiene de un metodo get que me da el id del usuario logeado que es el mismo que esta intentando actualizar sus datos, la data que se quiere actualizar que es enviada por un formulario y los header con el token de acceso
+     
+  }
+
+  obtenerCitamedicaFacturaPorId( idCita: number ){
+    console.log('AQUI ESTA EL ID DE LA CITA QUE LLEGA AL METODO obtenerCitamedicaFacturaPorId',idCita);
+    return this.http.get<any>(`${ base_url }/cita_medica/${idCita}`, this.headers) 
+     
+  }
+
+  obtenerCitaMedicaPorIdParaMedicos(  rutMedico: string ):Observable<CitasResponse>{ //aca role no viene como parametro (viene email y nombre en this.perfilForm.value) pero aun asi funciona ya que role simplemente se ignora
+    
+    return this.http.get<CitasResponse>(`${ base_url }/cita_medica/${rutMedico}`, this.headers) //Para actualizar los datos del usuario se necesita enviar al backend El id que se obtiene de un metodo get que me da el id del usuario logeado que es el mismo que esta intentando actualizar sus datos, la data que se quiere actualizar que es enviada por un formulario y los header con el token de acceso
      
   }
 

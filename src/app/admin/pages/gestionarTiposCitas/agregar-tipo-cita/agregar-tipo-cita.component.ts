@@ -22,15 +22,19 @@ export class AgregarTipoCitaComponent {
   ) {
     this.formularioTipoCita = this.fb.group({
       tipo_cita: ['', Validators.required],
-      precio: ['', Validators.required],
+      precio: ['', [Validators.required, Validators.pattern(/^\d*\.?\d+$/)]],
       especialidad_medica: ['', Validators.required],
-      color_etiqueta: ['#3498db', Validators.required]
+      duracion_cita: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+
     });
   }
 
   crearTipoCita() {
     if (this.formularioTipoCita.valid) {
       const formData: Tipo_cita = this.formularioTipoCita.value;
+
+      // Convertir duracion_cita a número
+     
       console.log(formData);
       this.TipoCitaService.crearTipoCita(formData).subscribe(
         (respuesta: tipoCitaResponse) => {

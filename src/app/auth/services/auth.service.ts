@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import { Observable, catchError, throwError, map, of, tap } from 'rxjs';
 import { environment } from 'src/environment/environment';
 import { Usuario } from 'src/app/models/usuario';
 import { RegisterForm } from '../interfaces/register-form.register';
@@ -42,19 +42,18 @@ export class AuthService {
 
 
 
-  login( email: string, password: string ){ //formData es un objeto que tiene el tipo LoginForm definido en la interfaz y donde vienen el email y el password
-    const body = {
-      email,
-      password
-    };
-    return this.http.post(`${base_url}/login`,body) // IMPORTANTE!! EN ESTE CASO LA RESPUESTA SERIA EL OK:TRUE Y EL TOKEN
-        .pipe(                                           //El operador pipe() es una función que permite encadenar una serie de operaciones sobre un flujo de datos (en este caso, los datos devueltos por la solicitud HTTP)
-          tap( (resp: any) => { 
-            console.log(resp.menu);
-            this.guardarLocalStorage(resp.token, resp.menu); 
-
-          })
-        )
+  login(email: string, password: string) {
+    const body = { email, password };
+    return this.http.post(`${base_url}/login`, body).pipe(
+      tap((resp: any) => {
+        console.log(resp.menu);
+        this.guardarLocalStorage(resp.token, resp.menu);
+      }),
+      catchError(error => {
+        // Pasar el error al componente
+        return throwError(error);
+      })
+    );
   }
 
 

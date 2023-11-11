@@ -1,28 +1,21 @@
-<div class="row animated fadeIn fast">
+<div class="row animated fadeIn fast"
+>
     <div class="col-12">
         <div class="card">
             <div class="card-body">
 
                 <input type="text"
                         class="form-control"
-                        placeholder="Buscar historial..."
-                       > <!--CUANDO SE PRESIONE UNA TECLA BUSQUE EL TERMINO KEYUP ES PARA VER LAS LETRAS QUE SE ESCRIBEN EN TIEMPO REAL MIENTRAS SE EPREISONA UNA LETRA-->
+                        placeholder="Buscar Historial..."
+                        #txtTermino
+                        (keyup)="buscar( txtTermino.value )"/>
 
             </div>
         </div>
     </div>
-</div>
+</div> 
 
-<div class="container-fluid">
-    <div class="row">
-      <div class="col">
-        <!-- Contenido principal aquí -->
-      </div>
-      <div class="col-auto">
-        <a routerLink="/agregar-historial" class="btn btn-primary">Agregar historial</a>
-      </div>
-    </div>
-  </div>
+
 
 <div class="row animated fadeIn fast"> <!--SI NO ESTA CARGADO-->
     <div class="col-12">
@@ -40,8 +33,8 @@
                           <th>Medicamento</th>
                           <th>notas</th>
                           <th>Fecha de consulta</th>
-                          <th>Paciente</th>
-                          <th>Acciones</th>
+                          <th>Rut paciente</th>
+                      
                         </tr>
                       </thead>
                       <tbody>
@@ -50,28 +43,10 @@
                           <td>{{historial.diagnostico}}</td>
                           <td>{{historial.medicamento}}</td>
                           <td>{{historial.notas}}</td>
+                          <td>{{historial.fecha_consulta}}</td>
                           <td>{{historial.rut_paciente}}</td>
-                          <td>{{historial.archivo}}</td>
-                          <td>ola</td>
+                   
 
-              <td>
-                <div class="icon-container">
-                    <a class="cursor"
-                      data-toggle="tooltip" 
-                      data-original-title="Borrar"
-                      > 
-                      <i class="fa fa-close text-danger"></i> 
-                    </a>
-                  </div>
-                  <div class="icon-container">
-                    <a class="cursor"
-                      data-toggle="tooltip" 
-                      data-original-title="Editar"
-                    > 
-                      <i class="fa fa-pencil text-primary"></i> 
-                    </a>
-                  </div>
-                </td>
                 
                 
                 
@@ -80,11 +55,11 @@
                     </table>
                   </div>
                 <!--ESTA CONDICION SE HACE PARA QUE CUANDO SE TECLEA EN LA BARRA DE BUSQUEDA Y SE CARGAN LOS RESULTADOS DE BUSQUEDA DESAPARESCAN LOS BOTONES SIGUIENTES Y ANTERIOR EN LA PANTALLA-->
-                <div> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
-                    <button  class="btn btn-secondary">Anteriores</button>
-                    &nbsp; <!--Esto es para que exista una pequeña separacion entre ambos-->
-                    <button  class="btn btn-secondary">Siguiente</button>
-                </div>
+                <div *ngIf="txtTermino.value.length === 0"> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
+                  <button (click)="cambiarPagina(-5)" class="btn btn-secondary">Anteriores</button>
+                  &nbsp; <!--Esto es para que exista una pequeña separacion entre ambos-->
+                  <button (click)="cambiarPagina(5)" class="btn btn-secondary">Siguiente</button>
+              </div>
             
             </div>
         </div>
