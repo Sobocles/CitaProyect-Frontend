@@ -5,7 +5,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                    
+                <p style="font-weight: bold; color: #3336ff;">Busca citas medicas por nombre del usuarios o nombre del medico...</p>
                 <input type="text"
                         class="form-control"
                         placeholder="Buscar Citas medica..."
@@ -60,13 +60,15 @@
                                 <td>{{ cita.paciente.nombre }}</td>
                                 <td>{{ cita.medico.nombre }}</td>
                                 <td>{{ cita.motivo }}</td>
-                                <td>
-                                    <select class="form-control" [(ngModel)]="cita.estado" (change)="cambioEstado(cita)">
-                                        <option value="en_curso">En Curso</option>
-                                        <option value="terminado">Terminado</option>
-                                        <option value="no_asistio">No Asistió</option>
-                                    </select>
-                                  </td>
+
+                                <select class="form-control" [(ngModel)]="cita.estado" (change)="cambioEstado(cita)">
+                                    <option value="en_curso">En Curso</option>
+                                    <option value="terminado">Terminado</option>
+                                    <option value="no_asistio">No Asistió</option>
+                                    <option value="pagado">Pagado</option>
+                                    <!-- Añade aquí más estados si los hay -->
+                                </select>
+                                
                                   
                                 <td>{{ cita.hora_inicio }}</td>
                                 <td>{{ cita.hora_fin }}</td>

@@ -10,7 +10,8 @@
 
         <!-- Rectángulos para días de la semana -->
         <div class="col-md-4">
-            <div class="d-flex flex-column mb-5">
+            <div class="d-flex flex-column mb-5 offset-md-5">
+            <div class="offset-md-3 mb-2">Horario de la clinica</div>
                 <div *ngFor="let horario of horarioClinicas" class="p-3 m-2 rounded-circle bg-light text-center custom-day">
                     {{ horario.dia.charAt(0).toUpperCase() + horario.dia.slice(1) }}
                     <br>
@@ -24,9 +25,18 @@
             </div>
         </div>
 
-        <!-- Espacio para el calendario -->
+     
         <div class="col-md-6">
-            <!-- Aquí iría el componente FullCalendar -->
+            <div class="col-md-6 offset-md-4">
+                <!-- Información de la clínica -->
+                <div *ngIf="infoClinica" class="info-clinica">
+                    <h3>Información de la Clínica</h3>
+                    <p><strong>Nombre:</strong> {{ infoClinica.nombreClinica }}</p>
+                    <p><strong>Dirección:</strong> {{ infoClinica.direccion }}</p>
+                    <p><strong>Teléfono:</strong> {{ infoClinica.telefono }}</p>
+                    <p><strong>Email:</strong> {{ infoClinica.email }}</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

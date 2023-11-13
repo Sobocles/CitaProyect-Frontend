@@ -8,6 +8,7 @@ import { Usuario } from 'src/app/models/usuario';
 import { RegisterForm } from '../interfaces/register-form.register';
 import { Paciente } from 'src/app/admin/pages/interface/paciente';
 import { Medico } from 'src/app/models/medico';
+import { InfoClinica } from 'src/app/models/infoClinica';
 
 const base_url = environment.base_url;
 
@@ -18,6 +19,7 @@ export class AuthService {
 
   public usuario!: Usuario;
   public medico!: Medico;
+  public infoClinica!: InfoClinica;
 
   constructor(private http: HttpClient) {
     this.validarToken()
@@ -92,37 +94,42 @@ export class AuthService {
       */
 
 
-     validarToken(): Observable<boolean> { 
+     validarToken(): Observable<boolean> {
       // Configura las cabeceras correctamente en el objeto de opciones
       const options = {
-        headers: new HttpHeaders({
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        })
+          headers: new HttpHeaders({
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+          })
       };
-    
+  
       return this.http.post(`${base_url}/login/revalidarToken`, {}, options).pipe(
-        map((resp: any) => {
-          this.guardarLocalStorage(resp.token, resp.menu); 
-          const { rut, nombre, apellidos, rol } = resp.userOrMedico;
-
-          
-          // Comprobamos el rol para determinar si instanciamos un Usuario o un Medico
-          if (rol === 'MEDICO_ROLE') {
-            this.medico = new Medico(nombre, apellidos, rol, rut);
-      
-          } else { // Por defecto, asumimos que es un Usuario
-            this.usuario = new Usuario(nombre, apellidos, rol, rut);
-            console.log(this.usuario);
-          }
-     
-          
-          
-          return true;
-        }),
-        catchError((error) => of(false))
+          map((resp: any) => {
+              this.guardarLocalStorage(resp.token, resp.menu); 
+              const { rut, nombre, apellidos, rol } = resp.userOrMedico;
+              
+              // Comprueba si existe información de la clínica antes de crear una instancia
+              if (resp.infoClinica) {
+                  const { nombreClinica, direccion, telefono, email  } = resp.infoClinica;
+                  this.infoClinica = new InfoClinica(nombreClinica, direccion, telefono, email);
+              } else {
+                  // Manejo de situación donde no hay datos de clínica
+                   // O asigna valores predeterminados si es necesario
+              }
+  
+              // Comprobamos el rol para determinar si instanciamos un Usuario o un Medico
+              if (rol === 'MEDICO_ROLE') {
+                  this.medico = new Medico(nombre, apellidos, rol, rut);
+              } else { // Por defecto, asumimos que es un Usuario
+                  this.usuario = new Usuario(nombre, apellidos, rol, rut);
+              }
+  
+              console.log(this.infoClinica, this.usuario, this.medico);
+  
+              return true;
+          }),
+          catchError((error) => of(false))
       );
-    }
-
+  }
 
   
      recuperarPassword(nombre: string, email: string) {

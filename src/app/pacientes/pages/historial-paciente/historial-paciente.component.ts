@@ -30,29 +30,34 @@ export class HistorialPacienteComponent implements OnInit {
   }
 
 
-  cambiarPagina( valor: number ) {
-    
-    this.desde +=valor;
+  cambiarPagina(valor: number) {
+    this.desde += valor;
 
-    if( this.desde < 0){
-      this.desde = 0;
-    } else if( this.desde >= this.totalHistoriales ){ 
-      this.desde -= valor;
+    if (this.desde < 0) {
+        this.desde = 0;
+    } else if (this.desde >= this.totalHistoriales) {
+        this.desde -= valor;
     }
-   
 
-  }
+    const rutUsuario = this.authservice.usuario?.rut;
+    if (rutUsuario) {
+        this.cargarHistorialMedico(rutUsuario);
+    } else {
+        console.error("RUT del usuario no definido o usuario no autenticado");
+    }
+}
+
 
   cargarHistorialMedico(rut: string) {
-    this.historialService.obtenerHistorialPorId(rut)
-    .subscribe((historial:HistorialResponse) => {
-      console.log(historial)
+    this.historialService.obtenerHistorialPorId(rut, this.desde)
+    .subscribe((historial: HistorialResponse) => {
+      console.log(historial);
       this.historialMedico = historial.historiales;
-     
-
+      this.totalHistoriales = historial.total; // Asegúrate de que el backend devuelva el total de historiales
     }, error => {
       console.error("Error al obtener el historial médico:", error);
     });
-  }
+}
+
 
 }

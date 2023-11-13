@@ -3,7 +3,7 @@
       <div class="col-md-8">
         <h2 class="text-center mb-4">Formulario de Editar Usuario</h2>
         <form [formGroup]="formulario"
-        >
+        (ngSubmit)="editarPaciente()">
           <div class="form-row">
             <div class="form-group col-md-6 mb-3">
               <label for="rut_paciente">Rut</label>
@@ -17,10 +17,7 @@
               <label for="apellidos">Apellidos</label>
               <input type="text" class="form-control" id="apellidos" formControlName="apellidos" placeholder="Apellidos">
             </div>
-            <div class="form-group col-md-6 mb-3">
-              <label for="apellidos">Password</label>
-              <input type="password" class="form-control" id="password" formControlName="password" placeholder="password">
-            </div>
+
           </div>
           <div class="form-row">
             <div class="form-group col-md-6 mb-3">

@@ -69,19 +69,18 @@ export class GestionarHorariosMedicosComponent implements OnInit {
   }
 
   buscar(termino: string): void {
-
     if (termino.length === 0) {
-     
-        return; // Termina la ejecución si no hay término a buscar
+      this.cargaHorario(); // Recargar todos los horarios si la búsqueda está vacía
+      return;
     }
-
+  
     this.BusquedasService.buscar('horario_medico', termino)
-    .subscribe((resp: HorarioMedico[]) => {  // Cambia el tipo a HorarioMedico[] para que coincida con la estructura esperada
-      this.horarios = resp;
-      console.log(this.horarios);
-  });  
-         
-}
+      .subscribe((resp: HorarioMedico[]) => {
+        this.horarios = resp; // Asignar los resultados de la búsqueda
+        console.log(this.horarios);
+    });  
+  }
+  
 
 cambiarPagina( valor: number ) {
   console.log(valor);

@@ -57,11 +57,11 @@ export class CitaMedicaService {
      
   }
 
-  obtenerCitaMedicaPorIdParaMedicos(  rutMedico: string ):Observable<CitasResponse>{ //aca role no viene como parametro (viene email y nombre en this.perfilForm.value) pero aun asi funciona ya que role simplemente se ignora
-    
-    return this.http.get<CitasResponse>(`${ base_url }/cita_medica/${rutMedico}`, this.headers) //Para actualizar los datos del usuario se necesita enviar al backend El id que se obtiene de un metodo get que me da el id del usuario logeado que es el mismo que esta intentando actualizar sus datos, la data que se quiere actualizar que es enviada por un formulario y los header con el token de acceso
-     
-  }
+  obtenerCitaMedicaPorIdParaMedicos(rutMedico: string, desde: number, limite: number = 5): Observable<CitasResponse> { 
+    const url = `${ base_url }/cita_medica/medico/${rutMedico}?desde=${desde}&limite=${limite}`;
+    console.log('URL de solicitud:', url);
+    return this.http.get<CitasResponse>(url, this.headers); 
+}
 
   cargarCitaMedica(desde: number = 0) {
     console.log('aqui esta el desde',desde)

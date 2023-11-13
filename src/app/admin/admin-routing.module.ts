@@ -17,6 +17,9 @@ import { EditarHorarioComponent } from './pages/gestionarHorariosMedicos/editar-
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { EditarUsuarioComponent } from './pages/gestionar-pacientes/editar-usuario/editar-usuario.component';
 import { EditarTipoCitaComponent } from './pages/gestionarTiposCitas/editar-tipo-cita/editar-tipo-cita.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
+import { InfoClinicaComponent } from './pages/info-clinica/info-clinica.component';
+import { AgregarInfoClinicaComponent } from './pages/info-clinica/agregar-info-clinica/agregar-info-clinica.component';
 
 
 const routes: Routes = [
@@ -24,6 +27,12 @@ const routes: Routes = [
     path: '',
     component: LayoutPageComponent,
     children: [
+      { path: 'info-clinica', component: InfoClinicaComponent, canActivate: [AuthGuard]  },
+
+      { path: 'agregar-info-clinica', component: AgregarInfoClinicaComponent, canActivate: [AuthGuard]  },
+
+      { path: 'inicio-instrucciones', component: InicioComponent, canActivate: [AuthGuard]  },
+
       { path: 'gestionar-pacientes', component: GestionarPacientesComponent , canActivate: [AuthGuard] },
       {
         path: 'agregar-paciente', component: AgregarPacienteComponent, canActivate: [AuthGuard]  // El componente al que deseas redirigir
@@ -63,6 +72,8 @@ const routes: Routes = [
       { path: 'agregar-tipo-cita', component: AgregarTipoCitaComponent, canActivate: [AuthGuard]  },
 
       { path: 'editar-tipoCita/:id', component: EditarTipoCitaComponent, canActivate: [AuthGuard]  },
+
+      
     
 
     

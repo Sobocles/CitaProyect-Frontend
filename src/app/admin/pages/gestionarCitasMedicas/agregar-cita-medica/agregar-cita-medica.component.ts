@@ -107,7 +107,7 @@ export class AgregarCitaMedicaComponent implements OnInit {
       }
     };
     console.log(nuevaCita);
-    console.log(nuevaCita);
+
     this.citaMedicaService.crearCitaMedica(nuevaCita).subscribe(
       response => {
         Swal.fire('Exito', 'Cita creada exitosamente!', 'success');

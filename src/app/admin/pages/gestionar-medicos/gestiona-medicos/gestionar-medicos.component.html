@@ -10,7 +10,7 @@
                 Si ya tienes medicos en tu aplicacion, registra su horario laboral
                 <a href="/gestionar-horarios-medicos" class="btn btn-info">   Aqui</a>
               </div>
-
+              <p style="font-weight: bold; color: #3336ff;">Busca medicos por su nombre</p>
                 <input type="text"
                         class="form-control"
                         placeholder="Buscar medico..."
@@ -55,7 +55,7 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th>Foto</th>
+                      <!-- <th>Foto</th> -->
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Apellidos</th>
@@ -71,7 +71,7 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let medico of medicos">
-                        <td>{{ medico.foto }}</td>
+                       <!-- <td>{{ medico.foto }}</td> -->
                         <td>{{ medico.rut }}</td>
                         <td>{{ medico.nombre }}</td>
                         <td>{{ medico.apellidos }}</td>

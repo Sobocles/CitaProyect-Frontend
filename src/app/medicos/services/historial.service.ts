@@ -36,8 +36,9 @@ export class HistorialService {
     return this.http.post(url, historial, this.headers);
   }
 
-  obtenerHistorialPorId(  rut_paciente: string ):Observable<HistorialResponse>{ 
-    return this.http.get<HistorialResponse>(`${ base_url }/historial/${rut_paciente}`, this.headers) 
-     
-  }
+  obtenerHistorialPorId(rutPaciente: string, desde: number, limite: number = 5): Observable<HistorialResponse> { 
+    const url = `${ base_url }/historial/${rutPaciente}?desde=${desde}&limite=${limite}`;
+    return this.http.get<HistorialResponse>(url, this.headers); 
+}
+
 }

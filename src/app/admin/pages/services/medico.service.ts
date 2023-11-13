@@ -42,9 +42,7 @@ export class MedicoService {
   cargarMedicos(desde: number = 0 ):Observable<MedicoResponse> {
     //localhost:3000/api/usuarios?desde=0
     const url = `${ base_url }/medicos?desde=${ desde }`;
-    return this.http.get<MedicoResponse>( url, this.headers)
-       
-        
+    return this.http.get<MedicoResponse>( url, this.headers)      
   }
 
   cargarAllmedicos( ):Observable<MedicoResponse> {

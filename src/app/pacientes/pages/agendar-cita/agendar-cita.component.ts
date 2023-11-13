@@ -6,6 +6,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 
 import { Router } from '@angular/router';
 import { CalendarOptions } from 'fullcalendar';
+import { InfoClinica } from 'src/app/models/infoClinica';
+import { AuthService } from '../../../auth/services/auth.service';
 @Component({
   selector: 'app-agendar-cita',
   templateUrl: './agendar-cita.component.html',
@@ -15,8 +17,9 @@ export class AgendarCitaComponent implements OnInit{
 
   horarioClinicas: Horario [] = [];
   calendarOptions: CalendarOptions;
+  public infoClinica!: InfoClinica;
 
-  constructor(private TipoCitaService: TipoCitaService, private HorarioClinicaService: HorarioClinicaService, private router: Router){
+  constructor(private TipoCitaService: TipoCitaService, private HorarioClinicaService: HorarioClinicaService, private router: Router, private AuthService: AuthService){
     this.calendarOptions = {
       plugins: [dayGridPlugin],
       initialView: 'dayGridMonth',
@@ -25,6 +28,8 @@ export class AgendarCitaComponent implements OnInit{
   }
 
       ngOnInit(): void {
+        this.infoClinica = this.AuthService.infoClinica;
+        
         this.HorarioClinicaService.cargarHorarioClinica()
     .subscribe((resp: HorarioClinicaResponse) => { 
 

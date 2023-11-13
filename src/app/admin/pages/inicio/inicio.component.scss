@@ -1,0 +1,41 @@
+/* Suponiendo que este es tu archivo de estilo: instrucciones.component.scss */
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+.introduction {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.instruction-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.instruction-list li {
+    background-color: #fff;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.instruction-list li strong {
+    color: #2a2a2a;
+}
+
+/* Puedes añadir más estilos para personalizar aún más tu componente */

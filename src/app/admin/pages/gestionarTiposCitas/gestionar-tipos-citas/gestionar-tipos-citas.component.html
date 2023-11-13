@@ -3,10 +3,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-
+              <p style="font-weight: bold; color: #3336ff;">Busca tipo cita por especialidad...</p>
                 <input type="text"
                         class="form-control"
-                        placeholder="Buscar Horario..."
+                        placeholder="Buscar tipo cita..."
                         #txtTermino
                         (keyup)="buscar( txtTermino.value )"/>
 
@@ -30,8 +30,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Total de usuarios: </h4>
-                <h6 class="card-subtitle">Usuarios registrados en mi aplicacion</h6>
+                <h4 class="card-title">Total de tipos de cita: </h4>
+                <h6 class="card-subtitle">Total de tipos cita registradas en mi aplicacion ({{totalTipoCitas}})</h6>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                       <thead>

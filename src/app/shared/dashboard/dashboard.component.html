@@ -25,9 +25,14 @@
       <button mat-icon-button (click)="sidenav.toggle()">
           <mat-icon>menu</mat-icon>
       </button>
+ 
       <span class="spacer"></span>
       <button mat-button (click)="onLogout()">Logout</button>
+      <span class="user-info" *ngIf="authService.usuario">
+        {{ authService.usuario.nombre }} {{ authService.usuario.apellidos }}
+    </span>
   </mat-toolbar>
+  
 
   <div class="container p-2">
       <router-outlet></router-outlet>

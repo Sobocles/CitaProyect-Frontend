@@ -1,5 +1,6 @@
 export interface tipoCitaResponse {
     tipo_cita: Tipo_cita[];
+    total: number;
   }
   
   export interface Tipo_cita {

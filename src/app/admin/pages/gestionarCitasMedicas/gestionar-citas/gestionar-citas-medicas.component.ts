@@ -26,22 +26,19 @@ export class GestionarCitasMedicasComponent implements OnInit {
       this.cargarCitas();
     }
   
-  buscar(termino: string): void {
-    console.log(termino);
-    if (termino.length === 0) {
-     
-        return; // Termina la ejecución si no hay término a buscar
+    buscar(termino: string): void {
+      if (termino.length === 0) {
+        this.cargarCitas(); // Recargar todas las citas si la búsqueda está vacía
+        return;
+      }
+    
+      this.BusquedasService.buscar('cita_medica', termino)
+        .subscribe((resp: any) => {
+          this.citas = resp.citas; // Asegúrate de que resp.citas exista y sea el formato correcto
+          console.log(this.citas);
+        });  
     }
-
-    this.BusquedasService.buscar('cita_medica', termino)
-    .subscribe((resp: any) => { // Asegúrate de que el tipo de 'resp' sea correcto según la estructura que recibes
-      console.log('AQUI ESTA LA RESPUESTA DEL SERVIDOR EN BASE AL TERMINO DE BUSQUEDA', resp);
-      console.log('AQUI ESTA LA RESPUESTA DEL SERVIDOR EN BASE AL TERMINO DE BUSQUEDA', resp.citas);
-      this.citas = resp.citas;
-      console.log(this.citas);
-    });
-         
-}
+    
 
 borrarCita( cita: any ) {
 

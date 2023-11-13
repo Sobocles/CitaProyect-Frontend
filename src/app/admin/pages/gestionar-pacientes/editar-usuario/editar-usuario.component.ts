@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PacienteService } from '../../services/usuario.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-editar-usuario',
   templateUrl: './editar-usuario.component.html',
@@ -16,7 +17,7 @@ export class EditarUsuarioComponent implements OnInit {
       rut: ['', Validators.required],
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
-      password: ['', Validators.required],
+  
       email: ['', [Validators.required, Validators.email]],
       fecha_nacimiento: [''],
       telefono: ['', Validators.pattern(/^[0-9]*$/)],
@@ -30,21 +31,51 @@ export class EditarUsuarioComponent implements OnInit {
       if (usuarioId) {
         // Obtén los datos del médico y llénalos en el formulario
         this.PacienteService.obtenerUsuarioPorId(usuarioId).subscribe((response: any) => {
-          const usuario = response.medico;
-          console.log('Usuario completo:', usuario);
-          console.log('RUT del usuario:', usuario.rut);
+          const usuarioData = response.usuario; // Acceder al objeto usuario interno
+          console.log('Usuario completo:', usuarioData);
+          console.log('RUT del usuario:', usuarioData.rut);
           this.formulario.patchValue({
-            rut: usuario.rut,
-            nombre: usuario.nombre,
-            apellidos: usuario.apellidos,
-            email: usuario.email,
-            fecha_nacimiento: usuario.fecha_nacimiento,
-            telefono: usuario.telefono,
-            direccion: usuario.direccion,  
+            rut: usuarioData.rut,
+            nombre: usuarioData.nombre,
+            apellidos: usuarioData.apellidos,
+            email: usuarioData.email,
+            fecha_nacimiento: usuarioData.fecha_nacimiento,
+            telefono: usuarioData.telefono,
+            direccion: usuarioData.direccion,  
           });
         });
       }
 
+    });
+  }
+
+  editarPaciente() {
+    console.log('AQUI ENTREEEEEEEEEEEEEEE');
+    Swal.fire({
+      title: '¿Editar usuario?',
+      text: 'Esta a punto de editar los datos del usuario. ¿Desea continuar?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, editar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.value) {
+      
+          console.log('AQUI',this.formulario.value);
+          const usuarioEditado = this.formulario.value;
+          console.log('AQUI ESTA EL USUARIO EDITADO',usuarioEditado);
+          this.PacienteService.editarUsuario(usuarioEditado).subscribe(
+            (response) => {
+              Swal.fire('Éxito', 'Usuario editado exitosamente', 'success');
+              this.router.navigateByUrl('/gestionar-pacientes');
+            },
+            (error) => {
+              Swal.fire('Error', 'Hubo un error al editar el médico', 'error');
+              // Manejar errores, como mensajes de error o reversiones de cambios en el formulario.
+            }
+          );
+      
+      }
     });
   }
 

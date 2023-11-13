@@ -73,15 +73,15 @@ export class GestionarMedicosComponent implements OnInit {
     this.router.navigate(['/editar-medico', medico.rut]);
   }
 
-      cambiarPagina( valor: number ) { //El valor indica que cantidad de usuarios se mostraran en cada pagina (+5 para el boton suguiente, -5 para anterior)
+      cambiarPagina( valor: number ) { 
         this.desde +=valor;
 
-        if( this.desde < 0){ //Condicion que evita que al restar -5 a desde valor a desde se obtenga un numero menor a 0
+        if( this.desde < 0){ 
           this.desde = 0;
-        } else if( this.desde >= this.totalUsuarios ){ //Condicion que evita que al sumar +5 a desde a desde se obtenga un numero menor a 0
+        } else if( this.desde >= this.totalUsuarios ){ 
           this.desde -= valor;
         }
-        this.cargaMedicos(); //Luego de hacer las validaciones se muestran los usuarios
+        this.cargaMedicos(); 
       }
 
   buscar(termino: string): void {

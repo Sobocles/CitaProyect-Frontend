@@ -3,3 +3,17 @@ mat-list-item:hover {
     cursor: pointer;
 }
 
+.mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .user-info {
+        margin-left: auto; // Empuja el contenido a la derecha
+        padding-left: 20px; // Espacio a la izquierda del texto
+        padding-right: 120px; // Espacio a la derecha del texto
+    }
+}
+
+
+

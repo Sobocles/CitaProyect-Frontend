@@ -21,6 +21,9 @@ import { EditarMedicoComponent } from './pages/gestionar-medicos/editar-medico/e
 import { EditarHorarioComponent } from './pages/gestionarHorariosMedicos/editar-horario/editar-horario.component';
 import { EditarUsuarioComponent } from './pages/gestionar-pacientes/editar-usuario/editar-usuario.component';
 import { EditarTipoCitaComponent } from './pages/gestionarTiposCitas/editar-tipo-cita/editar-tipo-cita.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
+import { InfoClinicaComponent } from './pages/info-clinica/info-clinica.component';
+import { AgregarInfoClinicaComponent } from './pages/info-clinica/agregar-info-clinica/agregar-info-clinica.component';
 
 
 
@@ -50,6 +53,9 @@ import { EditarTipoCitaComponent } from './pages/gestionarTiposCitas/editar-tipo
     EditarHorarioComponent,
     EditarUsuarioComponent,
     EditarTipoCitaComponent,
+    InicioComponent,
+    InfoClinicaComponent,
+    AgregarInfoClinicaComponent,
   
 
   

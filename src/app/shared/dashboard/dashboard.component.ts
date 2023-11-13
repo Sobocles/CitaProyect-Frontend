@@ -13,12 +13,13 @@ export class DashboardComponent {
   constructor(
     private router: Router,
     public sidebarService: SidebarService,
-    private authService: AuthService
+    public authService: AuthService
   ) {}
 
   onLogout() {
     this.authService.logout();
     this.router.navigate(['/auth']); // o donde sea tu página de login
+    this.authService.usuario.apellidos
   }
 
   // Resto del código de tu componente

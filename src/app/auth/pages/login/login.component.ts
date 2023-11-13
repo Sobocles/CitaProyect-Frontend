@@ -37,7 +37,7 @@ login() {
       console.log(resp);
       // Aquí se maneja la lógica de redirección según el rol del usuario
       if (resp.userOrMedico.rol === 'ADMIN_ROLE') {
-        this.router.navigateByUrl('/gestionar-pacientes');
+        this.router.navigateByUrl('/inicio-instrucciones');
       } else if (resp.userOrMedico.rol === 'USER_ROLE') {
         this.router.navigateByUrl('/Agendar-cita');
       } else if (resp.userOrMedico.rol === 'MEDICO_ROLE') {

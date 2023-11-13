@@ -25,7 +25,10 @@ export class GestionarTiposCitasComponent implements OnInit{
   cargaTipocita() {
     this.TipoCitaService.cargaTipocita(this.desde)
       .subscribe((response: tipoCitaResponse) => {
+        console.log('AQUI ESTA LA RESPUESTA COMPLETA',response);
         this.tiposCitas = response.tipo_cita; // Asigna el arreglo tipo_cita de la respuesta a tiposCitas
+        console.log('AQUI ESTAN LOS TIPOS CITAS',this.tiposCitas);
+        this.totalTipoCitas = response.total;
 
       });
   }
@@ -61,18 +64,17 @@ export class GestionarTiposCitasComponent implements OnInit{
   }
 
   buscar(termino: string): void {
-
     if (termino.length === 0) {
-     
-        return; // Termina la ejecución si no hay término a buscar
+      this.cargaTipocita(); // Recargar los datos originales
+      return;
     }
-
+  
     this.BusquedasService.buscar('tipo_cita', termino)
-    .subscribe((resp: Tipo_cita[]) => {  // Cambia el tipo a HorarioMedico[] para que coincida con la estructura esperada
-      this.tiposCitas = resp;
-  });  
-         
-}
+      .subscribe((resp: Tipo_cita[]) => {
+        this.tiposCitas = resp;
+      });  
+  }
+  
 
     editarTipoCita( tipoCita:any ){
       this.router.navigate(['/editar-tipoCita', tipoCita.idTipo]);
@@ -80,7 +82,7 @@ export class GestionarTiposCitasComponent implements OnInit{
 
 
     cambiarPagina( valor: number ) {
-    
+
       this.desde +=valor;
 
       if( this.desde < 0){

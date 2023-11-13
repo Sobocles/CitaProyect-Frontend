@@ -62,6 +62,11 @@ export class PacienteService  {
     return this.http.put(`${ base_url }/usuarios/${paciente.rut}`, paciente, this.headers);
   }
 
+  
+  editarUsuario(usuario: any): Observable<any> {
+    return this.http.put(`${ base_url }/usuarios/${usuario.rut}`, usuario, this.headers);
+  }
+
   obtenerUsuarioPorId(  usuarioId:string ){ //aca role no viene como parametro (viene email y nombre en this.perfilForm.value) pero aun asi funciona ya que role simplemente se ignora
     
     console.log(usuarioId);
