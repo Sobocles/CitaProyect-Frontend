@@ -12,19 +12,20 @@ import Swal from 'sweetalert2';
 })
 export class EditarTipoCitaComponent implements OnInit {
 
-  formulario: FormGroup;
+  formularioTipoCita: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private TipoCitaService: TipoCitaService,  private activatedRoute: ActivatedRoute
   ) {
-    this.formulario = this.fb.group({
-      idTipo: ['', Validators.required],
+    this.formularioTipoCita = this.fb.group({
+      idTipo: [],
       tipo_cita: ['', Validators.required],
-      precio: ['', Validators.required],
+      precio: ['', [Validators.required, Validators.pattern(/^\d*\.?\d+$/)]],
       especialidad_medica: ['', Validators.required],
- 
+      duracion_cita: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+
     });
   }
 
@@ -38,7 +39,7 @@ export class EditarTipoCitaComponent implements OnInit {
             console.log('AQUI ESTA LA RESPUESTA',response);
             const tipoCita = response.medico;
             console.log('AQUI ESTA LA RESPUESTA TIPO CITA',tipoCita);
-            this.formulario.patchValue({
+            this.formularioTipoCita.patchValue({
               idTipo: tipoCita.idTipo,
               tipo_cita: tipoCita.tipo_cita,
               precio: tipoCita.precio,
@@ -63,7 +64,7 @@ export class EditarTipoCitaComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
        
-          const medicoEditado = this.formulario.value;
+          const medicoEditado = this.formularioTipoCita.value;
           this.TipoCitaService.editarTipoCita(medicoEditado).subscribe(
             (response) => {
               Swal.fire('Éxito', 'Tipo cita editado exitosamente', 'success');

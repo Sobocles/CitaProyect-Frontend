@@ -87,7 +87,7 @@ export class GestionarMedicosComponent implements OnInit {
   buscar(termino: string): void {
   
     if (termino.length === 0) {
-     
+      this.cargaMedicos();
         return; // Termina la ejecución si no hay término a buscar
     }
 

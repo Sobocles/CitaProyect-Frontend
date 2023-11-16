@@ -53,7 +53,8 @@
 </div>
 
 <!-- Al final de tu formulario -->
-<button type="submit" class="btn btn-primary">Guardar Cita</button>
+<button type="submit" class="btn btn-primary" [disabled]="!formularioValido()">Guardar Cita</button>
+
 
 
 

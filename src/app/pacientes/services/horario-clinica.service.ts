@@ -31,4 +31,9 @@ export class HorarioClinicaService {
     const url = `${base_url}/horario_clinica`;
     return this.http.get<HorarioClinicaResponse>(url,this.headers);
   }
+
+  obtenerHorarioEspecialidades() {
+    const url = `${base_url}/horario_clinica/porEspecialidad`;
+    return this.http.get(url,this.headers);
+  }
 }

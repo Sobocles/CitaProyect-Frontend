@@ -9,11 +9,11 @@
               <label for="rut_paciente">Rut</label>
               <input type="text" class="form-control" id="rut_paciente" formControlName="rut" placeholder="Ingrese su rut">
               <!-- Alerta para RUT inválido -->
-              <div *ngIf="formulario.controls['rut'].errors?.['rutInvalid']" class="alert alert-danger">
+              <div *ngIf="formulario.controls['rut'].errors?.['rutInvalid']" class="text-danger">
                 RUT no válido.
               </div>
               <!-- Alerta para campo requerido -->
-              <div *ngIf="formulario.controls['rut'].touched && formulario.controls['rut'].errors?.['required']" class="alert alert-danger">
+              <div *ngIf="formulario.controls['rut'].touched && formulario.controls['rut'].errors?.['required']" class="text-danger">
                 Este campo es obligatorio.
               </div>
             </div>
@@ -22,7 +22,7 @@
               <label for="nombres">Nombre</label>
               <input type="text" class="form-control" id="nombres" formControlName="nombre" placeholder="Ingrese su nombre">
               <!-- Alerta para campo requerido -->
-              <div *ngIf="formulario.controls['nombre'].touched && formulario.controls['nombre'].errors?.['required']" class="alert alert-danger">
+              <div *ngIf="formulario.controls['nombre'].touched && formulario.controls['nombre'].errors?.['required']" class="text-danger">
                 Este campo es obligatorio.
               </div>
             </div>
@@ -31,7 +31,7 @@
               <label for="apellidos">Apellidos</label>
               <input type="text" class="form-control" id="apellidos" formControlName="apellidos" placeholder="Ingrese sus apellidos">
               <!-- Alerta para campo requerido -->
-              <div *ngIf="formulario.controls['apellidos'].touched && formulario.controls['apellidos'].errors?.['required']" class="alert alert-danger">
+              <div *ngIf="formulario.controls['apellidos'].touched && formulario.controls['apellidos'].errors?.['required']" class="text-danger">
                 Este campo es obligatorio.
               </div>
             </div>
@@ -40,7 +40,7 @@
               <label for="password">Password</label>
               <input type="password" class="form-control" id="password" formControlName="password" placeholder="ingrese contraseña">
               <!-- Alerta para fuerza de contraseña -->
-              <div *ngIf="formulario.controls['password'].errors?.['passwordStrength']" class="alert alert-danger">
+              <div *ngIf="formulario.controls['password'].errors?.['passwordStrength']" class="text-danger">
                 La contraseña debe incluir mayúsculas, números y caracteres especiales.
               </div>
             </div>
@@ -66,7 +66,7 @@
             <label for="fechaNacimiento">Fecha de Nacimiento</label>
             <input type="date" class="form-control" id="fechaNacimiento" formControlName="fecha_nacimiento">
             <!-- Alerta para campo requerido -->
-            <div *ngIf="formulario.controls['fecha_nacimiento'].touched && formulario.controls['fecha_nacimiento'].errors?.['required']" class="alert alert-danger">
+            <div *ngIf="formulario.controls['fecha_nacimiento'].touched && formulario.controls['fecha_nacimiento'].errors?.['required']" class="text-danger">
               Este campo es obligatorio.
             </div>
           </div>
@@ -77,11 +77,11 @@
             <label for="telefono">Teléfono</label>
             <input type="tel" class="form-control" id="telefono" formControlName="telefono" placeholder="ingrese su Teléfono">
             <!-- Alerta para campo requerido -->
-            <div *ngIf="formulario.controls['telefono'].touched && formulario.controls['telefono'].errors?.['required']" class="alert alert-danger">
+            <div *ngIf="formulario.controls['telefono'].touched && formulario.controls['telefono'].errors?.['required']" class="text-danger">
               Este campo es obligatorio.
             </div>
             <!-- Alerta para formato de teléfono inválido -->
-            <div *ngIf="formulario.controls['telefono'].errors?.['telefonoInvalido'] && formulario.controls['telefono'].touched" class="alert alert-danger">
+            <div *ngIf="formulario.controls['telefono'].errors?.['telefonoInvalido'] && formulario.controls['telefono'].touched" class="text-danger">
               Formato de teléfono inválido. Debe ser +56 9 XXXX-XXXX.
             </div>
           </div>
@@ -89,7 +89,7 @@
             <label for="direccion">Dirección</label>
             <input type="text" class="form-control" id="direccion" formControlName="direccion" placeholder="ingrese su Dirección">
             <!-- Alerta para campo requerido -->
-            <div *ngIf="formulario.controls['direccion'].touched && formulario.controls['direccion'].errors?.['required']" class="alert alert-danger">
+            <div *ngIf="formulario.controls['direccion'].touched && formulario.controls['direccion'].errors?.['required']" class="text-danger">
               Este campo es obligatorio.
             </div>
           </div>

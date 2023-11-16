@@ -25,5 +25,7 @@
     </table>
 </div>
 <div *ngIf="bloques.length === 0">
-    <h2>No hay bloques disponibles</h2>
+    <h2>No hay medicos disponibles para ese dia, por favor seleccione otra fecha</h2>
+    <button class="btn btn-secondary" (click)="volverAlFormulario()">Volver al Formulario de Cita</button>
 </div>
+

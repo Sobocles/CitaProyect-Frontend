@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CitaMedicaService } from '../../../admin/pages/services/cita-medica.service';
 import { CitaMedicaF } from '../interfaces/payment';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-payment-success',
@@ -14,7 +15,7 @@ export class PaymentSuccessComponent implements OnInit {
 
   detallesCita: any | null = null;
 
-  constructor(private route: ActivatedRoute, private CitaMedicaService: CitaMedicaService  ) {}
+  constructor(private route: ActivatedRoute, private CitaMedicaService: CitaMedicaService, public AuthService: AuthService ) {}
 
   /*
         ngOnInit() {
@@ -40,6 +41,7 @@ export class PaymentSuccessComponent implements OnInit {
   */
 
   ngOnInit() {
+    console.log(this.AuthService.infoClinica);
     this.route.queryParams.subscribe(params => {
       const idCita = params['idCita'];
       console.log('AQUI ESTA EL ID DE LA CITA', idCita);

@@ -21,7 +21,6 @@ export class EditarMedicoComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       telefono: ['', Validators.pattern(/^[0-9]*$/)],
       direccion: [''],
-      foto: [''], 
       nacionalidad: [''], 
       titulo: [''], 
     });
@@ -42,7 +41,7 @@ export class EditarMedicoComponent implements OnInit {
             email: medico.email,
             telefono: medico.telefono,
             direccion: medico.direccion,
-            foto: medico.foto,
+            
             nacionalidad: medico.nacionalidad,
             titulo: medico.titulos,
           });

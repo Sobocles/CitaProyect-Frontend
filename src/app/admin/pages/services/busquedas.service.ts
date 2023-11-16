@@ -25,7 +25,7 @@ export class BusquedasService {
     }
   }
 
-  buscar(tipo: 'medicos' | 'usuarios' | 'horario_medico' | 'tipo_cita' | 'cita_medica', termino: string) {
+  buscar(tipo: 'medicos' | 'usuarios' | 'horario_medico' | 'tipo_cita' | 'cita_medica' | 'facturas', termino: string) {
     const url = `${base_url}/busqueda/coleccion/${tipo}/${termino}`;
     return this.http.get<any[]>(url, this.headers)
         .pipe(
@@ -40,7 +40,9 @@ export class BusquedasService {
                     case 'tipo_cita':
                         return resp.citas; // Asumiendo que la respuesta para 'tipo_cita' tiene una clave 'resultados' (puede necesitar ajuste si no es así).
                     case 'cita_medica':
-                        return resp; // Asumo que la respuesta para 'cita_medica' tiene una clave 'citas', basándome en el ejemplo que diste anteriormente.
+                        return resp;
+                        case 'facturas':
+                          return resp;  // Asumo que la respuesta para 'cita_medica' tiene una clave 'citas', basándome en el ejemplo que diste anteriormente.
                     default:
                         return [];
                 }

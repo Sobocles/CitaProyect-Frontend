@@ -122,6 +122,12 @@ export class AgregarPacienteComponent {
   }
 
   crearPaciente() {
+    if (this.formulario.invalid) {
+      // Marca todos los controles del formulario como tocados
+      this.formulario.markAllAsTouched();
+      return;
+    }
+  
     const formData = this.formulario.value;
     console.log(formData);
   
@@ -146,6 +152,7 @@ export class AgregarPacienteComponent {
       }
     );
   }
+  
   
 
 }

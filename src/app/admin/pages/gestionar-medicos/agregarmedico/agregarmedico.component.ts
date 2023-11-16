@@ -32,9 +32,9 @@ export class AgregarmedicoComponent implements OnInit {
       telefono: ['', [Validators.required, this.telefonoValidator]],
       direccion: ['', Validators.required],
   
-      nacionalidad: [''], 
+      nacionalidad: ['', Validators.required],
       password: ['', [Validators.required, this.passwordStrengthValidator]], // Aquí puedes agregar más validadores según tus necesidades
-      especialidad_medica: [''], 
+      especialidad_medica: ['', Validators.required], 
     });
   }
 
@@ -102,20 +102,27 @@ export class AgregarmedicoComponent implements OnInit {
   
 
   crearMedico() {
+    if (this.formulario.invalid) {
+      this.formulario.markAllAsTouched();
+      return;
+    }
+  
     const formData = this.formulario.value;
     console.log(formData);
-
+  
     this.MedicoService.crearMedico(formData).subscribe(
       (respuesta:any) => {
-         // Navegar al Dashboard ya que el registro fue EXITOSO!!
-         console.log(respuesta);
-         Swal.fire('Mensaje', respuesta.msg, 'success');
-      this.router.navigateByUrl('/gestionar-medicos');
-      
-    }, (err) => {
-      Swal.fire('Error', err.error.msg, 'error'); //al incluir err.error.msg se Accede al mensaje de error incluido en el backenend en caso de que el correo ya este registrado
-    } );
+        console.log(respuesta);
+        Swal.fire('Mensaje', respuesta.msg, 'success');
+        this.router.navigateByUrl('/gestionar-medicos');
+      }, 
+      (err) => {
+        Swal.fire('Error', err.error.msg, 'error');
+      } 
+    );
   }
+  
+  
 
   cargaEspecialidades() {
     this.TipoCitaService.cargaEspecialidades().subscribe(

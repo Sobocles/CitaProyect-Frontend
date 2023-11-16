@@ -119,6 +119,7 @@ export class AuthService {
               // Comprobamos el rol para determinar si instanciamos un Usuario o un Medico
               if (rol === 'MEDICO_ROLE') {
                   this.medico = new Medico(nombre, apellidos, rol, rut);
+                  console.log('aqui esta el medico instanciado', this.medico);
               } else { // Por defecto, asumimos que es un Usuario
                   this.usuario = new Usuario(nombre, apellidos, rol, rut);
               }

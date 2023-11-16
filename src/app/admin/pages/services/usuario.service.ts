@@ -4,6 +4,10 @@ import { environment } from 'src/environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+interface DeleteResponse {
+  msg: string;
+}
+
 const base_url = environment.base_url;
 
 @Injectable({
@@ -49,7 +53,7 @@ export class PacienteService  {
   borrarPaciente( id: string ){
     console.log(id);
     const url = `${ base_url }/usuarios/${ id }`;
-    return this.http.delete( url, this.headers );
+    return this.http.delete<DeleteResponse>( url, this.headers );
   }
 
   crearPaciente( formData: Paciente  ){    
@@ -73,5 +77,7 @@ export class PacienteService  {
     return this.http.put(`${ base_url }/usuarios/${usuarioId}`, this.headers) //Para actualizar los datos del usuario se necesita enviar al backend El id que se obtiene de un metodo get que me da el id del usuario logeado que es el mismo que esta intentando actualizar sus datos, la data que se quiere actualizar que es enviada por un formulario y los header con el token de acceso
      
   }
+
+  
 
 }

@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
       apellidos: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), this.passwordStrengthValidator]],
-      fecha_nacimiento: ['', [Validators.required, this.validarMayorDeEdad(18)]],
+      fecha_nacimiento: ['', [Validators.required]],
       telefono: ['', [Validators.required, this.telefonoValidator]],
       direccion: ['', Validators.required]
     });
@@ -100,33 +100,39 @@ export class RegisterComponent implements OnInit {
 
 
   registrar() {
-    if (this.miFormulario.valid) {
-        const formData = this.miFormulario.value;
-        console.log(formData);
-
-        // Llama al servicio AuthService para crear el usuario
-        this.AuthService.crearUsuario(formData).subscribe(
-            (respuesta) => {
-                console.log(respuesta);
-
-                // Mostrar una alerta de éxito usando SweetAlert2
-                Swal.fire({
-                    icon: 'success',
-                    title: '¡Registro completado!',
-                    text: 'Te has registrado exitosamente.',
-                    timer: 1500,
-                    showConfirmButton: false
-                }).then(() => {
-                    // Navegar al Dashboard ya que el registro fue EXITOSO!!
-                    this.router.navigateByUrl('/');
-                });
-
-            },
-            (err) => {
-                Swal.fire('Error', err.error.msg, 'error'); 
-            }
-        );
-    } 
-}
+    if (this.miFormulario.invalid) {
+      this.miFormulario.markAllAsTouched();
+      return;
+    }
+  
+    const formData = this.miFormulario.value;
+  
+    this.AuthService.crearUsuario(formData).subscribe(
+      (respuesta) => {
+        Swal.fire({
+          icon: 'success',
+          title: '¡Registro completado!',
+          text: 'Te has registrado exitosamente, ya puedes ingresar a tu cuenta.',
+          confirmButtonText: 'Aceptar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigateByUrl('/');
+          }
+        });
+      },
+      (err) => {
+        if (err.error.msg === 'El correo ya está registrado') {
+          Swal.fire('Error', 'El correo electrónico ya está en uso. Por favor, intenta con otro.', 'error');
+        } else if (err.error.msg === 'El teléfono ya está registrado') {
+          Swal.fire('Error', 'El número de teléfono ya está en uso. Por favor, intenta con otro.', 'error');
+        } else {
+          Swal.fire('Error', 'Ha ocurrido un error durante el registro. Por favor, inténtalo de nuevo.', 'error');
+        }
+      }
+    );
+  }
+  
+  
+  
 
 }

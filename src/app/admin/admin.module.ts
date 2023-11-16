@@ -24,6 +24,8 @@ import { EditarTipoCitaComponent } from './pages/gestionarTiposCitas/editar-tipo
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { InfoClinicaComponent } from './pages/info-clinica/info-clinica.component';
 import { AgregarInfoClinicaComponent } from './pages/info-clinica/agregar-info-clinica/agregar-info-clinica.component';
+import { VerFacturasComponent } from './pages/facturas-medicas/ver-facturas/ver-facturas.component';
+import { ImprimirFacturaComponent } from './pages/facturas-medicas/imprimir-factura/imprimir-factura.component';
 
 
 
@@ -56,6 +58,8 @@ import { AgregarInfoClinicaComponent } from './pages/info-clinica/agregar-info-c
     InicioComponent,
     InfoClinicaComponent,
     AgregarInfoClinicaComponent,
+    VerFacturasComponent,
+    ImprimirFacturaComponent,
   
 
   

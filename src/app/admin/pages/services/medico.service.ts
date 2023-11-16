@@ -53,6 +53,14 @@ export class MedicoService {
         
   }
 
+  cargarmedicosEspecialidad( ) {
+    //localhost:3000/api/usuarios?desde=0
+    const url = `${ base_url }/medicos/Especialidades`;
+    return this.http.get( url, this.headers)
+       
+        
+  }
+
   borrarMedico( id: string ){
     console.log(id);
     const url = `${ base_url }/medicos/${ id }`;

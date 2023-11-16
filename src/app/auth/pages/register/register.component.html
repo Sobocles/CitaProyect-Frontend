@@ -61,15 +61,12 @@
 
       <div class="flex flex-column w-50 pl-2">
         <mat-form-field>
-          <mat-label>Fecha de Nacimiento</mat-label>
-          <input type="date" matInput formControlName="fecha_nacimiento">
-          <mat-error *ngIf="miFormulario.get('fecha_nacimiento')?.errors?.['menorDeEdad']">
-            Debes tener al menos 18 años para registrarte.
-          </mat-error>
-          
-          
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input type="date" matInput formControlName="fecha_nacimiento">
+            <!-- El mensaje de error para menor de 18 años se ha eliminado -->
         </mat-form-field>
-      </div>
+    </div>
+    
 
       <!-- Grupo 4: Teléfono y Dirección -->
       <div class="flex flex-column w-50 pr-2">

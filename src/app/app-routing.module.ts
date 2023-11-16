@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanLoad } from '@angular/router';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { AdminGuard } from './auth/guards/admin.guard';
+import { medicGuard } from './auth/guards/medic.guard';
+
 
 const routes: Routes = [
   {
@@ -19,12 +21,14 @@ const routes: Routes = [
     path: 'ad',
     loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
     canActivate: [AuthGuard, AdminGuard], // Aplica el AuthGuard a esta ruta
+    canLoad: [AdminGuard],
   },
   {
     path: 'medicos',
     loadChildren: () => import('./medicos/medicos.module').then((m) => m.MedicosModule),
-    canActivate: [AuthGuard], // Aplica el AuthGuard a esta ruta
-    canLoad: [AuthGuard]
+    canActivate: [AuthGuard, medicGuard], // Aplica el AuthGuard a esta ruta
+    canLoad: [AdminGuard],
+ 
   },
   {
     path: '',

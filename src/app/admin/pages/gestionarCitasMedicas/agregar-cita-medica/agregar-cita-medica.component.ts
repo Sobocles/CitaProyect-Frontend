@@ -85,13 +85,6 @@ export class AgregarCitaMedicaComponent implements OnInit {
 
 
   guardarCita() {
-    console.log('PACIENTE',this.selectedPaciente);
-    console.log('FECHA',this.selectedDate);
-    console.log('HORA_INICIO',this.horaInicio);
-    console.log('selectedMedico',this.horaInicio);
-
-    
-  
     const nuevaCita: CitasResponsex = {
       cita: {
         idCita: 0,
@@ -99,25 +92,32 @@ export class AgregarCitaMedicaComponent implements OnInit {
         fecha: this.selectedDate,
         hora_inicio: this.horaInicio,
         hora_fin: this.horaFin,
-        rut_paciente: this.selectedPaciente,  // Modificado para ser una cadena directamente
-        rut_medico: this.selectedMedico.rutMedico,      // Modificado para ser una cadena directamente
-        tipo_cita: this.selectedTipoCita,  // Modificado el nombre de la propiedad a 'tipo_cita'
+        rut_paciente: this.selectedPaciente,
+        rut_medico: this.selectedMedico.rutMedico,
+        tipo_cita: this.selectedTipoCita,
         idTipoCita: this.idTipo,
-        estado: 'en_curso'   
+        estado: 'en_curso'
       }
     };
-    console.log(nuevaCita);
-
+    console.log('aqui esta la nueva cita',nuevaCita);
+  
     this.citaMedicaService.crearCitaMedica(nuevaCita).subscribe(
       response => {
         Swal.fire('Exito', 'Cita creada exitosamente!', 'success');
         this.router.navigateByUrl('/gestionar-cita');
       },
       error => {
-        Swal.fire('Error', 'Hubo un error al guardar la cita', 'error');
+        // Verifica si el error es específicamente por falta de médicos disponibles
+        if (error.error && error.error.msg) {
+          Swal.fire('Error', error.error.msg, 'error');
+        } else {
+          // Mensaje de error genérico si no es por falta de médicos disponibles
+          Swal.fire('Error', 'Hubo un error al guardar la cita', 'error');
+        }
       }
     );
   }
+  
   
   onTipoCitaChange(event: any) {
     if (event.target.value === 'Especialidad médica') {
@@ -127,6 +127,25 @@ export class AgregarCitaMedicaComponent implements OnInit {
     }
   }
   
+  formatDate(dateString: string): string {
+    const days = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+    const date = new Date(dateString);
+    const dayName = days[date.getDay()];
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+
+    return `${dayName} ${day} de ${month} del ${year}`;
+}
+
+formularioValido(): boolean {
+  return this.selectedPaciente && this.selectedTipoCita && 
+         (this.selectedTipoCita !== 'Especialidad médica' || this.selectedEspecialidad) &&
+         this.selectedDate && this.selectedMedico && this.selectedMedico.rutMedico;
+}
+
 
   onChangeData() {
     console.log('onChangeData fue llamada');
@@ -153,6 +172,18 @@ export class AgregarCitaMedicaComponent implements OnInit {
 
     console.log('este es el motivo', this.motivo);
 
+    const selectedDateObj = new Date(this.selectedDate);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Establecer la hora actual a medianoche
+
+    // Verifica si la fecha seleccionada es en el pasado o es hoy
+    if (selectedDateObj < currentDate) {
+        Swal.fire('Error', 'No puede seleccionar una fecha pasada para la cita.', 'error');
+        return; // Detiene la ejecución posterior
+    } else if (selectedDateObj.getTime() === currentDate.getTime()) {
+        Swal.fire('Advertencia', 'Ha seleccionado el día actual. Verifique la disponibilidad de los médicos para hoy.', 'warning');
+    }
+
     if (this.selectedDate) {
         console.log('ESTE ES', this.selectedDate);
 
@@ -166,8 +197,9 @@ export class AgregarCitaMedicaComponent implements OnInit {
                 
            
                 if (this.medicosDisponibles.length === 0) {
-                    Swal.fire('Información', 'No hay médicos disponibles para la fecha seleccionada.', 'info');
-                }
+                  const formattedDate = this.formatDate(this.selectedDate);
+                  Swal.fire('Información', `No hay médicos disponibles para el ${formattedDate}, para saber en qué horario trabajan sus médicos consulte sus horarios`, 'info');
+              }
             },
             (error) => {
                 console.error('Error obteniendo médicos disponibles:', error);
@@ -203,7 +235,7 @@ export class AgregarCitaMedicaComponent implements OnInit {
   cargaTipocita() {
     this.TipoCitaService.cargaTipocita()
       .subscribe((response: tipoCitaResponse) => {
-        console.log(response);
+        console.log('aqui estan los pacientes que se cargan',response);
         this.tiposCita = response.tipo_cita; // Asigna el arreglo tipo_cita de la respuesta a tiposCitas
 
       });

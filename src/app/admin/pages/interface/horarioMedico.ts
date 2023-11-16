@@ -12,6 +12,7 @@ export interface HorarioMedico {
     fechaCreacion: string;
     medico: {
       nombre: string;
+      apellidos: string,
       especialidad_medica: string;
       
     };

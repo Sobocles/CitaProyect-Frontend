@@ -63,6 +63,7 @@
 
                           
                           <th>Nombre medico</th>
+          
                           <th>Especialidad medica</th>
                          
                      
@@ -76,7 +77,8 @@
                           <td>{{ horario.horaInicio }}</td>
                           <td>{{ horario.horaFinalizacion }}</td>
  
-                          <td>{{ horario.medico.nombre }}</td>
+                          <td>{{ horario.medico.nombre + ' ' + horario.medico.apellidos }}</td>
+
                           <td>{{ horario.medico.especialidad_medica }}</td>
                           
                           

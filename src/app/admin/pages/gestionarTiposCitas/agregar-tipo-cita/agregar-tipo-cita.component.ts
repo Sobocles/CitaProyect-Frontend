@@ -30,26 +30,27 @@ export class AgregarTipoCitaComponent {
   }
 
   crearTipoCita() {
-    if (this.formularioTipoCita.valid) {
-      const formData: Tipo_cita = this.formularioTipoCita.value;
-
-      // Convertir duracion_cita a número
-     
-      console.log(formData);
-      this.TipoCitaService.crearTipoCita(formData).subscribe(
-        (respuesta: tipoCitaResponse) => {
-          console.log(respuesta);
-          Swal.fire('Mensaje', 'Registro exitoso', 'success');
-          this.router.navigateByUrl('/gestionar-tipo-cita');
-        },
-        (err) => {
-          Swal.fire('Error', err.error.msg, 'error');
-        }
-      );
-    } else {
+    if (this.formularioTipoCita.invalid) {
+      // Marca todos los controles del formulario como tocados
+      this.formularioTipoCita.markAllAsTouched();
       Swal.fire('Error', 'Por favor, complete el formulario correctamente', 'error');
+      return;
     }
+  
+    const formData: Tipo_cita = this.formularioTipoCita.value;
+    console.log(formData);
+    this.TipoCitaService.crearTipoCita(formData).subscribe(
+      (respuesta: tipoCitaResponse) => {
+        console.log(respuesta);
+        Swal.fire('Mensaje', 'Registro exitoso', 'success');
+        this.router.navigateByUrl('/gestionar-tipo-cita');
+      },
+      (err) => {
+        Swal.fire('Error', err.error.msg, 'error');
+      }
+    );
   }
+  
 
   
   

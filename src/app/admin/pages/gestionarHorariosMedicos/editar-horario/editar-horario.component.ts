@@ -18,22 +18,16 @@ export class EditarHorarioComponent implements OnInit {
 
   medicos: Medico[] = [];
 
-  disponibilidadOpciones = [
-    { valor: 'disponible', etiqueta: 'Disponible' },
-    { valor: 'ocupado', etiqueta: 'Ocupado' }
-  ];
+
 
   constructor(private fb: FormBuilder,  private HorarioMedicoService: HorarioMedicoService, private router: Router, private route: ActivatedRoute, private MedicoService: MedicoService ) {
     this.horarioMedicoForm = this.fb.group({
+      idHorario: [''],
       diaSemana: ['', [Validators.required]],
       horaInicio: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
       horaFinalizacion: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
-      hora_inicio_colacion: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
-      hora_fin_colacion: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
-      duracionCitas: [null, [Validators.required, Validators.min(1)]],
-      rut_medico: ['', [Validators.required, Validators.pattern(/^(\d{1,3}(?:\.\d{3}){2}-[\dkK])$/)]],
-      disponibilidad: [],
-      fechaCreacion: [null, [Validators.required]],
+      rut_medico: ['', [Validators.required]],
+     
     });
   }
 
@@ -46,9 +40,9 @@ export class EditarHorarioComponent implements OnInit {
         // Obtén los datos del médico y llénalos en el formulario
         this.HorarioMedicoService.obtenerHorarioPorId(horarioId).subscribe((response: any) => {
           const horario = response.horario;
-          console.log(horario);
+          console.log('AQUI ESTA EL HORARIO',horario);
           this.horarioMedicoForm.patchValue({
-            diaSemana: horario.diaSemana,
+            idHorario: horario.idHorario,
             horaInicio: horario.horaInicio,
             horaFinalizacion: horario.horaFinalizacion,
             hora_inicio_colacion: horario.hora_inicio_colacion,
@@ -82,8 +76,9 @@ export class EditarHorarioComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.value) {
-        if (this.horarioMedicoForm.valid) {
+      
           const medicoEditado = this.horarioMedicoForm.value;
+          console.log('AQUI ESTA EL MEDICO EDITADO',medicoEditado);
           this.HorarioMedicoService.editarHorario(medicoEditado).subscribe(
             (response) => {
               Swal.fire('Éxito', 'Médico editado exitosamente', 'success');
@@ -96,6 +91,6 @@ export class EditarHorarioComponent implements OnInit {
           );
         }
       }
-    });
+    );
   }
 }

@@ -6,6 +6,7 @@
     <p><strong>Hora de Inicio:</strong> {{ detallesCita.hora_inicio }}</p>
     <p><strong>Hora de Fin:</strong> {{ detallesCita.hora_fin }}</p>
     <p><strong>Estado:</strong> {{ detallesCita.estado }}</p>
+
   
     <h3>Información del Médico</h3>
     <p><strong>Nombre:</strong> {{ detallesCita.medico.nombre }} {{ detallesCita.medico.apellidos }}</p>
@@ -21,6 +22,14 @@
       <p><strong>Monto Pagado:</strong> {{ detallesCita.factura.monto_pagado }}</p>
       <p><strong>Estado del Pago:</strong> {{ detallesCita.factura.estado_pago }}</p>
     </div>
-    <button (click)="imprimir()">Imprimir Detalles</button>
+    <div *ngIf="AuthService.infoClinica" class="info-clinica">
+      <h3>Información de Contacto de la Clínica</h3>
+      <p><strong>Nombre de la Clínica:</strong> {{ AuthService.infoClinica.nombreClinica }}</p>
+      <p><strong>Dirección:</strong> {{ AuthService.infoClinica.direccion }}</p>
+      <p><strong>Teléfono:</strong> {{ AuthService.infoClinica.telefono }}</p>
+      <p><strong>Email:</strong> {{ AuthService.infoClinica.email }}</p>
+  </div>
+  <button (click)="imprimir()" class="btn btn-primary mt-3 btn-imprimir">Imprimir Detalles</button>
+
   </div>
   

@@ -46,7 +46,7 @@ export class GestionarTiposCitasComponent implements OnInit{
         
         this.TipoCitaService.borrarTipoCita( tipocita.idTipo )
           .subscribe( resp => {
-            
+            console.log('aqui esta la respuesta',resp);
             this.cargaTipocita()
             Swal.fire(
               'Tipo de cita borrado',

@@ -19,20 +19,16 @@ export class AgregarHorarioMedicoComponent implements OnInit {
 
   medicos: Medico[] = [];
 
-  disponibilidadOpciones = [
-    { valor: 'disponible', etiqueta: 'Disponible' },
-    { valor: 'ocupado', etiqueta: 'Ocupado' }
-  ];
+
 
   constructor(private fb: FormBuilder, private MedicoService: MedicoService, private HorarioMedicoService: HorarioMedicoService, private router: Router) {
     this.horarioMedicoForm = this.fb.group({
       diaSemana: ['', [Validators.required]],
       horaInicio: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
       horaFinalizacion: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
-      hora_inicio_colacion: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
-      hora_fin_colacion: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
-      rut_medico: ['', [Validators.required, Validators.pattern(/^(\d{1,3}(?:\.\d{3}){2}-[\dkK])$/)]],
-      disponibilidad: [],
+    
+      rut_medico: ['', [Validators.required]],
+    
   
     });
   }
@@ -43,7 +39,7 @@ export class AgregarHorarioMedicoComponent implements OnInit {
 
 
   cargaMedicos() {
-    this.MedicoService.cargarAllmedicos()
+    this.MedicoService.cargarmedicosEspecialidad()
       .subscribe((response: any) => { // Asegúrate de que estás tipando la respuesta como 'any' o el tipo correcto
         this.medicos = response.medicos; // Asigna la propiedad 'medicos' de la respuesta al arreglo 'medicos'
         console.log(this.medicos);

@@ -36,41 +36,34 @@ export class GestionarPacientesComponent implements OnInit {
   }
 
   borrarPaciente(paciente: Paciente) {
-    // Verificar si el paciente a borrar es el mismo que el usuario autenticado
     if (this.AuthService.usuario.rut === paciente.rut) {
-      Swal.fire(
-        'Operación no permitida',
-        'No puedes eliminarte a ti mismo.',
-        'error'
-      );
-      return; // Detener la ejecución si intenta borrarse a sí mismo
+        Swal.fire('Operación no permitida', 'No puedes eliminarte a ti mismo.', 'error');
+        return;
     }
-  
-    // Si no es el mismo, proceder con la lógica de borrado
+
     Swal.fire({
-      title: '¿Borrar paciente?',
-      text: `Esta a punto de borrar a ${ paciente.nombre } tenga en cuenta que se eliminaran los historiales y citas medicas en los que el paciente este registrado`,
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Si, borrarlo'
+        title: `¿Estás seguro de querer eliminar a ${paciente.nombre}?`,
+        text: "Esta acción eliminará todas las citas y facturas asociadas a este paciente si que las tiene, .",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
     }).then((result) => {
-      if (result.value) {
-        
-        this.PacienteService.borrarPaciente( paciente.rut )
-          .subscribe( resp => {
-            
-            this.cargaPacientes();
-            Swal.fire(
-              'Paciente borrado',
-              `${ paciente.nombre } fue eliminado correctamente`,
-              'success'
+        if (result.value) {
+            this.PacienteService.borrarPaciente(paciente.rut).subscribe(
+                (response) => {
+                    Swal.fire('Eliminado!', response.msg, 'success');
+                    this.cargaPacientes();
+                },
+                (error) => {
+                    Swal.fire('Error', error.error.msg, 'error');
+                }
             );
-            
-          });
+        }
+    });
+}
+
   
-      }
-    })
-  }
   
 
   cambiarRole(paciente: Paciente) {
