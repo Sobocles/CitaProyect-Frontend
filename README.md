@@ -1,6 +1,6 @@
 # CitaProyect
 
-descripcion del proyecto
+Descripcion del proyecto:
 Este proyecto consiste en una aplicación web para la gestión de citas médicas, diseñada principalmente para administradores. La plataforma les permite manejar integralmente la asignación de citas, incluyendo la capacidad de crear, modificar y eliminar información relacionada con médicos, usuarios, tipos de citas, y horarios médicos. La aplicación se destaca por su flexibilidad, permitiendo a los administradores organizar las citas basándose en diversos criterios como duración, precio, y especialidad médica, entre otros, optimizando así el proceso de gestión de citas en entornos médicos.
 
 Una vez que el administrador haya ingresado medicos, tipos de citas, horarios medicos, informacion de la clinica los usuarios o pacientes que ingresen a la aplicacion debera registrarse, una vez registrados podran 
@@ -9,7 +9,7 @@ acceder a la aplicacion podran revisar las citas medicas disponibles y buscarlas
 los medicos podran redactar los historiales medicos y enviarselos al perfil de historial de un paciente en particular para que lo pueda revisar en su cuenta, a su vez el medico podra ver el registro de sus citas medicas agendadas y revisarlas cuando pueda.
 
 
-tecnologias utilizadas
+Tecnologias utilizadas:
 
 Frontend:
 
@@ -40,7 +40,7 @@ Este enlace se debe incluir en controller/mercadoPago como en notification_url =
 Es importante tener en cuenta que la URL generado por ngrok.exe expira después de un cierto tiempo y se desactiva si es que se cierra el backend en el puerto 8000, por lo que este proceso 
 debe repetirse cada vez que se inicie el proyecto en el puerto 8000.
 
-en este enlace puede encontrar usuarios de prueba para realizar simulaciones de compra -> https://www.mercadopago.cl/developers/es/docs/checkout-api/additional-content/your-integrations/test/cards.
+En este enlace puede encontrar usuarios de prueba para realizar simulaciones de compra -> https://www.mercadopago.cl/developers/es/docs/checkout-api/additional-content/your-integrations/test/cards.
 Por ejemplo, puede usar una tarjeta Visa con el número 4023 6535 2391 4373, código de seguridad 123, y 
 fecha de caducidad 11/25. El nombre del titular puede ser "APRO" o "OTHE", dependiendo de si se aprueba o rechaza el pago.
 
