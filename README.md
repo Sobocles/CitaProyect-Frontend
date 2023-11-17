@@ -24,26 +24,33 @@ Backend:
     Sequelize: ORM para Node.js, facilita la interacción con bases de datos SQL como MySQL.
 
 
- IMPORTANTE POR FAVOR LEER ANTES DE REVISAR EL PROYECTO!!!
+ IMPORTANTE!!! POR FAVOR LEER ANTES DE REVISAR EL PROYECTO!!!
 
-1- Antes de ejecutar el proyecto de angular con el comando ng serve  debe asegurarse de estar conectada a internet esto debido a que se utilizo el cdn de bootstrap por lo tanto si no esta conectada a internet
-las interfaces se veran sin los estilos de bootstrap, esta fue la razon de que en la primera sustentacion que tuve  del proyecto se vio todo mal.
+1- Antes de ejecutar el proyecto de angular con el comando ng serve  debe asegurarse de estar conectada a internet!! esto debido a que se utilizo el cdn de bootstrap por lo tanto si no esta conectada a internet
+las interfaces se veran sin los estilos de bootstrap, esta fue la razon de que en la primera sustentacion que tuve  del proyecto se veia todo mal.
 puede usar el internet del celular o cualquier otro medio pero porfavor debe revisar el proyecto conectada a internet.
 
-2-Para simular el proceso de compra de una cita médica utilizando usuarios de prueba con Mercado Pago, fue necesario generar un enlace a 
+2- Para simular el proceso de compra de una cita médica utilizando usuarios de prueba con Mercado Pago, fue necesario generar un enlace a 
 través de ngrok.exe. Este paso es esencial porque el proyecto se ejecuta en un entorno local y no en un servidor de producción. ngrok.exe crea un enlace público temporal a nuestro
 servidor local, permitiendo que Mercado Pago interactúe con el proyecto como si estuviera alojado en línea. 
-el comando que se debe ejecutar para generar el enlace una vez se este ejecutando el backend en el puerto 800 es .\ngrok.exe http 8000
-el enlace que devuelve ese comando una vez ejecutado en la terminal (.\ngrok.exe) es parecido a este https://702b-2800-150-14e-fe7-94e6-e2dd-926e-ad09.ngrok.io
-Este enlace se debe incluir en controller/mercadoPago como en notification_url = "" como en este ejemplo notification_url: "https://702b-2800-150-14e-fe7-94e6-e2dd-926e-ad09.ngrok.io/api/mercadoPago/webhook"
-Es importante tener en cuenta que la URL generado por ngrok.exe expira después de un cierto tiempo y se desactiva si es que se cierra el backend en el puerto 8000, por lo que este proceso 
+el comando que se debe ejecutar para generar el enlace una vez se este ejecutando el backend en el puerto 800 es -->  .\ngrok.exe http 8000   <-- debe escribir eso tal cual
+el enlace que devuelve ese comando una vez ejecutado en la terminal (.\ngrok.exe http 8000) es parecido a este https://702b-2800-150-14e-fe7-94e6-e2dd-926e-ad09.ngrok.io
+Este enlace se debe incluir en controller/mercadoPago en el notification_url = "" como en este ejemplo --> notification_url: "https://702b-2800-150-14e-fe7-94e6-e2dd-926e-ad09.ngrok.io/api/mercadoPago/webhook"
+Es importante tener en cuenta que la URL generado por ngrok.exe expira después de un cierto tiempo y se desactiva si es que se cierra el backend en el puerto 8000, por lo tanto este proceso 
 debe repetirse cada vez que se inicie el proyecto en el puerto 8000.
 
+pero antes de probar la aplicacion debe asegurarse de estar logeada como un usuario de prueba, debe ingresar a mercado pago y logearse como un usuario de prueba aqui --> https://www.mercadopago.cl/developers/es/docs/checkout-api/landing
+, una vez en la pagina debe hacer click en ingresar en la parte superior derecha de la pantalla e ingresar con este usuario 
+Usuario = TESTUSER90381648
+contraseña = tCfitcy8wl
+
+Una vez se autentique en la aplicación con un usuario que simbolice un paciente debe ingresar tarjetas de prueba
 En este enlace puede encontrar usuarios de prueba para realizar simulaciones de compra -> https://www.mercadopago.cl/developers/es/docs/checkout-api/additional-content/your-integrations/test/cards.
 Por ejemplo, puede usar una tarjeta Visa con el número 4023 6535 2391 4373, código de seguridad 123, y 
-fecha de caducidad 11/25. El nombre del titular puede ser "APRO" o "OTHE", dependiendo de si se aprueba o rechaza el pago.
+Fecha de caducidad 11/25. El nombre del titular puede ser "APRO" o "OTHE", dependiendo de si se aprueba o rechaza el pago.
 
-3-para ejecutar el proyecto en angular se debe usar npm install y luego ng serve, para ejecutar el proyecto backend de nodejs se debe ejecutar nodemon dist/app.js y tsc --watch para pasar los cambios de typescript a javascript (Asegurace de ejecutar el comando tsc --watch antes de que cambie el url en notification_url para probar la compra de una cita medica en mercado pago)
+3-para ejecutar el proyecto en angular se debe usar npm install y luego ng serve, para ejecutar el proyecto backend de nodejs se debe ejecutar nodemon dist/app.js y tsc --watch para pasar los cambios de typescript a javascript (Asegurace de ejecutar el comando tsc --watch antes de que cambie el url en notification_url para probar la compra de una cita médica en mercado pago)
+
 
 
 
