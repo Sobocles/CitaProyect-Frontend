@@ -10,6 +10,7 @@ import { HistorialPacienteComponent } from './pages/historial-paciente/historial
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { PaymentFailureComponent } from './pages/payment-failure/payment-failure.component';
+import { patientGuard } from '../auth/guards/patient.guard';
 
 
 const routes: Routes = [
@@ -17,17 +18,17 @@ const routes: Routes = [
     path: '',
     component: LayoutPageComponent, canActivate: [AuthGuard],
     children: [
-      { path: 'Agendar-cita', component: AgendarCitaComponent, canActivate: [AuthGuard] },
+      { path: 'Agendar-cita', component: AgendarCitaComponent, canActivate: [AuthGuard, patientGuard] },
 
-      { path: 'formulario-cita', component: FormularioCitaComponent, canActivate: [AuthGuard] },
+      { path: 'formulario-cita', component: FormularioCitaComponent, canActivate: [AuthGuard, patientGuard] },
 
-      { path: 'busqueda-medico', component: BusquedaMedicoComponent, canActivate: [AuthGuard] },
+      { path: 'busqueda-medico', component: BusquedaMedicoComponent, canActivate: [AuthGuard, patientGuard] },
 
-      { path: 'historial', component: HistorialPacienteComponent, canActivate: [AuthGuard] },
+      { path: 'historial', component: HistorialPacienteComponent, canActivate: [AuthGuard, patientGuard] },
 
-      { path: 'payment-success', component: PaymentSuccessComponent},
+      { path: 'payment-success', component: PaymentSuccessComponent,canActivate: [AuthGuard, patientGuard] },
 
-      { path: 'payment-failure', component: PaymentFailureComponent},
+      { path: 'payment-failure', component: PaymentFailureComponent, canActivate: [AuthGuard, patientGuard]},
     ]
   }
 ];

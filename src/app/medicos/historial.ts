@@ -1,3 +1,8 @@
+export interface Medico {
+    nombre: string;
+    apellidos: string;
+}
+
 export interface Historial {
     id_historial: number;
     diagnostico: string;
@@ -7,9 +12,9 @@ export interface Historial {
     archivo: string;
     createdAt: string;
     updatedAt: string;
-    rut_medico: string; // Añadido rut del médico
-    rut_paciente: string; // Añadido rut del paciente
-   
+    rut_medico: string; 
+    rut_paciente: string; 
+    medico: Medico; 
 }
 
 export interface HistorialResponse {

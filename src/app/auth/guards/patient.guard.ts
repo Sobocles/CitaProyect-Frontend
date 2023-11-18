@@ -1,12 +1,12 @@
+import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class medicGuard implements CanActivate {
+export class patientGuard implements CanActivate {
 
   constructor( private AuthService: AuthService,
                private router: Router ) {}
@@ -14,10 +14,10 @@ export class medicGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-      console.log('CanActivate is being executed en medicos');
+
     
-      if (this.AuthService.medico?.rol === 'MEDICO_ROLE') {
-        console.log('AQUI ESTA EL ROL DEL MEDICO',this.AuthService.medico.rol )
+      if (this.AuthService.usuario?.rol === 'USER_ROLE') {
+        console.log('AQUI ESTA EL ROL DEL USUARIO',this.AuthService.usuario.rol )
         return true;
       } else {
         this.router.navigateByUrl('/auth/login');

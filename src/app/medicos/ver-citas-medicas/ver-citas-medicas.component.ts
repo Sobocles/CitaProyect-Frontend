@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CitaMedicaService } from '../../admin/pages/services/cita-medica.service';
 import { AuthService } from '../../auth/services/auth.service';
+import { BusquedaMedicoService } from '../../pacientes/services/busqueda-medico.service';
+import { BusquedasService } from 'src/app/admin/pages/services/busquedas.service';
 
 @Component({
   selector: 'app-ver-citas-medicas',
@@ -13,7 +15,7 @@ export class VerCitasMedicasComponent implements OnInit {
   public desde: number = 0;
   public totalCitas: number = 0;
 
-  constructor(private CitaMedicaService: CitaMedicaService, private authService: AuthService){}
+  constructor(private CitaMedicaService: CitaMedicaService, private authService: AuthService, private BusquedaMedicoService: BusquedasService){}
 
   ngOnInit() {
     if (this.authService.medico && this.authService.medico.rut) { 
@@ -38,6 +40,22 @@ cargarCitasMedicas(rutMedico: string, desde: number) {
   }, error => {
     console.error("Error al obtener el historial médico:", error);
   });
+}
+
+buscar(termino: string) {
+  console.log(termino);
+  if (termino.length === 0) {
+    this.cargarCitasMedicas(this.authService.medico.rut, this.desde);
+    return;
+  }
+
+  // Aquí llamas al servicio de búsqueda de citas
+  this.BusquedaMedicoService.buscar('cita_medico', termino)
+    .subscribe((response: any) => {
+      console.log('aqui la respuesta',response)
+      this.citasMedicas = response.citas;
+      // Puede que necesites ajustar la respuesta según cómo esté estructurado tu backend
+    });
 }
 
 cambiarPagina(valor: number) {

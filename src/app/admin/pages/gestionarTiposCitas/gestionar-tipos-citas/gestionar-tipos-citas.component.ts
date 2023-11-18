@@ -36,8 +36,8 @@ export class GestionarTiposCitasComponent implements OnInit{
   borrarTipoCita( tipocita: Tipo_cita ) {
 
     Swal.fire({
-      title: '¿Borrar Horario?',
-      text: `Esta seguro que desea eliminar este horario?`,
+      title: '¿Borrar tipo de cita?',
+      text: `Esta seguro que desea eliminar este tipo cita? si elimina este tipo cita con su especialidad se borraran todos los horarios medicos que tengan esa especialidad`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Si, borrarlo'

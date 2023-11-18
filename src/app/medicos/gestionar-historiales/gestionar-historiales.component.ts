@@ -20,6 +20,7 @@ export class GestionarHistorialesComponent {
   cargarHistoriales(): void {
     this.HistorialService.cargarHistorial().subscribe(
       (resp: HistorialResponse) => {
+        
         this.historiales = resp.historiales;
       },
       (err) => {

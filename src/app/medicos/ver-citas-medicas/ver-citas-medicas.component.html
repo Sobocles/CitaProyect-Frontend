@@ -6,7 +6,8 @@
                 <input type="text"
                         class="form-control"
                         placeholder="Buscar Citas..."
-                       > <!--CUANDO SE PRESIONE UNA TECLA BUSQUE EL TERMINO KEYUP ES PARA VER LAS LETRAS QUE SE ESCRIBEN EN TIEMPO REAL MIENTRAS SE EPREISONA UNA LETRA-->
+                        #txtTermino
+                        (keyup)="buscar( txtTermino.value )"/> <!--CUANDO SE PRESIONE UNA TECLA BUSQUE EL TERMINO KEYUP ES PARA VER LAS LETRAS QUE SE ESCRIBEN EN TIEMPO REAL MIENTRAS SE EPREISONA UNA LETRA-->
 
             </div>
         </div>
@@ -18,7 +19,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Total de Citas: </h4>
+                <h4 class="card-title">Total de Citas: ({{totalCitas}}) </h4>
                 <h6 class="card-subtitle">Citas medicas</h6>
                 <div class="table-responsive">
                     <table class="table table-bordered">

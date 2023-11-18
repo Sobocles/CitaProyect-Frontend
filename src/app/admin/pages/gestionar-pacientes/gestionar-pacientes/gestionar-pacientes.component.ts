@@ -43,7 +43,7 @@ export class GestionarPacientesComponent implements OnInit {
 
     Swal.fire({
         title: `¿Estás seguro de querer eliminar a ${paciente.nombre}?`,
-        text: "Esta acción eliminará todas las citas y facturas asociadas a este paciente si que las tiene, .",
+        text: "Esta acción eliminara todas las citas agendadas del paciente y sus historiales medicos.",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Sí, eliminar',

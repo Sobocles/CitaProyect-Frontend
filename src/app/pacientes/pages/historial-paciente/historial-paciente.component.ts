@@ -3,6 +3,8 @@ import { HistorialService } from 'src/app/medicos/services/historial.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Historial, HistorialResponse } from 'src/app/medicos/historial';
 import { Usuario } from 'src/app/models/usuario';
+import { BusquedaMedicoService } from '../../services/busqueda-medico.service';
+import { BusquedasService } from '../../../admin/pages/services/busquedas.service';
 @Component({
   selector: 'app-historial-paciente',
   templateUrl: './historial-paciente.component.html',
@@ -14,7 +16,7 @@ export class HistorialPacienteComponent implements OnInit {
   public desde: number = 0;
   public totalHistoriales: number = 0;
 
-  constructor(private historialService: HistorialService, private authservice: AuthService){}
+  constructor(private historialService: HistorialService, private authservice: AuthService, private BusquedasService: BusquedasService){}
 
   ngOnInit() {
     if (this.authservice.usuario && this.authservice.usuario.rut) { 
@@ -25,9 +27,7 @@ export class HistorialPacienteComponent implements OnInit {
     }
 }
 
-  buscar(termino:any){
 
-  }
 
 
   cambiarPagina(valor: number) {
@@ -51,8 +51,11 @@ export class HistorialPacienteComponent implements OnInit {
   cargarHistorialMedico(rut: string) {
     this.historialService.obtenerHistorialPorId(rut, this.desde)
     .subscribe((historial: HistorialResponse) => {
-      console.log(historial);
+      console.log('ACA ESTA LA RESPUESTA',historial);
+      console.log('OLAAAAAAAAA');
+      
       this.historialMedico = historial.historiales;
+      console.log('AQUI ESTA EL ARREGLO DE HISTORIALES',this.historialMedico );
       this.totalHistoriales = historial.total; // Asegúrate de que el backend devuelva el total de historiales
     }, error => {
       console.error("Error al obtener el historial médico:", error);

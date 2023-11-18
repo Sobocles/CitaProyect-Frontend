@@ -5,21 +5,36 @@
         <form [formGroup]="formulario"
         (ngSubmit)="editarMedico()">
           <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="id">Rut</label>
-                <input type="text" class="form-control" id="nombre" formControlName="rut" placeholder="Ingresar rut">
+            <div class="form-group col-md-6 mb-3">
+              <label for="rut">Rut</label>
+              <input type="text" class="form-control" id="rut" formControlName="rut" placeholder="rut">
+              <div *ngIf="formulario.controls['rut'].touched && formulario.controls['rut'].errors?.['required']" class="text-danger">
+                Este campo es obligatorio.
               </div>
-            <div class="form-group col-md-6">
+              <div *ngIf="formulario.controls['rut'].errors?.['rutInvalid']" class="text-danger">
+                RUT no válido.
+              </div>
+            </div>
+            
+            <div class="form-group col-md-6 mb-3">
               <label for="nombre">Nombre</label>
-              <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Ingresar nombre">
+              <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Nombre">
+              <!-- Alerta para campo requerido -->
+              <div *ngIf="formulario.controls['nombre'].touched && formulario.controls['nombre'].errors?.['required']" class="text-danger">
+                Este campo es obligatorio.
+              </div>
             </div>
-            <div class="form-group col-md-6">
+            
+            <div class="form-group col-md-6 mb-3">
               <label for="apellidos">Apellidos</label>
-              <input type="text" class="form-control" id="apellidos" formControlName="apellidos" placeholder="Ingresar apellidos">
+              <input type="text" class="form-control" id="apellidos" formControlName="apellidos" placeholder="Apellidos">
+              <!-- Alerta para campo requerido -->
+              <div *ngIf="formulario.controls['apellidos'].touched && formulario.controls['apellidos'].errors?.['required']" class="text-danger">
+                Este campo es obligatorio.
+              </div>
             </div>
           
-          
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 mb-3">
               <label for="email">Email</label>
               <input type="email" class="form-control" id="email" formControlName="email" placeholder="Email">
               <div *ngIf="formulario.get('email')?.hasError('required') && formulario.get('email')?.touched" class="text-danger">
@@ -28,31 +43,55 @@
               <div *ngIf="formulario.get('email')?.hasError('email') && formulario.get('email')?.touched" class="text-danger">
                 El email no es válido.
               </div>
+              <!-- Alerta para email no Gmail -->
+              <div *ngIf="formulario.get('email')?.hasError('notGmail') && formulario.get('email')?.touched" class="text-danger">
+                Solo se permiten direcciones de email de Gmail.
+              </div>
             </div>
-            <div class="form-group col-md-6">
-              <label for="telefono">telefono</label>
-              <input type="tel" class="form-control" id="telefono" formControlName="telefono" placeholder="direccion">
+            <div class="form-group col-md-6 mb-3">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" class="form-control" id="telefono" formControlName="telefono" placeholder="Teléfono">
+              <!-- Alerta para campo requerido -->
+              <div *ngIf="formulario.controls['telefono'].touched && formulario.controls['telefono'].errors?.['required']" class="text-danger">
+                Este campo es obligatorio.
+              </div>
+              <!-- Alerta para formato de teléfono inválido -->
+                <!-- Alerta para formato de teléfono inválido -->
+              <div *ngIf="formulario.controls['telefono'].touched && formulario.controls['telefono'].errors?.['telefonoInvalido']" class="text-danger">
+                Formato de teléfono inválido. Debe ser +56 9 XXXX-XXXX.
+              </div>
+
             </div>
           
-        
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 mb-3">
               <label for="direccion">Dirección</label>
-              <input type="text" class="form-control" id="direccion" formControlName="direccion" placeholder="direccion">
+              <input type="text" class="form-control" id="direccion" formControlName="direccion" placeholder="Dirección">
+              <!-- Alerta para campo requerido -->
+              <div *ngIf="formulario.controls['direccion'].touched && formulario.controls['direccion'].errors?.['required']" class="text-danger">
+                Este campo es obligatorio.
+              </div>
             </div>
          
      
     
 
-   
-              <div class="form-group col-md-6">
-                <label for="nacionalidad">Nacionalidad</label>
-                <input type="text" class="form-control" id="nacionalidad" formControlName="nacionalidad" placeholder="nacionalidad">
+            <div class="form-group col-md-6 mb-3">
+              <label for="nacionalidad">Nacionalidad</label>
+              <input type="text" class="form-control" id="nacionalidad" formControlName="nacionalidad" placeholder="nacionalidad">
+              <!-- Mensaje de error para campo requerido -->
+              <div *ngIf="formulario.controls['nacionalidad'].touched && formulario.controls['nacionalidad'].errors?.['required']" class="text-danger">
+                Este campo es obligatorio.
               </div>
+            </div>
            
               <div class="form-group col-md-6 mb-3">
-                <label for="titulos">Especialidad medica</label>
-                <input type="text" class="form-control" id="titulo" formControlName="titulo" placeholder="titulo">
+                <label for="especialidad_medica">Especialidad</label>
+                <select class="form-control" id="especialidad_medica" formControlName="especialidad_medica">
+                  <option value="" disabled selected>Seleccione especialidad</option>
+                  <option *ngFor="let especialidad of especialidades" [value]="especialidad">{{ especialidad }}</option>
+                </select>
               </div>
+              
          
            
               <button type="submit" class="btn btn-primary btn-block">Modificar Medico</button>

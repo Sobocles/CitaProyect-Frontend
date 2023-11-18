@@ -127,7 +127,7 @@ export class AgregarmedicoComponent implements OnInit {
   cargaEspecialidades() {
     this.TipoCitaService.cargaEspecialidades().subscribe(
       data => {
-        console.log('ola', data);
+       
         this.especialidades = data.especialidades.map((e: Especialidad) => e.especialidad_medica);
       }
     );

@@ -12,17 +12,18 @@
                     <h2 class="text-center mb-4">Horario de la Clínica</h2>
                     <div class="d-flex flex-wrap justify-content-center">
                         <div *ngFor="let horario of horarioClinicas" class="card horario-card m-2">
-                            <div class="card-body text-center" [ngClass]="{'abierto': horario.horarioApertura && horario.horarioCierre, 'cerrado': !horario.horarioApertura && !horario.horarioCierre}">
+                            <div class="card-body text-center" [ngClass]="{'abierto': horario.estado === 'abierto', 'cerrado': horario.estado === 'cerrado'}">
                                 <h5 class="card-title">{{ horario.dia.charAt(0).toUpperCase() + horario.dia.slice(1) }}</h5>
                                 <p class="card-text">
-                                    <span *ngIf="horario.horarioApertura && horario.horarioCierre">
+                                    <span *ngIf="horario.estado === 'abierto'">
                                         {{ horario.horarioApertura }} - {{ horario.horarioCierre }}
                                     </span>
-                                    <span *ngIf="!horario.horarioApertura && !horario.horarioCierre">
+                                    <span *ngIf="horario.estado === 'cerrado'">
                                         Cerrado
                                     </span>
                                 </p>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

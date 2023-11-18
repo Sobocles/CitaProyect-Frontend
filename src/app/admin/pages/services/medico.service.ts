@@ -62,7 +62,7 @@ export class MedicoService {
   }
 
   borrarMedico( id: string ){
-    console.log(id);
+
     const url = `${ base_url }/medicos/${ id }`;
     return this.http.delete( url, this.headers );
   }
