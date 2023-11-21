@@ -36,7 +36,9 @@ export class AgregarHorarioMedicoComponent implements OnInit {
     this.cargaMedicos();
   }
 
-
+  regresarAGestionarMedicos() {
+    this.router.navigateByUrl('/gestionar-horarios-medicos');
+  }
 
   cargaMedicos() {
     this.MedicoService.cargarmedicosEspecialidad()

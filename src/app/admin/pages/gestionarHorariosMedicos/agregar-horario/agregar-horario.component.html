@@ -1,9 +1,11 @@
+<button type="button" class="btn btn-secondary btn-block mt-3" (click)="regresarAGestionarMedicos()">Regresar a Horarios Médicos</button>
+
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <h2 class="text-center mb-4">Formulario de Registro de Horario Médico</h2>
       <div style="background-color: #ffcc00; color: #333; padding: 10px; border-radius: 5px; margin: 20px 0; border: 1px solid #ffa500;">
-        <strong>Advertencia:</strong> Por favor, asegúrese de completar el formulario de Tipo Cita con sus tipos citas y especialidades,  luego asegurese de tener médicos registrados que puedan atender esas especlialidades para que de esta forma los medicos asignados se muestren en la seleccion de médicos.
+        <strong>Advertencia:</strong> Por favor, asegúrese primero de completar el formulario de Tipo Cita ingresando especialidades médicas en la sección gestionar tipo de cita,  luego asegúrese registrar médicos que tengan especialización en esas áreas médicas para que de esta forma esos médicos  se muestren en la selección de médicos junto a sus especialidades creadas al final de este formulario.
       </div>
       
       <form [formGroup]="horarioMedicoForm" (ngSubmit)="crearHorario()">

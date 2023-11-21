@@ -20,12 +20,13 @@ export class BusquedasService {
   get headers() {
     return { 
       headers: {
-      'x-token': this.token //ESTE ES EL GET TOKEN
+      'Authorization': `Bearer ${this.token}`
       }
     }
-  }
+}
 
   buscar(tipo: 'medicos' | 'usuarios' | 'horario_medico' | 'tipo_cita' | 'cita_medica' | 'facturas'| 'cita_medico', termino: string) {
+    console.log('aqui esta los headers',this.headers);
     const url = `${base_url}/busqueda/coleccion/${tipo}/${termino}`;
     return this.http.get<any[]>(url, this.headers)
         .pipe(

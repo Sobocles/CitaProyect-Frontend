@@ -57,8 +57,9 @@
                                 <!-- Suponiendo que la propiedad "nombre" exista en tu objeto de citas, ya que no la vi en el ejemplo proporcionado -->
                                 <th>{{ cita.idCita }}</th>
                                 <td>{{ cita.fecha }}</td>
-                                <td>{{ cita.paciente.nombre }}</td>
-                                <td>{{ cita.medico.nombre }}</td>
+                                <td>{{ cita.paciente.nombre + ' ' + cita.paciente.apellidos }}</td>
+                                <td>{{ cita.medico.nombre + ' ' + cita.medico.apellidos }}</td>
+
                                 <td>{{ cita.motivo }}</td>
 
                                 <select class="form-control" [(ngModel)]="cita.estado" (change)="cambioEstado(cita)">

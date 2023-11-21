@@ -10,6 +10,18 @@ const base_url = environment.base_url;
   providedIn: 'root'
 })
 export class BusquedaMedicoService {
+  
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
+
+  get headers() {
+    return { 
+      headers: {
+      'Authorization': `Bearer ${this.token}`
+      }
+    }
+}
 
   private bloquesSubject: BehaviorSubject<Bloque[]> = new BehaviorSubject<Bloque[]>([]);
   public bloques$: Observable<Bloque[]> = this.bloquesSubject.asObservable();
@@ -18,7 +30,7 @@ export class BusquedaMedicoService {
 
   buscarHorarioDisponible(formData:any): Observable<BloquesResponse> {
     const url = `${base_url}/busqueda_cita`;
-    return this.http.post<BloquesResponse>(url, formData);
+    return this.http.post<BloquesResponse>(url, formData, this.headers);
 }
 
     actualizarBloques(data: Bloque[]): void {
@@ -34,7 +46,7 @@ export class BusquedaMedicoService {
     pagarCita(precio: number, especialidad: string, idCita: number): Observable<any> {
       const url = `${base_url}/mercadoPago/create-order`;
       // Incluye ambos, el precio y la especialidad, en el cuerpo de la petición
-      return this.http.post(url, { precio: precio, motivo: especialidad, idCita });
+      return this.http.post(url, { precio: precio, motivo: especialidad, idCita },this.headers);
     }
     
   

@@ -64,7 +64,7 @@ export class CitaMedicaService {
 }
 
   cargarCitaMedica(desde: number = 0) {
-    console.log('aqui esta el desde',desde)
+   
     const url = `${base_url}/cita_medica?desde=${desde}`;
     return this.http.get<CitasResponse>(url, this.headers);
   }

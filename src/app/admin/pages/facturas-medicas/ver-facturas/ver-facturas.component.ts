@@ -13,6 +13,8 @@ import { Factura } from '../../../../pacientes/pages/interfaces/payment';
 export class VerFacturasComponent implements OnInit {
 
   facturas: any[] = []; // Arreglo para almacenar las facturas
+  public desde: number = 0;
+  public totalFacturas: number = 0; 
 
   constructor(private FacturaService: FacturaService, private router: Router, private BusquedasService: BusquedasService) { } // Inyecta tu servicio aquí
 
@@ -22,19 +24,25 @@ export class VerFacturasComponent implements OnInit {
   }
 
   cargarFacturas() {
-    this.FacturaService.cargarAllFactura()
+    this.FacturaService.cargarAllFactura(this.desde)
     .subscribe((data: any) => {
-      console.log(data);
-      console.log('aqui la data',data);
+      this.totalFacturas = data.total;
       this.facturas = data.facturas;
-      console.log('aqui estan las facturas',this.facturas);
+  
     }, error => {
       console.error('Error al cargar las facturas:', error);
     });
   }
 
-  cambiarPagina(valor: number) {
-    // Implementación de cambio de página si es necesario
+  cambiarPagina( valor: number ) { 
+    this.desde +=valor;
+
+    if( this.desde < 0){ 
+      this.desde = 0;
+    } else if( this.desde >= this.totalFacturas ){ 
+      this.desde -= valor;
+    }
+    this.cargarFacturas(); 
   }
 
   borrarFactura( factura: number ) {

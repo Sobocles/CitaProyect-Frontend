@@ -7,9 +7,11 @@ export interface CitaMedica {
     estado: string;
     paciente: {
       nombre: string;
+      apellidos: string;
     };
     medico: {
       nombre: string;
+      apellidos: string;
     };
     tipoCita: {
       especialidad_medica: string;

@@ -178,7 +178,7 @@ formularioValido(): boolean {
 
     // Verifica si la fecha seleccionada es en el pasado o es hoy
     if (selectedDateObj < currentDate) {
-        Swal.fire('Error', 'No puede seleccionar una fecha pasada para la cita.', 'error');
+        Swal.fire('Error', 'No puede seleccionar una fecha pasada para la cita o el dia actual.', 'error');
         return; // Detiene la ejecución posterior
     } else if (selectedDateObj.getTime() === currentDate.getTime()) {
         Swal.fire('Advertencia', 'Ha seleccionado el día actual. Verifique la disponibilidad de los médicos para hoy.', 'warning');

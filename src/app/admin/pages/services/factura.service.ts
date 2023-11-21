@@ -22,9 +22,9 @@ export class FacturaService {
 
   constructor(private http: HttpClient) { }
 
-  cargarAllFactura( ) {
+  cargarAllFactura( desde: number ) {
     //localhost:3000/api/usuarios?desde=0
-    const url = `${ base_url }/mercadoPago/factura`;
+    const url = `${ base_url }/mercadoPago/factura?desde=${ desde }`;
     return this.http.get( url, this.headers)
        
         

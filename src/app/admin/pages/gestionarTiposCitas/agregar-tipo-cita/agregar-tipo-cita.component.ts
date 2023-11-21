@@ -22,12 +22,23 @@ export class AgregarTipoCitaComponent {
   ) {
     this.formularioTipoCita = this.fb.group({
       tipo_cita: ['', Validators.required],
-      precio: ['', [Validators.required, Validators.pattern(/^\d*\.?\d+$/)]],
+      precio: ['', [Validators.required, Validators.pattern(/^(?!0\d)\d+$/)]],
       especialidad_medica: ['', Validators.required],
-      duracion_cita: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      duracion_cita: ['', [
+        Validators.required, 
+        Validators.pattern(/^\d+$/),
+        Validators.max(180)  // Asegurarse de que la duración no sea mayor a 180 minutos
+      ]]
 
     });
   }
+
+  convertirMinutosAHoras(minutos: number): string {
+    const horas = Math.floor(minutos / 60);
+    const minutosRestantes = minutos % 60;
+    return `${horas} hora(s) y ${minutosRestantes} minuto(s)`;
+  }
+  
 
   crearTipoCita() {
     if (this.formularioTipoCita.invalid) {

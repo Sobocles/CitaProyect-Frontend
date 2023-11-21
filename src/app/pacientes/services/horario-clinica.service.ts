@@ -33,6 +33,7 @@ export class HorarioClinicaService {
   }
 
   obtenerHorarioEspecialidades() {
+
     const url = `${base_url}/horario_clinica/porEspecialidad`;
     return this.http.get(url,this.headers);
   }

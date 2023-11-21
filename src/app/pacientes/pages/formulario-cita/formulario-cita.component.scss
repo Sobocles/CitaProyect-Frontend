@@ -38,4 +38,16 @@
     /* Alinea el contenido al inicio del contenedor */
     align-items: start;
   }
+
+  .info-especialidades {
+    background-color: #f8f9fa;  /* Un fondo suave para que destaque */
+    border-left: 4px solid #007bff; /* Una línea a la izquierda para llamar la atención */
+    padding: 10px 15px; /* Añade algo de espacio alrededor del texto */
+    margin-top: 20px; /* Margen superior para separarlo de otros elementos */
+    border-radius: 5px; /* Esquinas redondeadas para un look moderno */
+    color: #333; /* Color del texto */
+    font-weight: bold; /* Hacer el texto más visible */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra sutil para dar profundidad */
+  }
+  
   
