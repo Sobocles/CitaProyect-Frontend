@@ -32,12 +32,12 @@ export class HistorialComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    console.log('AQUI ESTA EL MEDICO',this.AuthService.medico);
-    this.usuarioService.cargarAllPacientesEnCurso()
+    const rut_medico = this.AuthService.medico.rut
+    this.usuarioService.cargarAllPacientesEnCurso(rut_medico)
     .subscribe((pacientes: UsuariosResponse) => {
-      console.log('AQUI ESTAN LOS PACIENTES',pacientes)
+  
       this.pacientes = pacientes.usuarios;
-      console.log('AQUI ESTA EL ARREGLO DE PACIENTES',pacientes);
+     
     });
     
     this.medico.cargarMedicos()

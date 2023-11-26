@@ -7,7 +7,7 @@
         <form [formGroup]="formulario"
          (ngSubmit)="crearMedico()">
           <div class="form-row">
-            <div class="form-group col-md-6 mb-3">
+            <div class="form-group  col-12 col-md-6">
               <label for="rut">Rut</label>
               <input type="text" class="form-control" id="rut" formControlName="rut" placeholder="rut">
               <!-- Alerta para campo requerido -->
@@ -20,7 +20,7 @@
               </div>
             </div>
             
-            <div class="form-group col-md-6 mb-3">
+            <div class="form-group  col-12 col-md-6">
               <label for="nombre">Nombre</label>
               <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Nombre">
               <!-- Alerta para campo requerido -->
@@ -29,18 +29,19 @@
               </div>
             </div>
             
-            <div class="form-group col-md-6 mb-3">
+            <div class="form-group  col-12 col-md-6">
               <label for="apellidos">Apellidos</label>
               <input type="text" class="form-control" id="apellidos" formControlName="apellidos" placeholder="Apellidos">
               <!-- Alerta para campo requerido -->
               <div *ngIf="formulario.controls['apellidos'].touched && formulario.controls['apellidos'].errors?.['required']" class="text-danger">
                 Este campo es obligatorio.
               </div>
+          
             </div>
             
           
           
-            <div class="form-group col-md-6 mb-3">
+            <div class="form-group  col-12 col-md-6">
               <label for="email">Email</label>
               <input type="email" class="form-control" id="email" formControlName="email" placeholder="Email">
               <div *ngIf="formulario.get('email')?.hasError('required') && formulario.get('email')?.touched" class="text-danger">
@@ -55,7 +56,7 @@
               </div>
             </div>
             
-            <div class="form-group col-md-6 mb-3">
+            <div class="form-group  col-12 col-md-6">
               <label for="telefono">Teléfono</label>
               <input type="tel" class="form-control" id="telefono" formControlName="telefono" placeholder="Teléfono">
               <!-- Alerta para campo requerido -->
@@ -72,19 +73,22 @@
             
           
         
-            <div class="form-group col-md-6 mb-3">
+            <div class="form-group  col-12 col-md-6">
               <label for="direccion">Dirección</label>
               <input type="text" class="form-control" id="direccion" formControlName="direccion" placeholder="Dirección">
               <!-- Alerta para campo requerido -->
               <div *ngIf="formulario.controls['direccion'].touched && formulario.controls['direccion'].errors?.['required']" class="text-danger">
                 Este campo es obligatorio.
               </div>
+              <div *ngIf="formulario.controls['direccion'].touched && formulario.controls['direccion'].errors?.['maxlength']" class="text-danger">
+                La dirección no puede exceder los 66 caracteres.
+              </div>
             </div>
             
          
     
    
-            <div class="form-group col-md-6 mb-3">
+            <div class="form-group  col-12 col-md-6">
               <label for="nacionalidad">Nacionalidad</label>
               <input type="text" class="form-control" id="nacionalidad" formControlName="nacionalidad" placeholder="nacionalidad">
               <!-- Mensaje de error para campo requerido -->
@@ -94,7 +98,7 @@
             </div>
             
               <!-- Dentro de tu formulario justo después del input de "nacionalidad" -->
-              <div class="form-group col-md-6 mb-3">
+              <div class="form-group  col-12 col-md-6">
                 <label for="password">Contraseña</label>
                 <input type="password" class="form-control" id="password" formControlName="password" placeholder="Contraseña">
                 <!-- Alerta para campo requerido -->
@@ -110,7 +114,7 @@
               
 
            
-              <div class="form-group col-md-6 mb-3">
+              <div class="form-group  col-12 col-md-6">
                 <label for="especialidad_medica">Especialidad</label>
                 <select class="form-control" id="especialidad_medica" formControlName="especialidad_medica">
                   <option value="" disabled selected>Seleccione especialidad</option>

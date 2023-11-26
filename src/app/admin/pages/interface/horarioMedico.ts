@@ -4,8 +4,8 @@ export interface HorarioMedico {
     diaSemana: string;
     horaInicio: string;
     horaFinalizacion: string;
-    hora_inicio_colacion?: string;
-    hora_fin_colacion?: string;
+    inicio_colacion?: string;
+    fin_colacion?: string;
     duracionCitas: number;
     rut_medico: string;
     disponibilidad: boolean;

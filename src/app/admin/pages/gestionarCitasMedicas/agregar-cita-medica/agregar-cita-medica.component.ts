@@ -185,7 +185,7 @@ formularioValido(): boolean {
     }
 
     if (this.selectedDate) {
-        console.log('ESTE ES', this.selectedDate);
+        console.log('ESTa es la fecha selecccionada', this.selectedDate);
 
         this.HorarioMedicoService.buscarHorarioDisponible(formData).subscribe(
             (response) => {

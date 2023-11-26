@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { MedicoService } from '../../services/medico.service';
 import { Medico } from '../../interface/medicos';
 import Swal from 'sweetalert2';
@@ -26,12 +26,51 @@ export class AgregarHorarioMedicoComponent implements OnInit {
       diaSemana: ['', [Validators.required]],
       horaInicio: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
       horaFinalizacion: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
-    
+      inicio_colacion: ['',Validators.required],
+      fin_colacion: ['',Validators.required],
       rut_medico: ['', [Validators.required]],
     
   
-    });
+    }, { validators: this.horarioColacionValidator() });
   }
+
+ // Dentro de tu componente TypeScript
+horarioColacionValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    if (!(control instanceof FormGroup)) return null;
+
+    const inicio = control.get('horaInicio')?.value;
+    const fin = control.get('horaFinalizacion')?.value;
+    const inicioColacion = control.get('inicio_colacion')?.value;
+    const finColacion = control.get('fin_colacion')?.value;
+
+    if (!inicio || !fin || !inicioColacion || !finColacion) {
+      return null;
+    }
+
+    // Validar que horaInicio es anterior a horaFinalizacion
+    if (inicio >= fin) {
+      return { horarioLaboralInvalido: true };
+    }
+
+    // Validar que la colación está dentro del horario laboral
+    if (inicio > inicioColacion || finColacion > fin) {
+      return { horarioColacionFuera: true };
+    }
+
+    // Validar que inicioColacion es anterior a finColacion
+    if (inicioColacion >= finColacion) {
+      return { colacionInvalida: true };
+    }
+
+    return null;
+  };
+}
+
+  
+
+
+  
   ngOnInit(): void {
     this.cargaMedicos();
   }

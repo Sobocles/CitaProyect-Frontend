@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Medico } from '../../interface/medicos';
 import { Router } from '@angular/router';
 import { HorarioMedicoService } from '../../services/horario-medico.service';
@@ -26,12 +26,44 @@ export class EditarHorarioComponent implements OnInit {
       diaSemana: ['', [Validators.required]],
       horaInicio: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
       horaFinalizacion: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
-      rut_medico: ['', [Validators.required]],
+    
+      inicio_colacion: ['',Validators.required],
+      fin_colacion: ['',Validators.required],
      
-    });
+    }, { validators: this.horarioColacionValidator() });
   }
 
-
+  horarioColacionValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (!(control instanceof FormGroup)) return null;
+  
+      const inicio = control.get('horaInicio')?.value;
+      const fin = control.get('horaFinalizacion')?.value;
+      const inicioColacion = control.get('inicio_colacion')?.value;
+      const finColacion = control.get('fin_colacion')?.value;
+  
+      if (!inicio || !fin || !inicioColacion || !finColacion) {
+        return null;
+      }
+  
+      // Validar que horaInicio es anterior a horaFinalizacion
+      if (inicio >= fin) {
+        return { horarioLaboralInvalido: true };
+      }
+  
+      // Validar que la colación está dentro del horario laboral
+      if (inicio > inicioColacion || finColacion > fin) {
+        return { horarioColacionFuera: true };
+      }
+  
+      // Validar que inicioColacion es anterior a finColacion
+      if (inicioColacion >= finColacion) {
+        return { colacionInvalida: true };
+      }
+  
+      return null;
+    };
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -40,15 +72,14 @@ export class EditarHorarioComponent implements OnInit {
         // Obtén los datos del médico y llénalos en el formulario
         this.HorarioMedicoService.obtenerHorarioPorId(horarioId).subscribe((response: any) => {
           const horario = response.horario;
-          console.log('AQUI ESTA EL HORARIO',horario);
+          console.log('aqui estan los horarios medicos',horario);
           this.horarioMedicoForm.patchValue({
             idHorario: horario.idHorario,
             horaInicio: horario.horaInicio,
             horaFinalizacion: horario.horaFinalizacion,
-            hora_inicio_colacion: horario.hora_inicio_colacion,
-            hora_fin_colacion: horario.hora_fin_colacion,
+            inicio_colacion: horario.inicio_colacion,
+            fin_colacion: horario.fin_colacion,
             duracionCitas: horario.duracionCitas,
-            rut_medico: this.cargaMedicos(),
             disponibilidad: horario.disponibilidad,
             fechaCreacion: horario.fechaCreacion,
           });

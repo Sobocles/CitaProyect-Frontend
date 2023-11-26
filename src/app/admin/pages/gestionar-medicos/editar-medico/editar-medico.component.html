@@ -70,6 +70,9 @@
               <div *ngIf="formulario.controls['direccion'].touched && formulario.controls['direccion'].errors?.['required']" class="text-danger">
                 Este campo es obligatorio.
               </div>
+              <div *ngIf="formulario.controls['direccion'].touched && formulario.controls['direccion'].errors?.['maxlength']" class="text-danger">
+                La dirección no puede exceder los 66 caracteres.
+              </div>
             </div>
          
      

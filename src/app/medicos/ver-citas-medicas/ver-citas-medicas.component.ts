@@ -32,6 +32,7 @@ cargarCitasMedicas(rutMedico: string, desde: number) {
   .subscribe((response: any) => {
     console.log('AQUI ESTA LAS CITAS',response);
     this.citasMedicas = response.citas;
+  
     this.totalCitas = response.total;
     console.log('AQUI ESTA EL TOTAL DE CITAS',this.totalCitas);
     console.log('AQUI ESTA LAS CITAS EN EL ARREGLO',this.citasMedicas);

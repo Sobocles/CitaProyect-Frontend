@@ -23,7 +23,7 @@ export class EditarMedicoComponent implements OnInit {
       apellidos: ['', Validators.required],
       email: ['', [Validators.required, Validators.email, this.gmailValidator]],
       telefono: ['', [Validators.required, this.telefonoValidator]],
-      direccion: ['', Validators.required],
+      direccion: ['', [Validators.required, Validators.maxLength(66)]],
       nacionalidad: ['', Validators.required],
       especialidad_medica: [''], 
     });
