@@ -13,7 +13,8 @@ import { BusquedaMedicoComponent } from './pages/busqueda-medico/busqueda-medico
 import { HistorialPacienteComponent } from './pages/historial-paciente/historial-paciente.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { PaymentFailureComponent } from './pages/payment-failure/payment-failure.component';
-import { FullCalendarModule } from '@fullcalendar/angular'; 
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CambiarPasswordComponent } from './pages/cambiar-password/cambiar-password.component'; 
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     BusquedaMedicoComponent,
     HistorialPacienteComponent,
     PaymentSuccessComponent,
-    PaymentFailureComponent
+    PaymentFailureComponent,
+    CambiarPasswordComponent
  
 
 

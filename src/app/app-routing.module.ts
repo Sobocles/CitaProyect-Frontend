@@ -15,19 +15,19 @@ const routes: Routes = [
     path: 'paciente',
     loadChildren: () => import('./pacientes/pacientes.module').then((m) => m.PacientesModule),
     canActivate: [AuthGuard, patientGuard], // Aplica el AuthGuard a esta ruta
-    canLoad: [patientGuard]
+   
   },
   {
     path: 'ad',
     loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
     canActivate: [AuthGuard, AdminGuard], // Aplica el AuthGuard a esta ruta
-    canLoad: [AdminGuard],
+  
   },
   {
     path: 'medicos',
     loadChildren: () => import('./medicos/medicos.module').then((m) => m.MedicosModule),
     canActivate: [AuthGuard, medicGuard], // Aplica el AuthGuard a esta ruta
-    canLoad: [AdminGuard],
+    
  
   },
   {

@@ -11,6 +11,7 @@ import { GestionarHistorialesComponent } from './gestionar-historiales/gestionar
 import { RouterModule } from '@angular/router';
 import { SharedModule } from "../shared/shared.module";
 import { VerCitasMedicasComponent } from './ver-citas-medicas/ver-citas-medicas.component';
+import { CambiarPasswordMedicoComponent } from './cambiar-password-medico/cambiar-password-medico.component';
 
 
 
@@ -22,6 +23,7 @@ import { VerCitasMedicasComponent } from './ver-citas-medicas/ver-citas-medicas.
         HistorialComponent,
         GestionarHistorialesComponent,
         VerCitasMedicasComponent,
+        CambiarPasswordMedicoComponent,
     ],
     imports: [
         CommonModule,

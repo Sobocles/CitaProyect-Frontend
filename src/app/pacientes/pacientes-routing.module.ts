@@ -11,6 +11,7 @@ import { AuthGuard } from '../auth/guards/auth.guard';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { PaymentFailureComponent } from './pages/payment-failure/payment-failure.component';
 import { patientGuard } from '../auth/guards/patient.guard';
+import { CambiarPasswordComponent } from './pages/cambiar-password/cambiar-password.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,8 @@ const routes: Routes = [
       { path: 'Agendar-cita', component: AgendarCitaComponent, canActivate: [AuthGuard, patientGuard] },
 
       { path: 'formulario-cita', component: FormularioCitaComponent, canActivate: [AuthGuard, patientGuard] },
+
+      { path: 'cambiar-password', component: CambiarPasswordComponent, canActivate: [AuthGuard, patientGuard] },
 
       { path: 'busqueda-medico', component: BusquedaMedicoComponent, canActivate: [AuthGuard, patientGuard] },
 

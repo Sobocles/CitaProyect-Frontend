@@ -122,6 +122,7 @@ export class AuthService {
                   console.log('aqui esta el medico instanciado', this.medico);
               } else { // Por defecto, asumimos que es un Usuario
                   this.usuario = new Usuario(nombre, apellidos, rol, rut);
+                  console.log('aqui esta el usuario',this.usuario.rol);
               }
   
               console.log(this.infoClinica, this.usuario, this.medico);
@@ -148,6 +149,54 @@ export class AuthService {
         catchError(err => of(err.error.msg))
       );
     }
+
+    cambiarPassword(rut: string, password: string, newPassword: string){
+      if (localStorage.getItem('token')) {
+        const url = `${base_url}/usuarios/cambiarPassword`;
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${localStorage.getItem('token')}`
+        });
+        const options = { headers: headers }
+        const body = {
+          rut,
+          password,
+          newPassword
+        }
+        return this.http.post<any>(url, body, options).pipe(
+          map((resp: any) => {
+            return resp.ok;
+          }),
+          catchError(err => of(err.error.msg))
+        );
+      } else {
+        return of(false);
+      }
+    }
+
+    cambiarPasswordMedico(rut: string, password: string, newPassword: string){
+      if (localStorage.getItem('token')) {
+        const url = `${base_url}/medicos/cambiarPassword`;
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${localStorage.getItem('token')}`
+        });
+        const options = { headers: headers }
+        const body = {
+          rut,
+          password,
+          newPassword
+        }
+        return this.http.post<any>(url, body, options).pipe(
+          map((resp: any) => {
+            return resp.ok;
+          }),
+          catchError(err => of(err.error.msg))
+        );
+      } else {
+        return of(false);
+      }
+    }
+
+
 
   
 
