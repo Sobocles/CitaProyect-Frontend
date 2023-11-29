@@ -3,6 +3,7 @@ import { CitaMedicaService } from '../../admin/pages/services/cita-medica.servic
 import { AuthService } from '../../auth/services/auth.service';
 import { BusquedaMedicoService } from '../../pacientes/services/busqueda-medico.service';
 import { BusquedasService } from 'src/app/admin/pages/services/busquedas.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ver-citas-medicas',
@@ -25,6 +26,29 @@ export class VerCitasMedicasComponent implements OnInit {
     } else {
         console.error("RUT del usuario no definido o usuario no autenticado");
     }
+}
+
+cambioEstado(cita: any) {
+  this.CitaMedicaService.actualizarCita(cita.idCita, { estado: cita.estado })
+    .subscribe(response => {
+      console.log('Cita actualizada:', response);
+      Swal.fire({
+        icon: 'success',
+        title: '¡Hecho!',
+        text: 'Cita actualizada correctamente.',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Aceptar'
+      });
+    }, error => {
+      console.error('Error al actualizar cita:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Hubo un error al actualizar la cita.',
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Intentar de nuevo'
+      });
+    });
 }
 
 cargarCitasMedicas(rutMedico: string, desde: number) {

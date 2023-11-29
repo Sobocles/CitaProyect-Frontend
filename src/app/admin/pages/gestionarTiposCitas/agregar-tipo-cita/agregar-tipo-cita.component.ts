@@ -21,7 +21,7 @@ export class AgregarTipoCitaComponent {
     private TipoCitaService: TipoCitaService
   ) {
     this.formularioTipoCita = this.fb.group({
-      tipo_cita: ['', Validators.required],
+      
       precio: ['', [Validators.required, Validators.pattern(/^(?!0\d)\d+$/)]],
       especialidad_medica: ['', Validators.required],
       duracion_cita: ['', [

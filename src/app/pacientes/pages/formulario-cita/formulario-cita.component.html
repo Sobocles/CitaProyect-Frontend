@@ -4,23 +4,7 @@
   <h2 class="text-center mb-4">Formulario Cita</h2>
   <div class="form-container">
     <form [formGroup]="form" (ngSubmit)="enviarFormulario()">
-      <div class="mb-2">Seleccione un Tipo de cita</div>
-
-      <!-- Nota cómo utilizo formControlName en cada input -->
-      <div class="form-check">
-        <input class="form-check-input" type="radio" formControlName="tipoCita" value="general">
-        <label class="form-check-label">
-          Consulta General
-        </label>
-      </div>
-      <div class="form-check mb-4">
-        <input class="form-check-input" type="radio" formControlName="tipoCita" value="especialidad">
-        <label class="form-check-label">
-          Especialidad
-        </label>
-      </div>
-
-      <div class="form-group" *ngIf="form.get('tipoCita')?.value === 'especialidad'">
+      <div class="form-group">
         <label for="especialidad">Seleccione una especialidad:</label>
         <select formControlName="especialidad">
           <option *ngFor="let tipo of tiposCitas" [value]="tipo.especialidad_medica">{{ tipo.especialidad_medica }}</option>

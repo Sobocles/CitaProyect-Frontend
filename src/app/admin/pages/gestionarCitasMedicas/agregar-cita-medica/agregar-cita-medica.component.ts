@@ -141,33 +141,24 @@ export class AgregarCitaMedicaComponent implements OnInit {
 }
 
 formularioValido(): boolean {
-  return this.selectedPaciente && this.selectedTipoCita && 
-         (this.selectedTipoCita !== 'Especialidad médica' || this.selectedEspecialidad) &&
+  return this.selectedPaciente && this.selectedEspecialidad &&
          this.selectedDate && this.selectedMedico && this.selectedMedico.rutMedico;
 }
 
 
+
   onChangeData() {
     console.log('onChangeData fue llamada');
-    console.log('selectedTipoCita:', this.selectedTipoCita);
     console.log('selectedEspecialidad:', this.selectedEspecialidad);
     console.log('selectedDate:', this.selectedDate);
-    console.log('selectedMedico',this.selectedMedico);
-
-
-    this.motivo = '';
+    console.log('selectedMedico', this.selectedMedico);
+  
+    this.motivo = this.selectedEspecialidad;
     this.medicosDisponibles = [];
-
-    // Si es una consulta general, no añadir el campo de especialidad
-    if (this.selectedTipoCita === 'Especialidad médica' && this.selectedEspecialidad) {
-        this.motivo = this.selectedEspecialidad;
-    } else {
-        this.motivo = 'Consulta general';
-    }
-
+  
     let formData: any = {
         fecha: this.selectedDate,
-        especialidad: this.motivo  // Aquí asignamos motivo a formData independientemente de la condición anterior
+        especialidad: this.motivo
     };
 
     console.log('este es el motivo', this.motivo);

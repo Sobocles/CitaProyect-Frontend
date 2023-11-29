@@ -9,26 +9,22 @@
   <!-- Motivo de la cita -->
 
 
-  <div class="form-group mb-3">
-    <label for="paciente">Paciente</label>
-    <select class="form-control" id="paciente" [(ngModel)]="selectedPaciente" name="paciente">
-      <option value="" disabled>Seleccione un paciente</option>
+ <!-- Paciente -->
+ <div class="form-group mb-3">
+  <label for="paciente">Paciente</label>
+  <select class="form-control" id="paciente" [(ngModel)]="selectedPaciente" name="paciente">
+    <option value="" disabled>Seleccione un paciente</option>
+    <option *ngFor="let paciente of pacientes" [value]="paciente.rut">{{ paciente.nombre }} {{ paciente.apellido }}</option>
+  </select>
+</div>
 
-      <option *ngFor="let paciente of pacientes" [value]="paciente.rut">{{ paciente.nombre }} {{ paciente.apellido }}</option>
-    </select>
-  </div>
-  <div class="form-group mb-3">
-    <label for="tipoCita">Tipo de cita</label>
-    <select class="form-control" id="tipoCita" [(ngModel)]="selectedTipoCita" (change)="onTipoCitaChange($event)" name="tipoCita">
-      <option *ngFor="let tipo of tiposCitax" [value]="tipo">{{ tipo }}</option>
-    </select>
-  </div>
-  <div class="form-group mb-3" *ngIf="selectedTipoCita === 'Especialidad médica'">
-    <label for="especialidad">Especialidad</label>
-    <select class="form-control" id="especialidad" [(ngModel)]="selectedEspecialidad" (change)="onChangeData()" name="especialidad">
-      <option value="" disabled selected>Seleccione una especialidad</option> <!-- Esta es la línea agregada -->
-      <option *ngFor="let especialidad of especialidades" [value]="especialidad.especialidad_medica">{{ especialidad.especialidad_medica }}</option>
-    </select>
+<!-- Especialidad Médica -->
+<div class="form-group mb-3">
+  <label for="especialidad">Especialidad</label>
+  <select class="form-control" id="especialidad" [(ngModel)]="selectedEspecialidad" (change)="onChangeData()" name="especialidad">
+    <option value="" disabled selected>Seleccione una especialidad</option>
+    <option *ngFor="let especialidad of especialidades" [value]="especialidad.especialidad_medica">{{ especialidad.especialidad_medica }}</option>
+  </select>
 </div>
 
   

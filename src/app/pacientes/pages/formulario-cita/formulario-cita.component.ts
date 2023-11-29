@@ -16,7 +16,7 @@ import { HorarioClinicaService } from '../../services/horario-clinica.service';
 })
 export class FormularioCitaComponent {
 
-  tiposCitas: Tipo_cita[] = [];
+  tiposCitas: any[] = [];
   ordenDias: string[] = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
   form: FormGroup;
   private _bloques: Bloque[] = [];
@@ -26,7 +26,6 @@ export class FormularioCitaComponent {
 
   constructor(private fb: FormBuilder, private TipoCitaService: TipoCitaService, private BusquedaMedicoService: BusquedaMedicoService, private router: Router, private HorarioClinicaService: HorarioClinicaService ) {
     this.form = this.fb.group({
-      tipoCita: ['general', Validators.required],
       especialidad: [null],
       fecha: [null, Validators.required]
     });
@@ -38,9 +37,11 @@ export class FormularioCitaComponent {
 
 
   ngOnInit(): void {
-    this.TipoCitaService.cargaTipocita().subscribe(
+    this.TipoCitaService.cargaEspecialidades().subscribe(
       response => {
-        this.tiposCitas = response.tipo_cita;
+        console.log('aqui estan las especialidades',response);
+        this.tiposCitas = response.especialidades;
+        console.log('aqui esta el arreglo de especialidades',this.tiposCitas);
       },
       error => {
         console.error('Error cargando tipos de cita:', error);

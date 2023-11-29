@@ -19,19 +19,30 @@ export class HistorialComponent implements OnInit {
     medicos: any[] = [];
     pacientes: any[] = [];
 
-  constructor(private fb: FormBuilder, private HistorialService: HistorialService, private usuarioService: PacienteService, private medico: MedicoService, public AuthService: AuthService) { 
-    this.historialMedicoForm = this.fb.group({
-      id_historial_medico: ['', Validators.required],
-      diagnostico: ['', Validators.required],
-      medicamento: ['', Validators.required],
-      notas: ['', Validators.required],
-      fecha_consulta: ['', Validators.required],
-      archivo: ['', Validators.required],
-      rut_paciente: ['', Validators.required],
-      rut_medico: [this.AuthService.medico.rut, Validators.required],
-    });
-  }
+    constructor(
+      private fb: FormBuilder, 
+      private HistorialService: HistorialService, 
+      private usuarioService: PacienteService, 
+      private medico: MedicoService, 
+      public AuthService: AuthService
+    ) { 
+      // Obtén la fecha actual en formato yyyy-MM-dd
+      const fechaActual = new Date().toISOString().split('T')[0];
+    
+      this.historialMedicoForm = this.fb.group({
+        id_historial_medico: ['', Validators.required],
+        diagnostico: ['', Validators.required],
+        medicamento: ['', Validators.required],
+        notas: ['', Validators.required],
+        fecha_consulta: [fechaActual, Validators.required], // Establece la fecha actual aquí
+        archivo: ['', Validators.required],
+        rut_paciente: ['', Validators.required],
+        rut_medico: [this.AuthService.medico.rut, Validators.required],
+      });
+    }
+    
   ngOnInit(): void {
+    
     const rut_medico = this.AuthService.medico.rut
     this.usuarioService.cargarAllPacientesEnCurso(rut_medico)
     .subscribe((pacientes: UsuariosResponse) => {

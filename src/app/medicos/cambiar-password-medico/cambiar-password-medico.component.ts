@@ -31,18 +31,23 @@ export class CambiarPasswordMedicoComponent {
   }
 
   cambiarPassword(){
-    const {password, newPassword, newPasswordConfirm} = this.miFormulario.value;
- 
+    const { password, newPassword, newPasswordConfirm } = this.miFormulario.value;
+  
     if(newPassword === newPasswordConfirm){
       this.authService.cambiarPasswordMedico(this.authService.medico.rut, password, newPassword).subscribe(ok=>{
         if(ok === true){
-          Swal.fire('Ha actualizado correctamente la contraseña', '', 'success');
+          Swal.fire('Ha actualizado correctamente la contraseña', '', 'success')
+            .then(() => {
+              // Limpia el formulario solo si el cambio de contraseña fue exitoso y el usuario cierra el SweetAlert
+              this.miFormulario.reset();
+            });
         } else {
           Swal.fire('Error', '', 'error');
         }
       });
     } else {
-      Swal.fire('Error', 'Las contraseñas nuevas no son iguales ', 'error');
+      Swal.fire('Error', 'Las contraseñas nuevas no son iguales', 'error');
     }
   }
+  
 }

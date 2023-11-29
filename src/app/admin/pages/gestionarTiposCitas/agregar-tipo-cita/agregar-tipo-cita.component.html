@@ -1,18 +1,10 @@
 <form [formGroup]="formularioTipoCita" (ngSubmit)="crearTipoCita()">
   <div class="form-group mb-3">
-    <label>Tipo de Cita</label>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" id="consultaGeneral" formControlName="tipo_cita" value="Consulta General">
-      <label class="form-check-label" for="consultaGeneral">Consulta General</label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" id="especialidad" formControlName="tipo_cita" value="Consulta Especialidad">
-      <label class="form-check-label" for="especialidad">Consulta Especialidad</label>
-    </div>
+   
     
   </div>
 
-  <div class="form-group mb-3" *ngIf="formularioTipoCita.get('tipo_cita')?.value === 'Consulta Especialidad'">
+  <div class="form-group mb-3">
     <label for="especialidad_medica">Especialidad Médica</label>
     <input type="text" id="especialidad_medica" formControlName="especialidad_medica" class="form-control">
   </div>

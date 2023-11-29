@@ -75,8 +75,6 @@ export class CitaMedicaService {
   }
 
   actualizarCita(id: number, data: any): Observable<any> {
-    console.log(id);
-    console.log(data);
     const url = `${ base_url }/cita_medica/${ id }`;
     return this.http.put(url, data, this.headers);
   }

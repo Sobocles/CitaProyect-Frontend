@@ -33,6 +33,7 @@
                           <th>Hora Fin</th>
                           <th>Nombre</th>
                           <th>Apellidos</th>
+                          <th>Estado cita</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -44,6 +45,14 @@
                           <td>{{ cita.hora_fin }}</td>
                           <td>{{ cita.paciente.nombre }}</td>
                           <td>{{ cita.paciente.apellidos}}</td>
+                          
+                          <select class="form-control" [(ngModel)]="cita.estado" (change)="cambioEstado(cita)">
+                            <option value="en_curso">En Curso</option>
+                            <option value="terminado">Terminado</option>               
+                            <option value="pagado">Pagado</option>
+                  
+                        
+                        </select>
 
                         </tr>
                       </tbody>
