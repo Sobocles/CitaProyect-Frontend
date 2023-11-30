@@ -63,6 +63,12 @@ export class CitaMedicaService {
     return this.http.get<CitasResponse>(url, this.headers); 
 }
 
+obtenerCitaMedicaPorIdParaPacientes(rutPaciente: string, desde: number, limite: number = 5): Observable<CitasResponse> { 
+  const url = `${ base_url }/cita_medica/usuario/${rutPaciente}?desde=${desde}&limite=${limite}`;
+  console.log('URL de solicitud:', url);
+  return this.http.get<CitasResponse>(url, this.headers); 
+}
+
   cargarCitaMedica(desde: number = 0) {
    
     const url = `${base_url}/cita_medica?desde=${desde}`;

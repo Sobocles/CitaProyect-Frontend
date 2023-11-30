@@ -26,7 +26,7 @@ export class FormularioCitaComponent {
 
   constructor(private fb: FormBuilder, private TipoCitaService: TipoCitaService, private BusquedaMedicoService: BusquedaMedicoService, private router: Router, private HorarioClinicaService: HorarioClinicaService ) {
     this.form = this.fb.group({
-      especialidad: [null],
+      especialidad: [null, Validators.required],
       fecha: [null, Validators.required]
     });
   }

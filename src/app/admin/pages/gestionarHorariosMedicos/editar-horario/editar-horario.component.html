@@ -48,23 +48,21 @@
         <div class="form-group mt-3">
           <label for="inicioColacion">Hora de Inicio de Colación</label>
           <input type="time" class="form-control" id="inicioColacion" formControlName="inicio_colacion">
-          <div *ngIf="horarioMedicoForm.errors?.['horarioInvalido']" class="text-danger">
+        
+          <div *ngIf="horarioMedicoForm.errors?.['horarioColacionFuera']" class="text-danger">
             El horario de colación debe estar dentro del horario laboral.
           </div>
-          
         </div>
         
         <div class="form-group mt-3">
           <label for="finColacion">Hora de Fin de Colación</label>
           <input type="time" class="form-control" id="finColacion" formControlName="fin_colacion">
-          <div *ngIf="horarioMedicoForm.errors?.['horarioInvalido']" class="text-danger">
-            El horario de colación debe estar dentro del horario laboral.
-          </div>
+      
           <div *ngIf="horarioMedicoForm.errors?.['colacionInvalida']" class="text-danger">
             La hora de inicio de colación debe ser anterior a la hora de fin de colación.
           </div>
-          
         </div>
+        
           
    
       

@@ -16,7 +16,8 @@
         <input type="date" class="form-control" id="fecha" formControlName="fecha">
       </div>
 
-      <button type="submit" class="btn btn-primary mt-3">Buscar médicos disponibles</button>
+      <button type="submit" class="btn btn-primary mt-3" [disabled]="!form.valid">Buscar médicos disponibles</button>
+
     </form>
   </div>
 

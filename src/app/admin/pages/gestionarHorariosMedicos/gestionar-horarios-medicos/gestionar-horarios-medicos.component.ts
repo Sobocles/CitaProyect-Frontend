@@ -54,6 +54,10 @@ export class GestionarHorariosMedicosComponent implements OnInit {
 
   }
 
+  redirigirACrearCita() {
+    this.router.navigateByUrl('/agregar-cita');
+  }
+
   cargaHorario() {
     this.HorarioMedicoService.cargarHorario(this.desde)
       .subscribe((response: HorarioResponse) => {

@@ -35,7 +35,7 @@ export class AgregarHorarioMedicoComponent implements OnInit {
   }
 
  // Dentro de tu componente TypeScript
-horarioColacionValidator(): ValidatorFn {
+ horarioColacionValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
     if (!(control instanceof FormGroup)) return null;
 
@@ -44,28 +44,27 @@ horarioColacionValidator(): ValidatorFn {
     const inicioColacion = control.get('inicio_colacion')?.value;
     const finColacion = control.get('fin_colacion')?.value;
 
-    if (!inicio || !fin || !inicioColacion || !finColacion) {
-      return null;
-    }
-
-    // Validar que horaInicio es anterior a horaFinalizacion
-    if (inicio >= fin) {
+    // Validar que horaInicio es anterior a horaFinalizacion (independientemente de los campos de colación)
+    if (inicio && fin && inicio >= fin) {
       return { horarioLaboralInvalido: true };
     }
 
-    // Validar que la colación está dentro del horario laboral
-    if (inicio > inicioColacion || finColacion > fin) {
-      return { horarioColacionFuera: true };
-    }
-
-    // Validar que inicioColacion es anterior a finColacion
-    if (inicioColacion >= finColacion) {
-      return { colacionInvalida: true };
+    // Validar que la colación está dentro del horario laboral y que inicioColacion es anterior a finColacion
+    // Solo si todos los campos tienen valores
+    if (inicio && fin && inicioColacion && finColacion) {
+      if (inicio > inicioColacion || finColacion > fin) {
+        return { horarioColacionFuera: true };
+      }
+      if (inicioColacion >= finColacion) {
+        return { colacionInvalida: true };
+      }
     }
 
     return null;
   };
 }
+
+
 
   
 

@@ -5,7 +5,7 @@
     <div class="col-md-8">
       <h2 class="text-center mb-4">Formulario de Registro de Horario Médico</h2>
       <div style="background-color: #ffcc00; color: #333; padding: 10px; border-radius: 5px; margin: 20px 0; border: 1px solid #ffa500;">
-        <strong>Advertencia:</strong> Por favor, asegúrese primero de completar el formulario de Tipo Cita ingresando especialidades médicas en la sección gestionar tipo de cita,  luego asegúrese registrar médicos que tengan especialización en esas áreas médicas para que de esta forma esos médicos  se muestren en la selección de médicos junto a sus especialidades creadas al final de este formulario.
+        <strong>Advertencia:</strong>Por favor, comience asegurándose de completar el formulario de Tipo de Cita en la sección 'Gestionar Tipo de Cita' para agregar las especialidades médicas que desea incorporar al sistema. Tras ello, proceda a registrar a los médicos que dominen estas especialidades médicas. Esto se hace a través del formulario de 'Crear Médico', disponible en la sección 'Gestionar Médicos'. Al realizar estos pasos en secuencia, los médicos registrados, junto con sus especialidades, se mostrarán automáticamente en la selección de médicos en el presente formulario de 'Crear Horarios Médicos' en el que se encuentra actualmente.
       </div>
       
       <form [formGroup]="horarioMedicoForm" (ngSubmit)="crearHorario()">
@@ -31,7 +31,7 @@
         
         <div class="form-group mt-3">
           <label for="horaInicio">Hora de Inicio</label>
-          <input type="time" class="form-control" id="horaInicio" formControlName="horaInicio" placeholder="08:00:00">
+          <input type="time" class="form-control" id="horaInicio" formControlName="horaInicio" (change)="horarioMedicoForm.updateValueAndValidity()" placeholder="08:00:00">
           <!-- Alerta para campo requerido -->
           <div *ngIf="horarioMedicoForm.controls['horaInicio'].touched && horarioMedicoForm.controls['horaInicio'].errors?.['required']" class="text-danger">
             Este campo es obligatorio.
@@ -51,10 +51,11 @@
           La hora de inicio debe ser anterior a la hora de finalización.
         </div>
         
+        
         <div class="form-group mt-3">
   <label for="inicioColacion">Hora de Inicio de Colación</label>
   <input type="time" class="form-control" id="inicioColacion" formControlName="inicio_colacion">
-  <div *ngIf="horarioMedicoForm.errors?.['horarioInvalido']" class="text-danger">
+  <div *ngIf="horarioMedicoForm.errors?.['horarioColacionFuera']" class="text-danger">
     El horario de colación debe estar dentro del horario laboral.
   </div>
   
@@ -63,7 +64,7 @@
 <div class="form-group mt-3">
   <label for="finColacion">Hora de Fin de Colación</label>
   <input type="time" class="form-control" id="finColacion" formControlName="fin_colacion">
-  <div *ngIf="horarioMedicoForm.errors?.['horarioInvalido']" class="text-danger">
+  <div *ngIf="horarioMedicoForm.errors?.['horarioColacionFuera']" class="text-danger">
     El horario de colación debe estar dentro del horario laboral.
   </div>
   <div *ngIf="horarioMedicoForm.errors?.['colacionInvalida']" class="text-danger">

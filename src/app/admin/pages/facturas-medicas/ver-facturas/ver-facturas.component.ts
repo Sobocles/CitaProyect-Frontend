@@ -76,13 +76,15 @@ export class VerFacturasComponent implements OnInit {
   buscar(termino: string): void {
     console.log('aqui esta el termino',termino);
     if (termino.length === 0) {
-      return this.cargarFacturas(); // Recarga todas las facturas si no hay término de búsqueda
+      return this.cargarFacturas(); 
     }
 
     this.BusquedasService.buscar('facturas', termino)
-      .subscribe((resp: any) => { // Asegúrate de que el tipo de respuesta sea el correcto
+      .subscribe((resp: any) => { 
+        console.log('aqui esta la respuesta',resp);
       
         this.facturas = resp.citas
+        console.log('aqui esta la factura',this.facturas);
  
       });
   }

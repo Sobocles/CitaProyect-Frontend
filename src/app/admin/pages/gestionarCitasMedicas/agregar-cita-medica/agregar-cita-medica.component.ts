@@ -81,6 +81,9 @@ export class AgregarCitaMedicaComponent implements OnInit {
       this.idTipo = this.selectedMedico.idTipoCita;
     }
   }
+  irAGestionarHorarios() {
+    this.router.navigate(['/gestionar-horarios-medicos']);
+  }
   
 
 

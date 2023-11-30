@@ -1,8 +1,9 @@
 
 <div class="alert alert-warning" role="alert">
-  Si no tienes medicos registrados en la aplicación o no sabes qué días trabajan tus médicos 
-  <a href="/gestionar-horarios-medicos" class="btn btn-info">revisa los horarios aquí</a>
+  Si no tienes médicos registrados en la aplicación o no sabes qué días trabajan tus médicos 
+  <button class="btn btn-info" (click)="irAGestionarHorarios()">Revisa los horarios aquí</button>
 </div>
+
 
 <form (ngSubmit)="guardarCita()">
 
@@ -14,7 +15,7 @@
   <label for="paciente">Paciente</label>
   <select class="form-control" id="paciente" [(ngModel)]="selectedPaciente" name="paciente">
     <option value="" disabled>Seleccione un paciente</option>
-    <option *ngFor="let paciente of pacientes" [value]="paciente.rut">{{ paciente.nombre }} {{ paciente.apellido }}</option>
+    <option *ngFor="let paciente of pacientes" [value]="paciente.rut">{{ paciente.nombre }} {{ paciente.apellidos }}</option>
   </select>
 </div>
 

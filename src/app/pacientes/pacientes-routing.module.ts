@@ -12,6 +12,7 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
 import { PaymentFailureComponent } from './pages/payment-failure/payment-failure.component';
 import { patientGuard } from '../auth/guards/patient.guard';
 import { CambiarPasswordComponent } from './pages/cambiar-password/cambiar-password.component';
+import { VerCitasPacienteComponent } from './pages/ver-citas-paciente/ver-citas-paciente.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,8 @@ const routes: Routes = [
       { path: 'cambiar-password', component: CambiarPasswordComponent, canActivate: [AuthGuard, patientGuard] },
 
       { path: 'busqueda-medico', component: BusquedaMedicoComponent, canActivate: [AuthGuard, patientGuard] },
+
+      { path: 'ver-cita-paciente', component: VerCitasPacienteComponent, canActivate: [AuthGuard, patientGuard] },
 
       { path: 'historial', component: HistorialPacienteComponent, canActivate: [AuthGuard, patientGuard] },
 
