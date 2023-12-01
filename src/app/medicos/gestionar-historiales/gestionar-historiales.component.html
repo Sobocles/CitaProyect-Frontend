@@ -6,7 +6,8 @@
                 <input type="text"
                         class="form-control"
                         placeholder="Buscar historial..."
-                       > <!--CUANDO SE PRESIONE UNA TECLA BUSQUE EL TERMINO KEYUP ES PARA VER LAS LETRAS QUE SE ESCRIBEN EN TIEMPO REAL MIENTRAS SE EPREISONA UNA LETRA-->
+                        #txtTermino
+                        (keyup)="buscar( txtTermino.value )"/> 
 
             </div>
         </div>
@@ -28,8 +29,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Total de historiales: </h4>
-                <h6 class="card-subtitle">Historiales registrados en mi aplicacion</h6>
+                <h4 class="card-title">Historiales medicos escritos </h4>
+                <h6 class="card-subtitle">Historiales registrados en mi aplicacion ({{this.totalHistoriales}})</h6>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                       <thead>
@@ -40,7 +41,7 @@
                           <th>Medicamento</th>
                           <th>notas</th>
                           <th>Fecha de consulta</th>
-                          <th>Medico</th>
+                          <th>Paciente</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
@@ -49,28 +50,29 @@
                           <td>{{historial.id_historial}}</td>
                           <td>{{historial.diagnostico}}</td>
                           <td>{{historial.medicamento}}</td>
-                          <td>{{historial.notas}}</td>
-                          <td>{{historial.fecha_consulta}}</td>
+                          <td>{{historial.notas}}</td>                  
+                          <td>{{ historial.fecha_consulta | date: 'MMM d, y' }}</td>
+
+                          <td>{{historial.paciente.nombre}} {{historial.paciente.apellidos}}</td>
                           
 
-              <td>
-                <div class="icon-container">
-                    <a class="cursor"
-                      data-toggle="tooltip" 
-                      data-original-title="Borrar"
-                      > 
-                      <i class="fa fa-close text-danger"></i> 
-                    </a>
-                  </div>
-                  <div class="icon-container">
-                    <a class="cursor"
-                      data-toggle="tooltip" 
-                      data-original-title="Editar"
-                    > 
-                      <i class="fa fa-pencil text-primary"></i> 
-                    </a>
-                  </div>
-                </td>
+                          <td>
+                            <div class="icon-container d-flex">
+                              <a class="cursor mr-2"
+                                 data-toggle="tooltip" 
+                                 data-original-title="Editar"
+                                 (click)="editarHistorial( historial )"> 
+                                <i class="fa fa-pencil text-primary"></i> 
+                              </a>
+                              <a class="cursor"
+                                 data-toggle="tooltip" 
+                                 data-original-title="Borrar"
+                                 (click)="borrarHistorial( historial )"> 
+                                <i class="fa fa-close text-danger"></i> 
+                              </a>
+                            </div>
+                          </td>
+                          
                 
                 
                 
@@ -79,11 +81,10 @@
                     </table>
                   </div>
                 <!--ESTA CONDICION SE HACE PARA QUE CUANDO SE TECLEA EN LA BARRA DE BUSQUEDA Y SE CARGAN LOS RESULTADOS DE BUSQUEDA DESAPARESCAN LOS BOTONES SIGUIENTES Y ANTERIOR EN LA PANTALLA-->
-                <div> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
-                    <button  class="btn btn-secondary">Anteriores</button>
-                    &nbsp; <!--Esto es para que exista una pequeña separacion entre ambos-->
-                    <button  class="btn btn-secondary">Siguiente</button>
-                </div>
+                <button class="btn btn-secondary" (click)="cambiarPagina(-5)">Anteriores</button>
+                &nbsp;
+                <button class="btn btn-secondary" (click)="cambiarPagina(5)">Siguiente</button>
+
             
             </div>
         </div>

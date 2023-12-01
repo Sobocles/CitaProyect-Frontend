@@ -29,11 +29,8 @@ export class EditarUsuarioComponent implements OnInit {
       const usuarioId = params['id'];
       console.log('id',usuarioId)
       if (usuarioId) {
-        // Obtén los datos del médico y llénalos en el formulario
         this.PacienteService.obtenerUsuarioPorId(usuarioId).subscribe((response: any) => {
-          const usuarioData = response.usuario; // Acceder al objeto usuario interno
-          console.log('Usuario completo:', usuarioData);
-          console.log('RUT del usuario:', usuarioData.rut);
+          const usuarioData = response.usuario; 
           this.formulario.patchValue({
             rut: usuarioData.rut,
             nombre: usuarioData.nombre,
@@ -50,7 +47,7 @@ export class EditarUsuarioComponent implements OnInit {
   }
 
   editarPaciente() {
-    console.log('AQUI ENTREEEEEEEEEEEEEEE');
+   
     Swal.fire({
       title: '¿Editar usuario?',
       text: 'Esta a punto de editar los datos del usuario. ¿Desea continuar?',

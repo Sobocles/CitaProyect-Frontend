@@ -95,7 +95,7 @@ export class AuthService {
 
 
      validarToken(): Observable<boolean> {
-      // Configura las cabeceras correctamente en el objeto de opciones
+      console.log('entro a validar token');
       const options = {
           headers: new HttpHeaders({
               'Authorization': `Bearer ${localStorage.getItem('token')}`

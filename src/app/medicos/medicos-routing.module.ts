@@ -8,17 +8,20 @@ import { AuthGuard } from '../auth/guards/auth.guard';
 import { VerCitasMedicasComponent } from './ver-citas-medicas/ver-citas-medicas.component';
 import { medicGuard } from '../auth/guards/medic.guard';
 import { CambiarPasswordMedicoComponent } from './cambiar-password-medico/cambiar-password-medico.component';
+import { EditarHistorialComponent } from './editar-historial/editar-historial.component';
 
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutPageComponent, canActivate: [AuthGuard],
-    children: [
-      { path: 'gestionar-historiales', component: GestionarHistorialesComponent, canActivate: [AuthGuard,medicGuard], },
+    children: [    
+      { path: 'gestionar-historiales', component: GestionarHistorialesComponent, canActivate: [AuthGuard,medicGuard], }, 
+      { path: 'editar-historial/:id', component: EditarHistorialComponent, canActivate: [AuthGuard,medicGuard], },
       { path: 'cambiar-password-medicos', component: CambiarPasswordMedicoComponent, canActivate: [AuthGuard,medicGuard], },
       { path: 'ver-citas', component:VerCitasMedicasComponent, canActivate: [AuthGuard,medicGuard], },
       { path: 'agregar-historial', component: HistorialComponent, canActivate: [AuthGuard,medicGuard], },
+     
       { path: '**', redirectTo: 'gestionar-historiales' },
     ],
   },

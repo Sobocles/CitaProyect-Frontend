@@ -40,5 +40,23 @@ export class HistorialService {
     const url = `${ base_url }/historial/${rutPaciente}?desde=${desde}&limite=${limite}`;
     return this.http.get<HistorialResponse>(url, this.headers); 
 }
+obtenerHistorialPorIdMedico(rutMedico: string, desde: number, limite: number = 5): Observable<any> { 
+  const url = `${ base_url }/historial/medico/${rutMedico}?desde=${desde}&limite=${limite}`;
+  return this.http.get<any>(url, this.headers); 
+}
+
+getHistorialPorId(historialId: number): Observable<any> { 
+  const url = `${ base_url }/historial/porIdHistorial/${historialId}`;
+  return this.http.get<any>(url, this.headers); 
+}
+
+editarHistorial(historialEditado: any): Observable<any> {
+  return this.http.put(`${ base_url }/historial/${historialEditado.id_historial_medico}`, historialEditado, this.headers);
+}
+
+borrarHistorial( id: string ){
+  const url = `${ base_url }/historial/${ id }`;
+  return this.http.delete( url, this.headers );
+}
 
 }

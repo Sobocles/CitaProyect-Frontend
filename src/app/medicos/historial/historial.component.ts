@@ -6,6 +6,8 @@ import { MedicoService } from 'src/app/admin/pages/services/medico.service';
 import { UsuariosResponse } from '../usuarios';
 import { MedicoResponse } from 'src/app/admin/pages/interface/medicos';
 import { AuthService } from '../../auth/services/auth.service';
+import { Router } from '@angular/router';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,24 +20,26 @@ export class HistorialComponent implements OnInit {
   historialMedicoForm: FormGroup;
     medicos: any[] = [];
     pacientes: any[] = [];
+    public formularioIntentadoEnviar = false;
 
     constructor(
       private fb: FormBuilder, 
       private HistorialService: HistorialService, 
       private usuarioService: PacienteService, 
       private medico: MedicoService, 
-      public AuthService: AuthService
+      public AuthService: AuthService,
+      private router: Router
     ) { 
       // Obtén la fecha actual en formato yyyy-MM-dd
       const fechaActual = new Date().toISOString().split('T')[0];
     
       this.historialMedicoForm = this.fb.group({
-        id_historial_medico: ['', Validators.required],
+        id_historial_medico: ['', ],
         diagnostico: ['', Validators.required],
-        medicamento: ['', Validators.required],
-        notas: ['', Validators.required],
-        fecha_consulta: [fechaActual, Validators.required], // Establece la fecha actual aquí
-        archivo: ['', Validators.required],
+        medicamento: ['', ],
+        notas: ['',],
+        fecha_consulta: [fechaActual, Validators.required],
+    
         rut_paciente: ['', Validators.required],
         rut_medico: [this.AuthService.medico.rut, Validators.required],
       });
@@ -59,6 +63,10 @@ export class HistorialComponent implements OnInit {
   
 
   guardarHistorial() {
+    if (this.historialMedicoForm.invalid) {
+      this.formularioIntentadoEnviar = true; // El usuario ha intentado enviar el formulario
+      return; // No continuar si el formulario es inválido
+    }
     this.HistorialService.crearHistorial(this.historialMedicoForm.value).subscribe(
       response => {
         console.log(response);
@@ -68,11 +76,15 @@ export class HistorialComponent implements OnInit {
           text: 'El historial médico ha sido guardado correctamente.',
           icon: 'success',
           confirmButtonText: 'Ok'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['/gestionar-historiales']); // Redirige aquí
+          }
         });
       },
       error => {
         console.error(error);
-        // Aquí puedes manejar los errores, por ejemplo, mostrar un mensaje de error.
+        // Manejo de errores con mensaje
         Swal.fire({
           title: 'Error',
           text: 'Hubo un problema al guardar el historial médico.',
@@ -82,6 +94,7 @@ export class HistorialComponent implements OnInit {
       }
     );
   }
+  
 
   
 }

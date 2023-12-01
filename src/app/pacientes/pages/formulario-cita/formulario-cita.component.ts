@@ -50,7 +50,7 @@ export class FormularioCitaComponent {
   
     this.HorarioClinicaService.obtenerHorarioEspecialidades().subscribe(
       (horarios: any) => {
-        console.log(horarios);
+        console.log('aqui estan los horarios especialidades',horarios);
         this.horariosEspecialidades = horarios;
       },
       error => {

@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): Observable<boolean> | boolean {
-    console.log('CanActivate is being executed'); // Agrega esta línea para verificar la ejecución
+    console.log('Se esta ejecutando el can activate'); // Agrega esta línea para verificar la ejecución
     return this.authService.validarToken().pipe(
       tap((valid) => {
         console.log(valid);

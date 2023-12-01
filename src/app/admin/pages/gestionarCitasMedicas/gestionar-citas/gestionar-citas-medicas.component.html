@@ -54,9 +54,9 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let cita of citas">
-                                <!-- Suponiendo que la propiedad "nombre" exista en tu objeto de citas, ya que no la vi en el ejemplo proporcionado -->
+                               
                                 <th>{{ cita.idCita }}</th>
-                                <td>{{ cita.fecha }}</td>
+                                <td>{{ cita.fecha | date: 'MMM d, y' }}</td>
                                 <td>{{ cita.paciente.nombre + ' ' + cita.paciente.apellidos }}</td>
                                 <td>{{ cita.medico.nombre + ' ' + cita.medico.apellidos }}</td>
 
@@ -68,14 +68,14 @@
                                     <option value="no_asistio">No Asistió</option>
                                     <option value="pagado">Pagado</option>
                                     <option value="no_pagado">no Pagado</option>
-                                    <!-- Añade aquí más estados si los hay -->
+                                 
                                 </select>
                                 
                                   
                                 <td>{{ cita.hora_inicio }}</td>
                                 <td>{{ cita.hora_fin }}</td>
                                 <td class="text-nowrap text-center">
-                                    <!-- Aquí puedes agregar la lógica para las acciones, como eliminar una cita -->
+                                    
                                     <a data-toggle="tooltip"
                                        data-original-title="Borrar"
                                        class="cursor"

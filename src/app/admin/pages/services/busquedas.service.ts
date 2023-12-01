@@ -25,7 +25,7 @@ export class BusquedasService {
     }
 }
 
-  buscar(tipo: 'medicos' | 'usuarios' | 'horario_medico' | 'tipo_cita' | 'cita_medica' | 'facturas'| 'cita_medico', termino: string) {
+  buscar(tipo: 'medicos' | 'usuarios' | 'horario_medico' | 'tipo_cita' | 'cita_medica' | 'facturas'| 'cita_medico'| 'historiales', termino: string) {
     console.log('aqui esta los headers',this.headers);
     const url = `${base_url}/busqueda/coleccion/${tipo}/${termino}`;
     return this.http.get<any[]>(url, this.headers)
@@ -45,6 +45,8 @@ export class BusquedasService {
                         case 'facturas':
                           return resp; 
                           case 'cita_medico':
+                            return resp; 
+                            case 'historiales':
                             return resp; 
                     default:
                         return [];
