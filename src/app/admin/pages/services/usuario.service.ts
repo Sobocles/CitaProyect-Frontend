@@ -49,6 +49,12 @@ export class PacienteService  {
     const url = `${ base_url }/usuarios/allCurso/${ rut_medico }`;
     return this.http.get<UsuariosResponse>( url, this.headers)      
   }
+  
+  cargarAllPacientesEnCursoTerminado(rut_medico:string):Observable<UsuariosResponse> {
+    //localhost:3000/api/usuarios?desde=0
+    const url = `${ base_url }/usuarios/allCursoTerminado/${ rut_medico }`;
+    return this.http.get<UsuariosResponse>( url, this.headers)      
+  }
 
   borrarPaciente( id: string ){
     console.log(id);

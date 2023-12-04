@@ -32,7 +32,7 @@ export class HistorialService {
   }
 
   crearHistorial(historial: Historial) {
-    const url = `${base_url}/historial`; // Asumo que la ruta es '/historial' pero puedes ajustarla si es diferente
+    const url = `${base_url}/historial`; 
     return this.http.post(url, historial, this.headers);
   }
 

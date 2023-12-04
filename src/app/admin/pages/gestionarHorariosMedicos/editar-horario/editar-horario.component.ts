@@ -69,7 +69,7 @@ export class EditarHorarioComponent implements OnInit {
     this.route.params.subscribe(params => {
       const horarioId = params['id'];
       if (horarioId) {
-        // Obtén los datos del médico y llénalos en el formulario
+        // Obténer los datos del médico y llénalos en el formulario
         this.HorarioMedicoService.obtenerHorarioPorId(horarioId).subscribe((response: any) => {
           const horario = response.horario;
           console.log('aqui estan los horarios medicos',horario);
@@ -91,7 +91,7 @@ export class EditarHorarioComponent implements OnInit {
 
   cargaMedicos() {
     this.MedicoService.cargarMedicos()
-      .subscribe((response: any) => { // Asegúrate de que estás tipando la respuesta como 'any' o el tipo correcto
+      .subscribe((response: any) => { 
         this.medicos = response.medicos; // Asigna la propiedad 'medicos' de la respuesta al arreglo 'medicos'
         console.log(this.medicos);
       });

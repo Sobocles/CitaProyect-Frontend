@@ -13,6 +13,9 @@ import { PaymentFailureComponent } from './pages/payment-failure/payment-failure
 import { patientGuard } from '../auth/guards/patient.guard';
 import { CambiarPasswordComponent } from './pages/cambiar-password/cambiar-password.component';
 import { VerCitasPacienteComponent } from './pages/ver-citas-paciente/ver-citas-paciente.component';
+import { InicioComponent } from '../admin/pages/inicio/inicio.component';
+import { InicioPacienteComponent } from './pages/inicio-paciente/inicio-paciente.component';
+import { VerHistorialMedicoPacienteComponent } from './pages/ver-historial-medico-paciente/ver-historial-medico-paciente.component';
 
 
 const routes: Routes = [
@@ -20,6 +23,8 @@ const routes: Routes = [
     path: '',
     component: LayoutPageComponent, canActivate: [AuthGuard],
     children: [
+      { path: 'inicio-paciente', component: InicioPacienteComponent, canActivate: [AuthGuard, patientGuard] },
+
       { path: 'Agendar-cita', component: AgendarCitaComponent, canActivate: [AuthGuard, patientGuard] },
 
       { path: 'formulario-cita', component: FormularioCitaComponent, canActivate: [AuthGuard, patientGuard] },
@@ -31,6 +36,8 @@ const routes: Routes = [
       { path: 'ver-cita-paciente', component: VerCitasPacienteComponent, canActivate: [AuthGuard, patientGuard] },
 
       { path: 'historial', component: HistorialPacienteComponent, canActivate: [AuthGuard, patientGuard] },
+
+      { path: 'ver-historial-paciente/:id', component: VerHistorialMedicoPacienteComponent, canActivate: [AuthGuard,patientGuard] },
 
       { path: 'payment-success', component: PaymentSuccessComponent,canActivate: [AuthGuard, patientGuard] },
 

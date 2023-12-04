@@ -38,7 +38,7 @@ export class EditarHistorialComponent implements OnInit {
 
   ngOnInit() {
     const rut_medico = this.AuthService.medico.rut
-    this.usuarioService.cargarAllPacientesEnCurso(rut_medico)
+    this.usuarioService.cargarAllPacientesEnCursoTerminado(rut_medico)
     .subscribe((pacientes: UsuariosResponse) => {
   
       this.pacientes = pacientes.usuarios;

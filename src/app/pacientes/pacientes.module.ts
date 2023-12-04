@@ -15,7 +15,9 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
 import { PaymentFailureComponent } from './pages/payment-failure/payment-failure.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CambiarPasswordComponent } from './pages/cambiar-password/cambiar-password.component';
-import { VerCitasPacienteComponent } from './pages/ver-citas-paciente/ver-citas-paciente.component'; 
+import { VerCitasPacienteComponent } from './pages/ver-citas-paciente/ver-citas-paciente.component';
+import { InicioPacienteComponent } from './pages/inicio-paciente/inicio-paciente.component';
+import { VerHistorialMedicoPacienteComponent } from './pages/ver-historial-medico-paciente/ver-historial-medico-paciente.component'; 
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { VerCitasPacienteComponent } from './pages/ver-citas-paciente/ver-citas-
     PaymentSuccessComponent,
     PaymentFailureComponent,
     CambiarPasswordComponent,
-    VerCitasPacienteComponent
+    VerCitasPacienteComponent,
+    InicioPacienteComponent,
+    VerHistorialMedicoPacienteComponent
  
 
 

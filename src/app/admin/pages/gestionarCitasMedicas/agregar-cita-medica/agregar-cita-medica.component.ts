@@ -37,10 +37,10 @@ export class AgregarCitaMedicaComponent implements OnInit {
       tiposCitax = ['Consulta general', 'Especialidad médica'];
       selectedTipoCita!: string;
       especialidades: Especialidad[] = [];
-      selectedEspecialidad: string = '';  // Asegúrate de que sea una cadena vacía
+      selectedEspecialidad: string = '';  
 
-      selectedDate!: string; // Cambia 'Date' a 'string'
-        // Asegúrate de que el tipo sea el correcto.
+      selectedDate!: string; 
+        
       medicosDisponibles: any[] = [];
       selectedMedico: any;
       selectedPaciente: string = ''; 
@@ -71,9 +71,7 @@ export class AgregarCitaMedicaComponent implements OnInit {
   }
 
   onMedicoSelected(event: any): void {
-    // Si estás usando [(ngModel)] no necesitas tomar el valor del evento
-    // ya que `selectedMedico` será actualizado automáticamente con el objeto médico seleccionado.
-    // Solo actualiza los otros valores basados en `selectedMedico` que ya tiene el valor correcto.
+   
     console.log('AQUI ESTA EL MEDICO SELECCIONADO',this.selectedMedico);
     if (this.selectedMedico) {
       this.horaInicio = this.selectedMedico.hora_inicio;
@@ -153,7 +151,7 @@ formularioValido(): boolean {
   onChangeData() {
     console.log('onChangeData fue llamada');
     console.log('selectedEspecialidad:', this.selectedEspecialidad);
-    console.log('selectedDate:', this.selectedDate);
+    console.log('selectedDate aqui esta la fecha seleccionada:', this.selectedDate);
     console.log('selectedMedico', this.selectedMedico);
   
     this.motivo = this.selectedEspecialidad;
@@ -220,8 +218,8 @@ formularioValido(): boolean {
 
   cargaMedicos() {
     this.MedicoService.cargarMedicos()
-      .subscribe((response: MedicoResponse) => { // Asegúrate de que estás tipando la respuesta como 'any' o el tipo correcto
-        this.medicos = response.medicos; // Asigna la propiedad 'medicos' de la respuesta al arreglo 'medicos'
+      .subscribe((response: MedicoResponse) => { 
+        this.medicos = response.medicos; 
 
       });
   }
@@ -237,9 +235,9 @@ formularioValido(): boolean {
 
   cargaPacientes() {
     this.PacienteService.cargarAllPacientes()
-      .subscribe((response: UsuariosResponse) => { // Asegúrate de que estás tipando la respuesta como 'any' o el tipo correcto
+      .subscribe((response: UsuariosResponse) => { 
         console.log('aqui esta la respuesta',response);
-        this.pacientes = response.usuarios // Asigna la propiedad 'medicos' de la respuesta al arreglo 'medicos'
+        this.pacientes = response.usuarios // Asignar la propiedad 'medicos' de la respuesta al arreglo 'medicos'
         console.log('aqui estan los pacientes',this.pacientes);
       });
   }

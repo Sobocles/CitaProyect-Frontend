@@ -1,4 +1,8 @@
 <form [formGroup]="historialMedicoForm" (ngSubmit)="guardarHistorial()">
+<!--
+  <div style="background-color: #4a89f6; color: #333; padding: 10px; border-radius: 5px; margin: 20px 0; border: 1px solid #ffa500;">
+    <strong>Advertencia:</strong> Por favor, recuerde que solo podrá redactar historiales médicos para pacientes cuyas citas estén en estado 'pagado' o 'en curso' con usted. Si la cita está en estado 'terminado', el paciente no aparecerá. Además, tenga en cuenta que cada vez que redacte un historial, el estado de la cita del paciente cambiará a 'terminado'..
+  </div> -->
   <div class="text-center mb-4">
     <h2>Redactar Historial Médico</h2>
 </div>
@@ -6,6 +10,7 @@
   <label for="paciente" class="form-label">Paciente:</label>
   <select class="form-control" id="paciente" formControlName="rut_paciente">
     <option value="" disabled selected>Seleccionar paciente</option>
+  
     <option *ngFor="let paciente of pacientes" [value]="paciente.rut">{{ paciente.nombre }} {{ paciente.apellidos }}</option>
   </select>
   <div *ngIf="formularioIntentadoEnviar && historialMedicoForm.get('rut_paciente')!.hasError('required')" class="text-danger">

@@ -39,12 +39,12 @@ login() {
       if (resp.userOrMedico.rol === 'ADMIN_ROLE') {
         this.router.navigateByUrl('/inicio-instrucciones');
       } else if (resp.userOrMedico.rol === 'USER_ROLE') {
-        this.router.navigateByUrl('/Agendar-cita');
+        this.router.navigateByUrl('/inicio-paciente');
       } else if (resp.userOrMedico.rol === 'MEDICO_ROLE') {
         this.router.navigateByUrl('/agregar-historial');
       } else {
         console.error('Rol de usuario no reconocido');
-        // Aquí puedes manejar un caso por defecto
+       
       }
     },
     error => {

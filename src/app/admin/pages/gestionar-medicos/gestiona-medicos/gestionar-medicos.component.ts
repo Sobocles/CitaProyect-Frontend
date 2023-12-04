@@ -44,7 +44,7 @@ export class GestionarMedicosComponent implements OnInit {
 
     Swal.fire({
       title: '¿Borrar médico?',
-      text: `Esta a punto de borrar a ${ medico.nombre } tenga en cuenta que se eliminaran horarios y citas en las que el medico este involucrado`,
+      text: `Está a punto de eliminar a ${medico.nombre}. Tenga en cuenta que se eliminarán los horarios y las citas en las que el médico esté involucrado. Solo se eliminarán las citas en estado "terminado", por lo que las citas que ya fueron pagadas o están en curso seguirán activas. Por favor, asegúrese de contar con un médico suplente para atender estas citas o comuníquese con sus pacientes.`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Si, borrarlo'

@@ -33,14 +33,14 @@ export class AgregarmedicoComponent implements OnInit {
       direccion: ['', [Validators.required, Validators.maxLength(66)]],
   
       nacionalidad: ['', Validators.required],
-      password: ['', [Validators.required, this.passwordStrengthValidator]], // Aquí puedes agregar más validadores según tus necesidades
+      password: ['', [Validators.required, this.passwordStrengthValidator]], 
       especialidad_medica: ['', Validators.required], 
     });
   }
 
   telefonoValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
-    const telefonoRegex = /^\+56 9 \d{4}-\d{4}$/; // Ajusta el regex según el formato deseado
+    const telefonoRegex = /^\+56 9 \d{4}-\d{4}$/; 
   
     return telefonoRegex.test(value) ? null : { telefonoInvalido: true };
   }

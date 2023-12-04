@@ -109,18 +109,7 @@ editarUsuario(usuario: any) {
   this.router.navigate(['/editar-usuario', usuario.rut]);
 }
 
-/*
-    cambiarPagina( valor: number ) { 
-    this.desde +=valor;
 
-    if( this.desde < 0){
-      this.desde = 0;
-    } else if( this.desde >= this.totalUsuarios ){ 
-      this.desde -= valor;
-    }
-    this.cargaMedicos(); 
-  }
-*/
 
     cambiarPagina( valor: number ) {
       console.log(valor);

@@ -79,7 +79,7 @@
           <label for="rutMedico">Médico</label>
           <select class="form-control" id="rutMedico" formControlName="rut_medico" required>
             <option value="">Selecciona un médico</option>
-            <option *ngFor="let medico of medicos" [value]="medico.rut">{{ medico.nombre }} (Especialidad: {{ medico.especialidad_medica }})</option>
+            <option *ngFor="let medico of medicos" [value]="medico.rut">{{ medico.nombre }} {{ medico.apellidos }} (Especialidad: {{ medico.especialidad_medica }})</option>
           </select>
         </div>
         

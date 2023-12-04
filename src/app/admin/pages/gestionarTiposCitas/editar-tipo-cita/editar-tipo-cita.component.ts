@@ -20,21 +20,31 @@ export class EditarTipoCitaComponent implements OnInit {
     private TipoCitaService: TipoCitaService,  private activatedRoute: ActivatedRoute
   ) {
     this.formularioTipoCita = this.fb.group({
-      idTipo: [],
-      tipo_cita: ['', Validators.required],
-      precio: ['', [Validators.required, Validators.pattern(/^\d*\.?\d+$/)]],
-      especialidad_medica: ['', Validators.required],
-      duracion_cita: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      idTipo: ['', [ ]],
+      precio: ['', [Validators.required, Validators.pattern(/^(?!0\d)\d+$/)]],
+      
+      duracion_cita: ['', [
+        Validators.required, 
+        Validators.pattern(/^\d+$/),
+        Validators.max(180)  // Asegurarse de que la duración no sea mayor a 180 minutos
+      ]]
 
     });
+  }
+
+  convertirMinutosAHoras(minutos: number): string {
+    const horas = Math.floor(minutos / 60);
+    const minutosRestantes = minutos % 60;
+    return `${horas} hora(s) y ${minutosRestantes} minuto(s)`;
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       const tipoCitaId = params['id'];
-      console.log('AQUI ESTA EL ID DEL TIPO DE CITA',tipoCitaId);
+     
+ 
         if (tipoCitaId) {
-          console.log('AQUI ESTA EL ID DEL TIPO DE CITA 2',tipoCitaId);
+    
           this.TipoCitaService.obtenerTipoCitaId(tipoCitaId).subscribe((response: any) => {
             console.log('AQUI ESTA LA RESPUESTA',response);
             const tipoCita = response.medico;
@@ -43,7 +53,7 @@ export class EditarTipoCitaComponent implements OnInit {
               idTipo: tipoCita.idTipo,
               tipo_cita: tipoCita.tipo_cita,
               precio: tipoCita.precio,
-              especialidad_medica: tipoCita.especialidad_medica,
+             
           
             });
           });
@@ -64,8 +74,9 @@ export class EditarTipoCitaComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
        
-          const medicoEditado = this.formularioTipoCita.value;
-          this.TipoCitaService.editarTipoCita(medicoEditado).subscribe(
+          const tipocitaEditado = this.formularioTipoCita.value;
+    
+          this.TipoCitaService.editarTipoCita(tipocitaEditado).subscribe(
             (response) => {
               Swal.fire('Éxito', 'Tipo cita editado exitosamente', 'success');
               this.router.navigateByUrl('/gestionar-tipo-cita');

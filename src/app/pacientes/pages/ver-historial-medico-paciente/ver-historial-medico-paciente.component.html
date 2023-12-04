@@ -1,0 +1,17 @@
+<div class="ver-historial-medico-paciente">
+    <h2>Detalle del Historial Médico</h2>
+    <div *ngIf="historial" class="detalle-historial">
+        <h3>ID Historial: {{ historial.id_historial }}</h3>
+        <p><strong>Diagnóstico:</strong> {{ historial.diagnostico }}</p>
+        <p><strong>Medicamento:</strong> {{ historial.medicamento }}</p>
+        <p><strong>Notas:</strong> {{ historial.notas }}</p>
+        <p><strong>Fecha de Consulta:</strong> {{ historial.fecha_consulta | date: 'MMM d, y' }}</p>
+        <p><strong>RUT Paciente:</strong> {{ historial.rut_paciente }}</p>
+        <p><strong>RUT Médico:</strong> {{ historial.rut_medico }}</p>
+        <p><strong>Fecha de Creación:</strong> {{ historial.createdAt | date: 'MMM d, y, h:mm a' }}</p>
+    </div>
+    <div *ngIf="!historial">
+        <p>No se ha podido cargar la información del historial médico.</p>
+    </div>
+</div>
+

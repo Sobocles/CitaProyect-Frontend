@@ -35,7 +35,7 @@ export class CitaMedicaService {
     // Incluye el rutPaciente en el objeto formData
     const data = {
       ...formData,
-      rutPaciente: rutPaciente // Suponiendo que el backend espera una propiedad 'rutPaciente'
+      rutPaciente: rutPaciente 
     };
 
     console.log('AQUI ESTA LA DATA',data);

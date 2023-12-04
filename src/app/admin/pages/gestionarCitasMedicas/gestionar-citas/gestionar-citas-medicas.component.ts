@@ -34,7 +34,7 @@ export class GestionarCitasMedicasComponent implements OnInit {
     
       this.BusquedasService.buscar('cita_medica', termino)
         .subscribe((resp: any) => {
-          this.citas = resp.citas; // Asegúrate de que resp.citas exista y sea el formato correcto
+          this.citas = resp.citas; 
           console.log(this.citas);
         });  
     }

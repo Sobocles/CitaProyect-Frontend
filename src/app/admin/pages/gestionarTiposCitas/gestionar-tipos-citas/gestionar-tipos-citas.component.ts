@@ -37,7 +37,7 @@ export class GestionarTiposCitasComponent implements OnInit{
 
     Swal.fire({
       title: '¿Borrar tipo de cita?',
-      text: `Esta seguro que desea eliminar este tipo cita? si elimina este tipo cita con su especialidad se borraran todos los horarios medicos que tengan esa especialidad`,
+      text: `Esta seguro que desea eliminar este tipo cita? si elimina este tipo cita con su especialidad se borraran todos los horarios medicos, medico y citas que tengan esa especialidad (solo se borraran las cita  en estado terminado), si desea solo cambiar la especialidad de un medico en particular o solo eliminar un medico que atienda esa especialidad  puede hacerlo desde la seccion de gestionar medicos`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Si, borrarlo'

@@ -80,7 +80,7 @@ export class AgregarHorarioMedicoComponent implements OnInit {
 
   cargaMedicos() {
     this.MedicoService.cargarmedicosEspecialidad()
-      .subscribe((response: any) => { // Asegúrate de que estás tipando la respuesta como 'any' o el tipo correcto
+      .subscribe((response: any) => { 
         this.medicos = response.medicos; // Asigna la propiedad 'medicos' de la respuesta al arreglo 'medicos'
         console.log(this.medicos);
       });

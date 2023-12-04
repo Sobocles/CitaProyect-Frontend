@@ -43,13 +43,13 @@
   
 </div>
 <div *ngIf="selectedMedico && selectedMedico.rutMedico">
-  <!-- Aquí puedes mostrar información de selectedMedico sabiendo que está definido -->
+  
   <p>Nombre del Médico: {{ selectedMedico.medicoNombre }}</p>
   <p>Horario: {{ selectedMedico.hora_inicio }} - {{ selectedMedico.hora_fin }}</p>
-  <!-- ...otra información relevante del médico... -->
+ 
 </div>
 
-<!-- Al final de tu formulario -->
+
 <button type="submit" class="btn btn-primary" [disabled]="!formularioValido()">Guardar Cita</button>
 
 

@@ -52,9 +52,9 @@ export class TipoCitaService {
     return this.http.get<any>( url, this.headers)   
   }
 
-  obtenerTipoCitaId(  tipoCitaId:string ){ //aca role no viene como parametro (viene email y nombre en this.perfilForm.value) pero aun asi funciona ya que role simplemente se ignora
+  obtenerTipoCitaId(  tipoCitaId:string ){ 
   
-    return this.http.get(`${ base_url }/tipo_cita/${tipoCitaId}`, this.headers) //Para actualizar los datos del usuario se necesita enviar al backend El id que se obtiene de un metodo get que me da el id del usuario logeado que es el mismo que esta intentando actualizar sus datos, la data que se quiere actualizar que es enviada por un formulario y los header con el token de acceso
+    return this.http.get(`${ base_url }/tipo_cita/${tipoCitaId}`, this.headers) 
      
   }
 

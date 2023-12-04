@@ -51,12 +51,11 @@ export class HistorialPacienteComponent implements OnInit {
   cargarHistorialMedico(rut: string) {
     this.historialService.obtenerHistorialPorId(rut, this.desde)
     .subscribe((historial: HistorialResponse) => {
-      console.log('ACA ESTA LA RESPUESTA',historial);
-      console.log('OLAAAAAAAAA');
+     
       
       this.historialMedico = historial.historiales;
       console.log('AQUI ESTA EL ARREGLO DE HISTORIALES',this.historialMedico );
-      this.totalHistoriales = historial.total; // Asegúrate de que el backend devuelva el total de historiales
+      this.totalHistoriales = historial.total; 
     }, error => {
       console.error("Error al obtener el historial médico:", error);
     });

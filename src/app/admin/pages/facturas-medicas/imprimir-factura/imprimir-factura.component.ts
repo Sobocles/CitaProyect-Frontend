@@ -22,7 +22,7 @@ export class ImprimirFacturaComponent {
         this.cargarFactura(idFactura);
     } else {
         console.error('No se proporcionó un ID de factura válido.');
-        // Aquí puedes manejar el error, por ejemplo, redirigiendo al usuario a otra página
+ 
     }
 }
 

@@ -8,6 +8,7 @@ import { Bloque, BloquesResponse } from '../interfaces/busqueda-medicos';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { HorarioClinicaService } from '../../services/horario-clinica.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario-cita',
@@ -63,15 +64,39 @@ export class FormularioCitaComponent {
 
   enviarFormulario() {
     const formData = this.form.value;
-   
+  
+    // Crear un objeto de fecha para la fecha actual
+    const fechaActual = new Date();
+    fechaActual.setHours(0, 0, 0, 0); // Ajustar la fecha actual a la medianoche
+  
+    // Crear un objeto de fecha para la fecha seleccionada en la zona horaria local
+    const partesFecha = formData.fecha.split('-');
+    const fechaSeleccionada = new Date(partesFecha[0], partesFecha[1] - 1, partesFecha[2]);
+    fechaSeleccionada.setHours(0, 0, 0, 0); // Ajustar la fecha seleccionada a la medianoche
+  
+    // Verificar si la fecha seleccionada es anterior a la fecha actual
+    if (fechaSeleccionada < fechaActual) {
+      Swal.fire({
+        title: 'Fecha no válida',
+        text: 'No puedes seleccionar una fecha anterior a la actual.',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      });
+      return; // Detener la ejecución del método aquí
+    }
+  
+    // Continuar con el procesamiento si la fecha es válida
     this.BusquedaMedicoService.buscarHorarioDisponible(formData)
       .subscribe((resp: BloquesResponse) => {
         this.BusquedaMedicoService.actualizarBloques(resp.bloques);
- 
+
         this.router.navigate(['/busqueda-medico']);
-      
       });
-}
+  }
+  
+  
+  
+  
 
 volverAtras(): void {
   this.router.navigate(['/Agendar-cita']);

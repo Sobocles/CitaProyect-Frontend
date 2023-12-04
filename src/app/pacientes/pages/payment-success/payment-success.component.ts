@@ -67,7 +67,7 @@ export class PaymentSuccessComponent implements OnInit {
         },
         error => {
           console.error('Error al obtener los detalles de la cita:', error);
-          // Aquí manejas los errores, como mostrar un mensaje al usuario.
+          
         }
       );
   }

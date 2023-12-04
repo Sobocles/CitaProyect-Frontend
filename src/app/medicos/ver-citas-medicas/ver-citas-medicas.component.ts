@@ -74,12 +74,12 @@ buscar(termino: string) {
     return;
   }
 
-  // Aquí llamas al servicio de búsqueda de citas
+  
   this.BusquedaMedicoService.buscar('cita_medico', termino)
     .subscribe((response: any) => {
       console.log('aqui la respuesta',response)
       this.citasMedicas = response.citas;
-      // Puede que necesites ajustar la respuesta según cómo esté estructurado tu backend
+      
     });
 }
 

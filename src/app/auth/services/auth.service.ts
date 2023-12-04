@@ -61,8 +61,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('menu'); // Si estás almacenando el menú en el localStorage
-    // ... cualquier otra limpieza o acción que necesites
+    localStorage.removeItem('menu'); 
   }
 
   //http://localhost:3006/api
