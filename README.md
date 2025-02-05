@@ -5,31 +5,25 @@
 Este proyecto es una aplicación web diseñada para la gestión de citas médicas, enfocada principalmente en administradores. La plataforma permite:
 
 ✅ Crear, modificar y eliminar información relacionada con médicos, usuarios, tipos de citas y horarios médicos.
-
 ✅ Organizar citas según criterios como duración, precio y especialidad médica.
-
 ✅ Optimizar el proceso de gestión de citas en entornos médicos.
 
 
 🏥 Funcionamiento
 
 🔹 Administradores: Configuran la plataforma ingresando médicos, tipos de citas, horarios y demás información relevante.
-
 🔹 Pacientes: Se registran en la aplicación, buscan citas disponibles según especialidad y fecha, y pueden agendar y pagar citas mediante Mercado Pago.
-
 🔹 Médicos: Pueden registrar historiales médicos de sus pacientes y visualizar sus citas programadas.
-
 🔹 Historial Médico: Los pacientes pueden revisar diagnósticos, medicamentos recetados y notas del médico.
 
 🛠 Tecnologías Utilizadas
-🚀 Frontend
 
+🚀 Frontend
     Angular: Framework para aplicaciones web dinámicas.
     Bootstrap 5: Estilos responsivos para mejorar la interfaz de usuario.
     Angular Material: Componentes UI basados en Material Design.
 
 💾 Backend
-
     TypeScript: Lenguaje tipado que mejora la robustez del código.
     Node.js: Entorno de ejecución para JavaScript en el servidor.
     Express: Framework ligero para la construcción de APIs.
