@@ -9,9 +9,13 @@ Este proyecto es una aplicación web diseñada para la gestión de citas médica
 🏥 Funcionamiento
 
 🔹 Administradores: Configuran la plataforma ingresando médicos, tipos de citas, horarios y demás información relevante.
+
 🔹 Pacientes: Se registran en la aplicación, buscan citas disponibles según especialidad y fecha, y pueden agendar y pagar citas mediante Mercado Pago.
+
 🔹 Médicos: Pueden registrar historiales médicos de sus pacientes y visualizar sus citas programadas.
+
 🔹 Historial Médico: Los pacientes pueden revisar diagnósticos, medicamentos recetados y notas del médico.
+
 🛠 Tecnologías Utilizadas
 🚀 Frontend
 
