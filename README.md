@@ -4,9 +4,9 @@
 
 Este proyecto es una aplicación web diseñada para la gestión de citas médicas, enfocada principalmente en administradores. La plataforma permite:
 
-✅ Crear, modificar y eliminar información relacionada con médicos, usuarios, tipos de citas y horarios médicos.
-✅ Organizar citas según criterios como duración, precio y especialidad médica.
-✅ Optimizar el proceso de gestión de citas en entornos médicos.
+✅ Crear, modificar y eliminar información relacionada con médicos, usuarios, tipos de citas y horarios médicos.<br>
+✅ Organizar citas según criterios como duración, precio y especialidad médica.<br>
+✅ Optimizar el proceso de gestión de citas en entornos médicos.<br>
 
 
 🏥 Funcionamiento
