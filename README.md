@@ -89,17 +89,20 @@ Titular: "APRO" (para pagos aprobados) o "OTHE" (para pagos rechazados)
 🔥 Ejecución del Proyecto<br>
 🚀 Iniciar el Frontend (Angular)<br>
 
+```bash
 npm install
 ng serve
+```
 
 🔧 Iniciar el Backend (Node.js)<br>
-
+```bash
 nodemon dist/app.js
+```
 
 Para asegurarse de que los cambios en TypeScript se reflejen en el código JavaScript, ejecute:
-
+```bash
 tsc --watch
-
+```
 ⚠ Importante:<br>
 Antes de cambiar la notification_url en Mercado Pago para probar la compra de una cita médica, asegúrese de ejecutar tsc --watch.
 
