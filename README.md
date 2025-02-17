@@ -8,6 +8,9 @@ Este proyecto es una aplicación web diseñada para la gestión de citas médica
 ✅ Organizar citas según criterios como duración, precio y especialidad médica.<br>
 ✅ Optimizar el proceso de gestión de citas en entornos médicos.<br>
 
+Usuario Administrador: 
+Email: Shadowhearts@gmail.com
+Password: Puppetmaster.9
 
 🏥 Funcionamiento
 
