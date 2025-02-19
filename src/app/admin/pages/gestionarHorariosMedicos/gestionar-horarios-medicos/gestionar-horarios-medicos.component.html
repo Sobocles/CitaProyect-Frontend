@@ -95,14 +95,15 @@
                     <i class="fa fa-close text-danger"></i> 
                   </a>
                 </div>
-              <!--  <div class="icon-container">
+              <div class="icon-container">
                   <a class="cursor"
                     data-toggle="tooltip" 
                     data-original-title="Editar"
                     (click)="editarHorario( horario )"> 
                     <i class="fa fa-pencil text-primary"></i> 
                   </a>
-                </div> -->
+                 
+                </div> 
                 </td>
                 
                 
@@ -111,11 +112,14 @@
                       </tbody>
                     </table>
                   </div>
-                <!--ESTA CONDICION SE HACE PARA QUE CUANDO SE TECLEA EN LA BARRA DE BUSQUEDA Y SE CARGAN LOS RESULTADOS DE BUSQUEDA DESAPARESCAN LOS BOTONES SIGUIENTES Y ANTERIOR EN LA PANTALLA-->
-                <div *ngIf="txtTermino.value.length === 0"> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
-                  <button (click)="cambiarPagina(-5)" class="btn btn-secondary">Anteriores</button>
-                  &nbsp; <!--Esto es para que exista una pequeña separacion entre ambos-->
-                  <button (click)="cambiarPagina(5)" class="btn btn-secondary">Siguiente</button>
+             
+                <div *ngIf="txtTermino.value.length === 0">
+                  <app-paginator 
+                  [totalItems]="totalHorarios" 
+                  [(offset)]="desde" 
+                  [pageSize]="5"
+                  (offsetChange)="cambiarPagina($event)">
+                </app-paginator>
               </div>
             
             </div>

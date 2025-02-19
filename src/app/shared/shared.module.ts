@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 
 
@@ -11,6 +12,7 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     DashboardComponent,
+    PaginatorComponent,
 
   ],
   imports: [
@@ -18,6 +20,6 @@ import { RouterModule } from '@angular/router';
     MaterialModule,
     RouterModule
   ],
-  exports: [DashboardComponent],
+  exports: [DashboardComponent, PaginatorComponent],
 })
 export class SharedModule { }

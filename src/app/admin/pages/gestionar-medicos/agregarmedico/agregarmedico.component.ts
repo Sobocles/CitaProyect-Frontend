@@ -4,6 +4,9 @@ import { MedicoService } from '../../services/medico.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { TipoCitaService } from '../../services/tipo-cita.service';
+import { rutValidator } from 'src/app/shared/Validators/rut-validator';
+import { phoneValidator } from 'src/app/shared/Validators/phone-validator';
+import { passwordStrengthValidator } from 'src/app/shared/Validators/password-strength-validator';
 
 interface Especialidad {
   especialidad_medica: string;
@@ -25,39 +28,18 @@ export class AgregarmedicoComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private MedicoService: MedicoService, private router: Router, private TipoCitaService: TipoCitaService) {
     this.formulario = this.formBuilder.group({
-      rut: ['', [Validators.required, this.rutValidator]],
+      rut: ['', [Validators.required, rutValidator()]],
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
       email: ['', [Validators.required, Validators.email, this.gmailValidator]],
-      telefono: ['', [Validators.required, this.telefonoValidator]],
-      direccion: ['', [Validators.required, Validators.maxLength(66)]],
-  
+      telefono: ['', [Validators.required, phoneValidator()]],
+      direccion: ['', [Validators.required, Validators.maxLength(66)]], 
       nacionalidad: ['', Validators.required],
-      password: ['', [Validators.required, this.passwordStrengthValidator]], 
+      password: ['', [Validators.required, passwordStrengthValidator()]], 
       especialidad_medica: ['', Validators.required], 
     });
   }
 
-  telefonoValidator(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    const telefonoRegex = /^\+56 9 \d{4}-\d{4}$/; 
-  
-    return telefonoRegex.test(value) ? null : { telefonoInvalido: true };
-  }
-
-  passwordStrengthValidator(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (!value) {
-      return null;
-    }
-  
-    const hasUpperCase = /[A-Z]+/.test(value);
-    const hasNumeric = /[0-9]+/.test(value);
-    const hasSpecialChar = /[.,'!@#$%^&*()_+-]+/.test(value);
-  
-    const passwordValid = hasUpperCase && hasNumeric && hasSpecialChar;
-    return !passwordValid ? { passwordStrength: true } : null;
-  }
 
   gmailValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
@@ -69,32 +51,7 @@ export class AgregarmedicoComponent implements OnInit {
     return !isGmail ? { 'notGmail': true } : null;
   }
 
-  rutValidator(control: AbstractControl): ValidationErrors | null {
-    const value = control.value?.replace(/[.-]/g, '');
-    if (!value) {
-      return null;
-    }
-  
-    let body = value.slice(0, -1);
-    let dv = value.slice(-1).toUpperCase();
-  
-    if (body.match(/[^0-9]/)) {
-      return { rutInvalid: true };
-    }
-  
-    let sum = 0;
-    let multiple = 2;
-  
-    for (let i = body.length - 1; i >= 0; i--) {
-      sum = sum + body.charAt(i) * multiple;
-      multiple = multiple < 7 ? multiple + 1 : 2;
-    }
-  
-    let dvCalculated = 11 - (sum % 11);
-    let dvExpected = dvCalculated === 11 ? '0' : dvCalculated === 10 ? 'K' : dvCalculated.toString();
-  
-    return dvExpected === dv ? null : { rutInvalid: true };
-  }
+
 
   ngOnInit(): void {
     this.cargaEspecialidades();

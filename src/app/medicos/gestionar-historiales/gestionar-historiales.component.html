@@ -81,9 +81,12 @@
                     </table>
                   </div>
                 <!--ESTA CONDICION SE HACE PARA QUE CUANDO SE TECLEA EN LA BARRA DE BUSQUEDA Y SE CARGAN LOS RESULTADOS DE BUSQUEDA DESAPARESCAN LOS BOTONES SIGUIENTES Y ANTERIOR EN LA PANTALLA-->
-                <button class="btn btn-secondary" (click)="cambiarPagina(-5)">Anteriores</button>
-                &nbsp;
-                <button class="btn btn-secondary" (click)="cambiarPagina(5)">Siguiente</button>
+                <app-paginator 
+                [totalItems]="totalHistoriales" 
+                [(offset)]="desde" 
+                [pageSize]="5"
+                (offsetChange)="cambiarPagina($event)">
+              </app-paginator>
 
             
             </div>

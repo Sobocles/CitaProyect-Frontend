@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { TipoCitaService } from '../../services/tipo-cita.service';
 import { Especialidad } from '../../gestionarCitasMedicas/agregar-cita-medica/agregar-cita-medica.component';
+import { rutValidator } from 'src/app/shared/Validators/rut-validator';
+import { phoneValidator } from 'src/app/shared/Validators/phone-validator';
 
 @Component({
   selector: 'app-editar-medico',
@@ -14,15 +16,15 @@ import { Especialidad } from '../../gestionarCitasMedicas/agregar-cita-medica/ag
 })
 export class EditarMedicoComponent implements OnInit {
   formulario: FormGroup;
-  especialidades: string[] = []; // Agregado
+  especialidades: string[] = []; 
 
   constructor(private formBuilder: FormBuilder, private MedicoService: MedicoService, private ActivatedRoute: ActivatedRoute, private router: Router, private TipoCitaService: TipoCitaService) {
     this.formulario = this.formBuilder.group({
-      rut: ['', [Validators.required, this.rutValidator]],
+      rut: ['', [Validators.required, rutValidator()]],
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
       email: ['', [Validators.required, Validators.email, this.gmailValidator]],
-      telefono: ['', [Validators.required, this.telefonoValidator]],
+      telefono: ['', [Validators.required, phoneValidator()]],
       direccion: ['', [Validators.required, Validators.maxLength(66)]],
       nacionalidad: ['', Validators.required],
       especialidad_medica: [''], 
@@ -55,39 +57,7 @@ export class EditarMedicoComponent implements OnInit {
     });
   }
 
-  telefonoValidator(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    const telefonoRegex = /^\+56 9 \d{4}-\d{4}$/; // Ajusta el regex según el formato deseado
-  
-    return telefonoRegex.test(value) ? null : { telefonoInvalido: true };
-  }
-
-  rutValidator(control: AbstractControl): ValidationErrors | null {
-    const value = control.value?.replace(/[.-]/g, '');
-    if (!value) {
-      return null;
-    }
-  
-    let body = value.slice(0, -1);
-    let dv = value.slice(-1).toUpperCase();
-  
-    if (body.match(/[^0-9]/)) {
-      return { rutInvalid: true };
-    }
-  
-    let sum = 0;
-    let multiple = 2;
-  
-    for (let i = body.length - 1; i >= 0; i--) {
-      sum = sum + body.charAt(i) * multiple;
-      multiple = multiple < 7 ? multiple + 1 : 2;
-    }
-  
-    let dvCalculated = 11 - (sum % 11);
-    let dvExpected = dvCalculated === 11 ? '0' : dvCalculated === 10 ? 'K' : dvCalculated.toString();
-  
-    return dvExpected === dv ? null : { rutInvalid: true };
-  }
+ 
 
   gmailValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;

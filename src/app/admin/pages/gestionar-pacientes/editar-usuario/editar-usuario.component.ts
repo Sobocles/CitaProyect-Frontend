@@ -4,6 +4,8 @@ import { PacienteService } from '../../services/usuario.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { phoneValidator } from 'src/app/shared/Validators/phone-validator';
+
 @Component({
   selector: 'app-editar-usuario',
   templateUrl: './editar-usuario.component.html',
@@ -17,10 +19,9 @@ export class EditarUsuarioComponent implements OnInit {
       rut: ['', Validators.required],
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
-  
       email: ['', [Validators.required, Validators.email]],
       fecha_nacimiento: [''],
-      telefono: ['', Validators.pattern(/^[0-9]*$/)],
+      telefono: ['', [Validators.required, phoneValidator()]],
       direccion: [''],
     });
   }

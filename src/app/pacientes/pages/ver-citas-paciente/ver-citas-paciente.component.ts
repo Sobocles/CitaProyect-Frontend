@@ -15,7 +15,7 @@ export class VerCitasPacienteComponent implements OnInit {
   citasMedicas: any[] = []; 
   public desde: number = 0;
   public totalCitas: number = 0;
-    constructor( private authService: AuthService, private BusquedaMedicoService: BusquedasService, private CitaMedicaService: CitaMedicaService){}
+    constructor( public authService: AuthService, private BusquedaMedicoService: BusquedasService, private CitaMedicaService: CitaMedicaService){}
 
   ngOnInit() {
     if (this.authService.usuario && this.authService.usuario.rut) { 

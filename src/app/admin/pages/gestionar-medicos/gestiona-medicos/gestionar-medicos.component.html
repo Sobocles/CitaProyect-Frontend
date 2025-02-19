@@ -110,9 +110,12 @@
                 </div>
                 
                 <div *ngIf="txtTermino.value.length === 0"> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
-                  <button (click)="cambiarPagina(-5)" class="btn btn-secondary">Anteriores</button>
-                  &nbsp; <!--Esto es para que exista una pequeña separacion entre ambos-->
-                  <button (click)="cambiarPagina(5)" class="btn btn-secondary">Siguiente</button>
+                  <app-paginator 
+                  [totalItems]="totalUsuarios" 
+                  [(offset)]="desde" 
+                  [pageSize]="5"
+                  (offsetChange)="cambiarPagina($event)">
+                </app-paginator>
               </div>
             </div>
         </div>

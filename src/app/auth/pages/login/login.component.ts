@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    // No es necesario lanzar un error aquí
+
   }
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }

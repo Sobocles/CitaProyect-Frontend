@@ -22,8 +22,8 @@ export class Usuario {
         public nombre: string,
         public apellidos: string,
   
-        public rol?: 'ADMIN_ROLE' | 'USER_ROLE',
-        public rut?: string,
+        public rol: 'ADMIN_ROLE' | 'USER_ROLE',
+        public rut: string,
      ) {}
 
 

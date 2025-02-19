@@ -17,7 +17,7 @@ export class ImprimirFacturaComponent {
 
   ngOnInit(): void {
     const idFactura = this.route.snapshot.paramMap.get('id');
-    console.log('aqui esta el id de la factura',idFactura)
+
     if (idFactura) {
         this.cargarFactura(idFactura);
     } else {
