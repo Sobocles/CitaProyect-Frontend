@@ -34,16 +34,17 @@ export class VerFacturasComponent implements OnInit {
     });
   }
 
-  cambiarPagina( valor: number ) { 
-    this.desde +=valor;
+  cambiarPagina(nuevoOffset: number) {
+    this.desde = nuevoOffset;
 
     if( this.desde < 0){ 
       this.desde = 0;
     } else if( this.desde >= this.totalFacturas ){ 
-      this.desde -= valor;
+      this.desde -= nuevoOffset;
     }
     this.cargarFacturas(); 
   }
+
 
   borrarFactura( factura: number ) {
 

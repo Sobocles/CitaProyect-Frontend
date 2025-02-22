@@ -81,18 +81,19 @@ export class GestionarTiposCitasComponent implements OnInit{
     }
 
 
-    cambiarPagina( valor: number ) {
+    cambiarPagina(nuevoOffset: number) {
 
-      this.desde +=valor;
+      this.desde = nuevoOffset;
 
       if( this.desde < 0){
         this.desde = 0;
       } else if( this.desde >= this.totalTipoCitas ){ 
-        this.desde -= valor;
+        this.desde -= nuevoOffset;
       }
       this.cargaTipocita();
 
     }
+
 
 
 

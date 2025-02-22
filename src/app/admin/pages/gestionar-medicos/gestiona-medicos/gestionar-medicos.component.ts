@@ -73,16 +73,20 @@ export class GestionarMedicosComponent implements OnInit {
     this.router.navigate(['/editar-medico', medico.rut]);
   }
 
-      cambiarPagina( valor: number ) { 
-        this.desde +=valor;
+  cambiarPagina(nuevoOffset: number) {
+        console.log("valor", nuevoOffset);
+        this.desde = nuevoOffset;
+        console.log(this.desde);
 
         if( this.desde < 0){ 
           this.desde = 0;
         } else if( this.desde >= this.totalUsuarios ){ 
-          this.desde -= valor;
+          this.desde -= nuevoOffset;
         }
         this.cargaMedicos(); 
       }
+
+      
 
   buscar(termino: string): void {
   

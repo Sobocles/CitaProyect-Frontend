@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-import { MedicoService } from '../../services/medico.service';
-import { Medico } from '../../interface/medicos';
-import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
-import { HorarioMedico, HorarioResponse } from '../../interface/horarioMedico';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HorarioMedicoService } from '../../services/horario-medico.service';
+import { MedicoService } from '../../services/medico.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar-horario-medico',
@@ -14,108 +12,124 @@ import { HorarioMedicoService } from '../../services/horario-medico.service';
 })
 export class AgregarHorarioMedicoComponent implements OnInit {
   horarioMedicoForm: FormGroup;
-  // En tu componente TypeScript
- 
+  isEditMode: boolean = false;
+  horarioId: number | null = null;
+  medicos: any[] = [];
 
-  medicos: Medico[] = [];
-
-
-
-  constructor(private fb: FormBuilder, private MedicoService: MedicoService, private HorarioMedicoService: HorarioMedicoService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private HorarioMedicoService: HorarioMedicoService,
+    private MedicoService: MedicoService
+  ) {
+    // Configuramos el formulario con sus validaciones
     this.horarioMedicoForm = this.fb.group({
-      diaSemana: ['', [Validators.required]],
+      idHorario: [''],
+      diaSemana: ['', Validators.required],
       horaInicio: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
       horaFinalizacion: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)]],
-      inicio_colacion: ['',Validators.required],
-      fin_colacion: ['',Validators.required],
-      rut_medico: ['', [Validators.required]],
-    
-  
+      inicio_colacion: ['', Validators.required],
+      fin_colacion: ['', Validators.required],
+      rut_medico: ['', Validators.required]
     }, { validators: this.horarioColacionValidator() });
   }
 
- // Dentro de tu componente TypeScript
- horarioColacionValidator(): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    if (!(control instanceof FormGroup)) return null;
+  // Validador a nivel de formulario para horarios
+  horarioColacionValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (!(control instanceof FormGroup)) return null;
 
-    const inicio = control.get('horaInicio')?.value;
-    const fin = control.get('horaFinalizacion')?.value;
-    const inicioColacion = control.get('inicio_colacion')?.value;
-    const finColacion = control.get('fin_colacion')?.value;
+      const inicio = control.get('horaInicio')?.value;
+      const fin = control.get('horaFinalizacion')?.value;
+      const inicioColacion = control.get('inicio_colacion')?.value;
+      const finColacion = control.get('fin_colacion')?.value;
 
-    // Validar que horaInicio es anterior a horaFinalizacion (independientemente de los campos de colación)
-    if (inicio && fin && inicio >= fin) {
-      return { horarioLaboralInvalido: true };
-    }
-
-    // Validar que la colación está dentro del horario laboral y que inicioColacion es anterior a finColacion
-    // Solo si todos los campos tienen valores
-    if (inicio && fin && inicioColacion && finColacion) {
-      if (inicio > inicioColacion || finColacion > fin) {
-        return { horarioColacionFuera: true };
+      if (inicio && fin && inicio >= fin) {
+        return { horarioLaboralInvalido: true };
       }
-      if (inicioColacion >= finColacion) {
-        return { colacionInvalida: true };
+      if (inicio && fin && inicioColacion && finColacion) {
+        if (inicio > inicioColacion || finColacion > fin) {
+          return { horarioColacionFuera: true };
+        }
+        if (inicioColacion >= finColacion) {
+          return { colacionInvalida: true };
+        }
       }
-    }
+      return null;
+    };
+  }
 
-    return null;
-  };
-}
-
-
-
-  
-
-
-  
   ngOnInit(): void {
-    this.cargaMedicos();
-  }
-
-  regresarAGestionarMedicos() {
-    this.router.navigateByUrl('/gestionar-horarios-medicos');
-  }
-
-  cargaMedicos() {
-    this.MedicoService.cargarmedicosEspecialidad()
-      .subscribe((response: any) => { 
-        this.medicos = response.medicos; // Asigna la propiedad 'medicos' de la respuesta al arreglo 'medicos'
-        console.log(this.medicos);
-      });
-  }
-
-  crearHorario() {
-    const formData = this.horarioMedicoForm.value;
-    console.log(formData);
-  
-    this.HorarioMedicoService.crearHorario(formData).subscribe(
-      (respuesta: any) => {
-        // Mostrar mensaje de éxito
-        Swal.fire({
-          title: 'Horario Creado',
-          text: 'El horario médico ha sido creado con éxito.',
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
-        }).then((result) => {
-          // Navegar al Dashboard después de cerrar el SweetAlert
-          if (result.isConfirmed) {
-            this.router.navigateByUrl('/gestionar-horarios-medicos');
-          }
-        });
+    // Cargar la lista de médicos para el select
+    this.MedicoService.cargarMedicos().subscribe(
+      (response: any) => {
+        this.medicos = response.medicos;
       },
-      (err) => {
-        // Mostrar mensaje de error
-        Swal.fire({
-          title: 'Error al Crear Horario',
-          text: err.error.msg, // Mensaje de error del backend
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
-        });
+      error => {
+        console.error('Error al cargar médicos', error);
       }
     );
-  }
-  
 
+    // Suscribirse a los parámetros de la ruta para determinar si estamos en modo edición
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.isEditMode = true;
+        this.horarioId = +params['id'];
+        // Cargar el horario existente para editarlo
+        this.HorarioMedicoService.obtenerHorarioPorId(this.horarioId).subscribe(
+          (response: any) => {
+            // Suponiendo que la respuesta trae el objeto en response.horario
+            const horario = response.horario;
+            this.horarioMedicoForm.patchValue({
+              idHorario: horario.idHorario,
+              diaSemana: horario.diaSemana,
+              horaInicio: horario.horaInicio,
+              horaFinalizacion: horario.horaFinalizacion,
+              inicio_colacion: horario.inicio_colacion,
+              fin_colacion: horario.fin_colacion,
+              rut_medico: horario.rutMedico // Ajusta el nombre según tu modelo
+            });
+          },
+          error => {
+            console.error('Error al cargar el horario', error);
+          }
+        );
+      } else {
+        this.isEditMode = false;
+      }
+    });
+  }
+
+  onSubmit(): void {
+    if (this.horarioMedicoForm.invalid) return;
+    const formData = { ...this.horarioMedicoForm.value };
+    if (this.isEditMode) {
+      this.HorarioMedicoService.editarHorario(formData).subscribe(
+        response => {
+          Swal.fire('Éxito', 'Horario editado exitosamente', 'success');
+          this.router.navigateByUrl('/gestionar-horarios-medicos');
+        },
+        error => {
+          Swal.fire('Error', 'Hubo un error al editar el horario', 'error');
+        }
+      );
+    } else {
+      // En creación, eliminar el campo de ID para que se genere automáticamente
+      delete formData.idHorario;
+      this.HorarioMedicoService.crearHorario(formData).subscribe(
+        response => {
+          Swal.fire('Éxito', 'Horario creado exitosamente', 'success');
+          this.router.navigateByUrl('/gestionar-horarios-medicos');
+        },
+        error => {
+          Swal.fire('Error', 'Hubo un error al crear el horario', 'error');
+        }
+      );
+    }
+  }
+
+  regresar(): void {
+    this.router.navigateByUrl('/gestionar-horarios-medicos');
+  }
 }

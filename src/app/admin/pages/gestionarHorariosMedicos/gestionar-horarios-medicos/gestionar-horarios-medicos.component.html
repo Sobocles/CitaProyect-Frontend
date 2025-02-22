@@ -56,21 +56,17 @@
                     <table class="table table-bordered">
                       <thead>
                         <tr>
-         
-                          <th>diaSemana</th>
-                          <th>horaInicio</th>
-                          <th>horaFinalizacion</th>
-                          <th>Inicio colacion</th>
-                          <th>Fin colacion</th>
-                          <th>Nombre medico</th>
-          
-                          <th>Especialidad medica</th>
-                         
-                     
-                          <th>Acciones</th>
-                          <!-- Agrega más columnas según tus necesidades -->
+                          <th style="width: 12%;">diaSemana</th>
+                          <th style="width: 15%;">hora Inicio</th>
+                          <th style="width: 15%;">hora Finalizacion</th>
+                          <th style="width: 12%;">Inicio colacion</th>
+                          <th style="width: 12%;">Fin colacion</th>
+                          <th style="width: 18%;">Nombre medico</th>
+                          <th style="width: 12%;">Especialidad</th>
+                          <th style="width: 10%;">Acciones</th>
                         </tr>
                       </thead>
+                      
                       <tbody>
                         <tr *ngFor="let horario of horarios">
                           <td>{{ horario.diaSemana }}</td>

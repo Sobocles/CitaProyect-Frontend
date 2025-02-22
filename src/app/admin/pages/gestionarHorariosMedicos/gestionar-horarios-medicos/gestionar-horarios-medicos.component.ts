@@ -86,17 +86,17 @@ export class GestionarHorariosMedicosComponent implements OnInit {
   }
   
 
-cambiarPagina( valor: number ) {
-  console.log(valor);
-  this.desde +=valor;
+  cambiarPagina(nuevoOffset: number) {
+  this.desde = nuevoOffset;
 
   if( this.desde < 0){
     this.desde = 0;
   } else if( this.desde >= this.totalHorarios ){ 
-    this.desde -= valor;
+    this.desde -= nuevoOffset;
   }
   this.cargaHorario();
 
 }
+
 
 }

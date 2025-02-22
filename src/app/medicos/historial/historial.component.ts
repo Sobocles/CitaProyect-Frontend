@@ -1,13 +1,10 @@
+// historial.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HistorialService } from '../services/historial.service';
-import { PacienteService } from 'src/app/admin/pages/services/usuario.service';
-import { MedicoService } from 'src/app/admin/pages/services/medico.service';
-import { UsuariosResponse } from '../usuarios';
-import { MedicoResponse } from 'src/app/admin/pages/interface/medicos';
 import { AuthService } from '../../auth/services/auth.service';
-import { Router } from '@angular/router';
-
+import { PacienteService } from 'src/app/admin/pages/services/usuario.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,86 +13,105 @@ import Swal from 'sweetalert2';
   styleUrls: ['./historial.component.scss']
 })
 export class HistorialComponent implements OnInit {
-
   historialMedicoForm: FormGroup;
-    medicos: any[] = [];
-    pacientes: any[] = [];
-    public formularioIntentadoEnviar = false;
+  isEditMode: boolean = false;
+  historialId: number | null = null;
+  formularioIntentadoEnviar: boolean = false;
+  // Agrega la propiedad para guardar los pacientes
+  pacientes: any[] = [];
 
-    constructor(
-      private fb: FormBuilder, 
-      private HistorialService: HistorialService, 
-      private usuarioService: PacienteService, 
-      private medico: MedicoService, 
-      public AuthService: AuthService,
-      private router: Router
-    ) { 
-      // Obtén la fecha actual en formato yyyy-MM-dd
-      const fechaActual = new Date().toISOString().split('T')[0];
-    
-      this.historialMedicoForm = this.fb.group({
-        id_historial_medico: ['', ],
-        diagnostico: ['', Validators.required],
-        medicamento: ['', ],
-        notas: ['',],
-        fecha_consulta: [fechaActual, Validators.required],
-    
-        rut_paciente: ['', Validators.required],
-        rut_medico: [this.AuthService.medico.rut, Validators.required],
-      });
-    }
-    
-  ngOnInit(): void {
-    
-    const rut_medico = this.AuthService.medico.rut
-    this.usuarioService.cargarAllPacientesEnCurso(rut_medico)
-    .subscribe((pacientes: UsuariosResponse) => {
-  
-      this.pacientes = pacientes.usuarios;
-     
-    });
-    
-    this.medico.cargarMedicos()
-      .subscribe( (medicos: MedicoResponse )=> {
-      this.medicos = medicos.medicos;
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private historialService: HistorialService,
+    public AuthService: AuthService,
+    private pacienteService: PacienteService  // Inyecta el servicio de pacientes
+  ) {
+    // Crea el formulario con sus validaciones
+    this.historialMedicoForm = this.fb.group({
+      id_historial_medico: [''],
+      diagnostico: ['', Validators.required],
+      medicamento: [''],
+      notas: [''],
+      fecha_consulta: [new Date().toISOString().split('T')[0], Validators.required],
+      rut_paciente: ['', Validators.required],
+      rut_medico: ['', Validators.required]
     });
   }
-  
 
-  guardarHistorial() {
-    if (this.historialMedicoForm.invalid) {
-      this.formularioIntentadoEnviar = true; // El usuario ha intentado enviar el formulario
-      return; // No continuar si el formulario es inválido
-    }
-    this.HistorialService.crearHistorial(this.historialMedicoForm.value).subscribe(
-      response => {
-        console.log(response);
-        // Muestra un mensaje de éxito con SweetAlert
-        Swal.fire({
-          title: '¡Éxito!',
-          text: 'El historial médico ha sido guardado correctamente.',
-          icon: 'success',
-          confirmButtonText: 'Ok'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.router.navigate(['/gestionar-historiales']); // Redirige aquí
-          }
-        });
+  ngOnInit(): void {
+    const rut_medico = this.AuthService.medico.rut;
+    this.pacienteService.cargarAllPacientesEnCurso(rut_medico).subscribe(
+      (data: any) => {
+        this.pacientes = data.usuarios; // Asumiendo que la respuesta tiene la propiedad "usuarios"
       },
       error => {
-        console.error(error);
-        // Manejo de errores con mensaje
-        Swal.fire({
-          title: 'Error',
-          text: 'Hubo un problema al guardar el historial médico.',
-          icon: 'error',
-          confirmButtonText: 'Ok'
-        });
+        console.error('Error al cargar pacientes:', error);
       }
     );
+  
+    const idParam = this.route.snapshot.paramMap.get('id');
+    console.log("aqui el idParam",idParam);
+    if (idParam) {
+      this.isEditMode = true;
+      this.historialId = +idParam;
+      this.historialService.getHistorialPorId(this.historialId).subscribe(
+        (response: any) => {
+          this.historialMedicoForm.patchValue({
+            id_historial_medico: response.id_historial,
+            diagnostico: response.diagnostico,
+            medicamento: response.medicamento,
+            notas: response.notas,
+            fecha_consulta: response.fecha_consulta,
+            rut_paciente: response.rut_paciente,
+            rut_medico: response.rut_medico
+          });
+        },
+        error => {
+          console.error('Error al cargar el historial:', error);
+        }
+      );
+    } else {
+      this.isEditMode = false;
+      this.historialMedicoForm.patchValue({
+        rut_medico: this.AuthService.medico.rut
+      });
+    }
   }
   
 
+  onSubmit(): void {
+    this.formularioIntentadoEnviar = true;
+    if (this.historialMedicoForm.invalid) {
+      return;
+    }
+    const historialData = this.historialMedicoForm.value;
+  
+    if (this.isEditMode) {
+      this.historialService.editarHistorial(historialData).subscribe(
+        response => {
+          Swal.fire('Éxito', 'Historial editado exitosamente', 'success');
+          this.router.navigate(['/gestionar-historiales']);
+        },
+        error => {
+          Swal.fire('Error', 'Hubo un error al editar el historial', 'error');
+        }
+      );
+    } else {
+      // Remover la propiedad "id_historial_medico" para no enviarla vacía
+      delete historialData.id_historial_medico;
+      this.historialService.crearHistorial(historialData).subscribe(
+        response => {
+          console.log("response del historial creado");
+          Swal.fire('Éxito', 'Historial creado exitosamente', 'success');
+          this.router.navigate(['/gestionar-historiales']);
+        },
+        error => {
+          Swal.fire('Error', 'Hubo un error al crear el historial', 'error');
+        }
+      );
+    }
+  }
   
 }
-

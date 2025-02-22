@@ -44,27 +44,24 @@
                     <table class="table table-bordered">
                       <thead>
                         <tr>
-                           <th>ID</th>
-                          <th>rut paciente</th>
-                          <th>nombre paciente</th>
-                          <th>motivo cita</th>
-                          <th>rut medico</th>
-                          <th>nombre medico</th>
-                          <th>metodo de pago</th>
-                          <th>monto pagado</th>
-                          <th>fecha pago</th>
-                          <th>acciones</th>
-
-                         
+                          <th style="width: 3%;">ID</th>
+                          <th style="width: 8%;">Rut paciente</th>
+                          <th style="width: 13%;">Nombre paciente</th>
+                          <th style="width: 12%;">Motivo cita</th>
+                          <th style="width: 15%;">Nombre medico</th>
+                          <th style="width: 8%;">Método pago</th>
+                          <th style="width: 8%;">Monto</th>
+                          <th style="width: 8%;">Fecha pago</th>
+                          <th style="width: 5%;">Accion</th>
                         </tr>
                       </thead>
+                      
                       <tbody>
                         <tr *ngFor="let factura of facturas">
                           <td>{{ factura.id_factura }}</td>
                           <td>{{ factura.citaMedica.paciente.rut }}</td>
                           <td>{{ factura.citaMedica.paciente.nombre }} {{ factura.citaMedica.paciente.apellidos }}</td>
                           <td>{{ factura.citaMedica.motivo }}</td>
-                          <td>{{ factura.citaMedica.medico.rut }}</td>
                           <td>{{ factura.citaMedica.medico.nombre }} {{ factura.citaMedica.medico.apellidos }}</td>
                           <td>{{ factura.payment_method_id }}</td>
                           <td>{{ factura.monto_pagado | currency }}</td>

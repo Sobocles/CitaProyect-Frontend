@@ -52,15 +52,15 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>email</th>
-                        <th>fecha_nacimiento</th>
-                        <th>Telefono</th>
-                        <th>direccion</th>
-                        <th>rol</th>
-                        <th>acciones</th>
+                        <th style="width: 15%;">ID</th>
+                        <th style="width: 10%;">Nombre</th>
+                        <th style="width: 15%;">Apellidos</th>
+                        <th style="width: 15%;">Email</th>
+                        <th style="width: 15%;">Teléfono</th>
+          
+                        <th style="width: 5%;">Rol</th>
+                        
+                        <th style="width: 5%;">Acciones</th>
                       
                       </tr>
                     </thead>
@@ -83,9 +83,9 @@
                         <td>{{ paciente.nombre }}</td>
                         <td>{{ paciente.apellidos }}</td>
                         <td>{{ paciente.email }}</td>
-                        <td>{{ paciente.fecha_nacimiento }}</td>
+                        
                         <td>{{ paciente.telefono }}</td>
-                        <td>{{ paciente.direccion }}</td>
+                
                         <td>
                             <select class="form-control"
                             [(ngModel)]="paciente.rol"

@@ -12,6 +12,19 @@
   margin-right: 15px; /* o el valor que desees para la separación */
 }
 
+table {
+  width: 100%;
+  table-layout: fixed; /* Fuerza un ancho fijo para todas las columnas */
+}
+
+table th,
+table td {
+  white-space: nowrap;      /* Evita que el texto se rompa en varias líneas */
+  overflow: hidden;        
+  text-overflow: ellipsis;  
+}
+
+
 
 
 
