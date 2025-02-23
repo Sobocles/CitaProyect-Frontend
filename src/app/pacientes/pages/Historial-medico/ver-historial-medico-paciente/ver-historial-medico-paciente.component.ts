@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HistorialService } from '../../../medicos/services/historial.service';
+import { HistorialService } from '../../../../medicos/services/historial.service';
 
 @Component({
   selector: 'app-ver-historial-medico-paciente',

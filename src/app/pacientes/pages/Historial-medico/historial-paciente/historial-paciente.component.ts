@@ -3,8 +3,8 @@ import { HistorialService } from 'src/app/medicos/services/historial.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Historial, HistorialResponse } from 'src/app/medicos/historial';
 import { Usuario } from 'src/app/models/usuario';
-import { BusquedaMedicoService } from '../../services/busqueda-medico.service';
-import { BusquedasService } from '../../../admin/pages/services/busquedas.service';
+import { BusquedaMedicoService } from '../../../services/busqueda-medico.service';
+import { BusquedasService } from '../../../../admin/pages/services/busquedas.service';
 @Component({
   selector: 'app-historial-paciente',
   templateUrl: './historial-paciente.component.html',

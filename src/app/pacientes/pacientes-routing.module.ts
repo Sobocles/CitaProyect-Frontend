@@ -5,17 +5,15 @@ import { AgendarCitaComponent } from './pages/agendar-cita/agendar-cita.componen
 import { FormularioCitaComponent } from './pages/formulario-cita/formulario-cita.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BusquedaMedicoComponent } from './pages/busqueda-medico/busqueda-medico.component';
-import { HistorialComponent } from '../medicos/historial/historial.component';
-import { HistorialPacienteComponent } from './pages/historial-paciente/historial-paciente.component';
+import { HistorialPacienteComponent } from './pages/Historial-medico/historial-paciente/historial-paciente.component';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { PaymentFailureComponent } from './pages/payment-failure/payment-failure.component';
 import { patientGuard } from '../auth/guards/patient.guard';
 import { CambiarPasswordComponent } from './pages/cambiar-password/cambiar-password.component';
 import { VerCitasPacienteComponent } from './pages/ver-citas-paciente/ver-citas-paciente.component';
-import { InicioComponent } from '../admin/pages/inicio/inicio.component';
 import { InicioPacienteComponent } from './pages/inicio-paciente/inicio-paciente.component';
-import { VerHistorialMedicoPacienteComponent } from './pages/ver-historial-medico-paciente/ver-historial-medico-paciente.component';
+import { VerHistorialMedicoPacienteComponent } from './pages/Historial-medico/ver-historial-medico-paciente/ver-historial-medico-paciente.component';
 
 
 const routes: Routes = [

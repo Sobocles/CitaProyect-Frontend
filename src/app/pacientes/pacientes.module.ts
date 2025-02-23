@@ -10,14 +10,14 @@ import { RouterModule } from '@angular/router';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BusquedaMedicoComponent } from './pages/busqueda-medico/busqueda-medico.component';
-import { HistorialPacienteComponent } from './pages/historial-paciente/historial-paciente.component';
+import { HistorialPacienteComponent } from './pages/Historial-medico/historial-paciente/historial-paciente.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { PaymentFailureComponent } from './pages/payment-failure/payment-failure.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CambiarPasswordComponent } from './pages/cambiar-password/cambiar-password.component';
 import { VerCitasPacienteComponent } from './pages/ver-citas-paciente/ver-citas-paciente.component';
 import { InicioPacienteComponent } from './pages/inicio-paciente/inicio-paciente.component';
-import { VerHistorialMedicoPacienteComponent } from './pages/ver-historial-medico-paciente/ver-historial-medico-paciente.component'; 
+import { VerHistorialMedicoPacienteComponent } from './pages/Historial-medico/ver-historial-medico-paciente/ver-historial-medico-paciente.component'; 
 
 
 @NgModule({

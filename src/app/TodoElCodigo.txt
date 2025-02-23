@@ -409,16 +409,17 @@ export class VerFacturasComponent implements OnInit {
     });
   }
 
-  cambiarPagina( valor: number ) { 
-    this.desde +=valor;
+  cambiarPagina(nuevoOffset: number) {
+    this.desde = nuevoOffset;
 
     if( this.desde < 0){ 
       this.desde = 0;
     } else if( this.desde >= this.totalFacturas ){ 
-      this.desde -= valor;
+      this.desde -= nuevoOffset;
     }
     this.cargarFacturas(); 
   }
+
 
   borrarFactura( factura: number ) {
 
@@ -511,27 +512,24 @@ export class VerFacturasComponent implements OnInit {
                     <table class="table table-bordered">
                       <thead>
                         <tr>
-                           <th>ID</th>
-                          <th>rut paciente</th>
-                          <th>nombre paciente</th>
-                          <th>motivo cita</th>
-                          <th>rut medico</th>
-                          <th>nombre medico</th>
-                          <th>metodo de pago</th>
-                          <th>monto pagado</th>
-                          <th>fecha pago</th>
-                          <th>acciones</th>
-
-                         
+                          <th style="width: 3%;">ID</th>
+                          <th style="width: 8%;">Rut paciente</th>
+                          <th style="width: 13%;">Nombre paciente</th>
+                          <th style="width: 12%;">Motivo cita</th>
+                          <th style="width: 15%;">Nombre medico</th>
+                          <th style="width: 8%;">Método pago</th>
+                          <th style="width: 8%;">Monto</th>
+                          <th style="width: 8%;">Fecha pago</th>
+                          <th style="width: 5%;">Accion</th>
                         </tr>
                       </thead>
+                      
                       <tbody>
                         <tr *ngFor="let factura of facturas">
                           <td>{{ factura.id_factura }}</td>
                           <td>{{ factura.citaMedica.paciente.rut }}</td>
                           <td>{{ factura.citaMedica.paciente.nombre }} {{ factura.citaMedica.paciente.apellidos }}</td>
                           <td>{{ factura.citaMedica.motivo }}</td>
-                          <td>{{ factura.citaMedica.medico.rut }}</td>
                           <td>{{ factura.citaMedica.medico.nombre }} {{ factura.citaMedica.medico.apellidos }}</td>
                           <td>{{ factura.payment_method_id }}</td>
                           <td>{{ factura.monto_pagado | currency }}</td>
@@ -586,7 +584,22 @@ export class VerFacturasComponent implements OnInit {
 
 .cursor {
     cursor: pointer;
-}import { Component, OnInit } from '@angular/core';
+}
+
+
+table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+
+  table th,
+  table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -904,18 +917,20 @@ export class GestionarMedicosComponent implements OnInit {
     this.router.navigate(['/editar-medico', medico.rut]);
   }
 
-      cambiarPagina( valor: number ) { 
-        console.log("valor", valor);
-        this.desde +=valor;
+  cambiarPagina(nuevoOffset: number) {
+        console.log("valor", nuevoOffset);
+        this.desde = nuevoOffset;
         console.log(this.desde);
 
         if( this.desde < 0){ 
           this.desde = 0;
         } else if( this.desde >= this.totalUsuarios ){ 
-          this.desde -= valor;
+          this.desde -= nuevoOffset;
         }
         this.cargaMedicos(); 
       }
+
+      
 
   buscar(termino: string): void {
   
@@ -990,20 +1005,16 @@ export class GestionarMedicosComponent implements OnInit {
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                    
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Teléfono</th>
-                        <th>Email</th>
-                        <th>Dirección</th>
-                        
-                    
-                        <th>Especialidad</th>
-                        <th>Acciones</th>
-                    
+                        <th style="width: 10%;">ID</th>
+                        <th style="width: 15%;">Nombre</th>
+                        <th style="width: 20%;">Apellidos</th>
+                        <th style="width: 15%;">Teléfono</th>
+                        <th style="width: 20%;">Email</th>
+                        <th style="width: 20%;">Especialidad</th>
+                        <th style="width: 10%;">Acciones</th>
                       </tr>
                     </thead>
+                    
                     <tbody>
                       <tr *ngFor="let medico of medicos">
                        <!-- <td>{{ medico.foto }}</td> -->
@@ -1012,7 +1023,7 @@ export class GestionarMedicosComponent implements OnInit {
                         <td>{{ medico.apellidos }}</td>
                         <td>{{ medico.telefono }}</td>
                         <td>{{ medico.email }}</td>
-                        <td>{{ medico.direccion }}</td>
+             
                         
                      
                         <td>{{ medico.especialidad_medica }}</td>
@@ -1071,6 +1082,17 @@ export class GestionarMedicosComponent implements OnInit {
   margin-right: 15px; /* o el valor que desees para la separación */
 }
 
+table {
+  width: 100%;
+  table-layout: fixed; /* Fuerza un ancho fijo para todas las columnas */
+}
+
+table th,
+table td {
+  white-space: nowrap;      /* Evita que el texto se rompa en varias líneas */
+  overflow: hidden;        
+  text-overflow: ellipsis;  
+}
 
 
 
@@ -1506,18 +1528,19 @@ editarUsuario(usuario: any) {
 
 
 
-    cambiarPagina( valor: number ) {
-      console.log(valor);
-      this.desde +=valor;
+cambiarPagina(nuevoOffset: number) {
+      
+      this.desde = nuevoOffset;
 
       if( this.desde < 0){
         this.desde = 0;
       } else if( this.desde >= this.totalUsuarios ){ 
-        this.desde -= valor;
+        this.desde -= nuevoOffset;
       }
       this.cargaPacientes();
 
     }
+
 
 
 
@@ -1576,15 +1599,15 @@ editarUsuario(usuario: any) {
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>email</th>
-                        <th>fecha_nacimiento</th>
-                        <th>Telefono</th>
-                        <th>direccion</th>
-                        <th>rol</th>
-                        <th>acciones</th>
+                        <th style="width: 15%;">ID</th>
+                        <th style="width: 10%;">Nombre</th>
+                        <th style="width: 15%;">Apellidos</th>
+                        <th style="width: 15%;">Email</th>
+                        <th style="width: 15%;">Teléfono</th>
+          
+                        <th style="width: 5%;">Rol</th>
+                        
+                        <th style="width: 5%;">Acciones</th>
                       
                       </tr>
                     </thead>
@@ -1607,9 +1630,9 @@ editarUsuario(usuario: any) {
                         <td>{{ paciente.nombre }}</td>
                         <td>{{ paciente.apellidos }}</td>
                         <td>{{ paciente.email }}</td>
-                        <td>{{ paciente.fecha_nacimiento }}</td>
+                        
                         <td>{{ paciente.telefono }}</td>
-                        <td>{{ paciente.direccion }}</td>
+                
                         <td>
                             <select class="form-control"
                             [(ngModel)]="paciente.rol"
@@ -1666,6 +1689,21 @@ editarUsuario(usuario: any) {
     display: inline-block;
     margin-right: 10px;  /* Esto añade un pequeño espacio entre los íconos */
 }
+
+/* Forzar un layout fijo en la tabla */
+.table {
+    width: 100%;
+    table-layout: fixed;  /* Fija el ancho de las columnas */
+  }
+  
+  /* Estilos para los encabezados y celdas */
+  .table th,
+  .table td {
+    white-space: nowrap;      /* Evita saltos de línea */
+    overflow: hidden;         /* Oculta contenido que se desborde */
+    text-overflow: ellipsis;  /* Agrega "..." si el contenido es muy largo */
+  }
+  
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -2072,15 +2110,15 @@ cambioEstado(cita: any) {
     });
 }
 
-cambiarPagina( valor: number ) { //El valor indica que cantidad de usuarios se mostraran en cada pagina (+5 para el boton suguiente, -5 para anterior)
-  this.desde +=valor;
+cambiarPagina(nuevoOffset: number) {
+  this.desde = nuevoOffset;
   console.log(this.totalCitas);
-  if( this.desde < 0){ //Condicion que evita que al restar -5 a desde valor a desde se obtenga un numero menor a 0
+  if( this.desde < 0){ 
     this.desde = 0;
-  } else if( this.desde >= this.totalCitas ){ //Condicion que evita que al sumar +5 a desde a desde se obtenga un numero menor a 0
-    this.desde -= valor;
+  } else if( this.desde >= this.totalCitas ){ 
+    this.desde -= nuevoOffset;
   }
-  this.cargarCitas(); //Luego de hacer las validaciones se muestran los usuarios
+  this.cargarCitas(); 
 }
 
 }
@@ -2127,17 +2165,18 @@ cambiarPagina( valor: number ) { //El valor indica que cantidad de usuarios se m
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Fecha</th>
-                                <th>Paciente</th>
-                                <th>Medico</th>
-                                <th>Tipo_cita</th>
-                                <th>Estado</th>
-                                <th>Hora_inicio</th>
-                                <th>Hora_fin</th>
-                                <th>Acciones</th>
+                              <th style="width: 8%;">Id</th>
+                              <th style="width: 12%;">Fecha</th>
+                              <th style="width: 20%;">Paciente</th>
+                              <th style="width: 20%;">Médico</th>
+                              <th style="width: 15%;">Tipo de cita</th>
+                              <th style="width: 10%;">Estado</th>
+                              <th style="width: 10%;">Hora inicio</th>
+                              <th style="width: 10%;">Hora fin</th>
+                              <th style="width: 10%;">Acciones</th>
                             </tr>
-                        </thead>
+                          </thead>
+                          
                         <tbody>
                             <tr *ngFor="let cita of citas">
                                
@@ -2192,7 +2231,22 @@ cambiarPagina( valor: number ) { //El valor indica que cantidad de usuarios se m
 
 .cursor {
     cursor: pointer;
-}import { Component, OnInit } from '@angular/core';
+}
+
+/* Fuerza un layout fijo en la tabla */
+table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  /* Evita que el contenido se desborde y agrega puntos suspensivos */
+  table th,
+  table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HorarioMedicoService } from '../../services/horario-medico.service';
@@ -2505,18 +2559,18 @@ export class GestionarHorariosMedicosComponent implements OnInit {
   }
   
 
-cambiarPagina( valor: number ) {
-  console.log(valor);
-  this.desde +=valor;
+  cambiarPagina(nuevoOffset: number) {
+  this.desde = nuevoOffset;
 
   if( this.desde < 0){
     this.desde = 0;
   } else if( this.desde >= this.totalHorarios ){ 
-    this.desde -= valor;
+    this.desde -= nuevoOffset;
   }
   this.cargaHorario();
 
 }
+
 
 }
 <div class="row animated fadeIn fast">
@@ -2577,21 +2631,17 @@ cambiarPagina( valor: number ) {
                     <table class="table table-bordered">
                       <thead>
                         <tr>
-         
-                          <th>diaSemana</th>
-                          <th>horaInicio</th>
-                          <th>horaFinalizacion</th>
-                          <th>Inicio colacion</th>
-                          <th>Fin colacion</th>
-                          <th>Nombre medico</th>
-          
-                          <th>Especialidad medica</th>
-                         
-                     
-                          <th>Acciones</th>
-                          <!-- Agrega más columnas según tus necesidades -->
+                          <th style="width: 12%;">diaSemana</th>
+                          <th style="width: 15%;">hora Inicio</th>
+                          <th style="width: 15%;">hora Finalizacion</th>
+                          <th style="width: 12%;">Inicio colacion</th>
+                          <th style="width: 12%;">Fin colacion</th>
+                          <th style="width: 18%;">Nombre medico</th>
+                          <th style="width: 12%;">Especialidad</th>
+                          <th style="width: 10%;">Acciones</th>
                         </tr>
                       </thead>
+                      
                       <tbody>
                         <tr *ngFor="let horario of horarios">
                           <td>{{ horario.diaSemana }}</td>
@@ -2658,6 +2708,21 @@ cambiarPagina( valor: number ) {
     display: inline-block;
     margin-right: 10px;  /* Esto añade un pequeño espacio entre los íconos */
 }
+
+/* Forzar un layout fijo para que las columnas mantengan anchos constantes */
+table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  /* Evitar que el contenido se desborde y mostrar "..." si es muy largo */
+  table th,
+  table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TipoCitaService } from '../../services/tipo-cita.service';
@@ -2886,18 +2951,19 @@ export class GestionarTiposCitasComponent implements OnInit{
     }
 
 
-    cambiarPagina( valor: number ) {
+    cambiarPagina(nuevoOffset: number) {
 
-      this.desde +=valor;
+      this.desde = nuevoOffset;
 
       if( this.desde < 0){
         this.desde = 0;
       } else if( this.desde >= this.totalTipoCitas ){ 
-        this.desde -= valor;
+        this.desde -= nuevoOffset;
       }
       this.cargaTipocita();
 
     }
+
 
 
 
@@ -2943,17 +3009,14 @@ export class GestionarTiposCitasComponent implements OnInit{
                     <table class="table table-bordered">
                       <thead>
                         <tr>
-         
-                          <th>ID </th>
-                          <th>Especialidad Medica</th>
-                          <th>Precio</th>
-                          
-                          <th>Duracion cita</th>
-                          <th>acciones</th>
-
-
+                          <th style="width: 10%;">ID</th>
+                          <th style="width: 30%;">Especialidad Médica</th>
+                          <th style="width: 20%;">Precio</th>
+                          <th style="width: 20%;">Duración cita</th>
+                          <th style="width: 20%;">Acciones</th>
                         </tr>
                       </thead>
+                      
                       <tbody>
                         <tr *ngFor="let tipocita of tiposCitas">
                           <td>{{tipocita.idTipo}}</td>
@@ -3011,6 +3074,19 @@ export class GestionarTiposCitasComponent implements OnInit{
     display: inline-block;
     margin-right: 10px;  /* Esto añade un pequeño espacio entre los íconos */
 }
+
+.table {
+    width: 100%;
+    table-layout: fixed; /* Forza anchos fijos en las columnas */
+  }
+  
+  .table th,
+  .table td {
+    white-space: nowrap;       /* Evita que el texto se divida en varias líneas */
+    overflow: hidden;          /* Oculta el contenido que se desborda */
+    text-overflow: ellipsis;   /* Muestra "..." si el contenido es muy largo */
+  }
+  
 import { Component, OnInit } from '@angular/core';
 import { InfoclinicaService } from '../services/infoclinica.service';
 import Swal from 'sweetalert2';
@@ -5340,12 +5416,14 @@ cargarHistorialMedico(rut: string): void {
                     </table>
                   </div>
                 <!--ESTA CONDICION SE HACE PARA QUE CUANDO SE TECLEA EN LA BARRA DE BUSQUEDA Y SE CARGAN LOS RESULTADOS DE BUSQUEDA DESAPARESCAN LOS BOTONES SIGUIENTES Y ANTERIOR EN LA PANTALLA-->
-                <app-paginator 
-                [totalItems]="totalHistoriales" 
-                [(offset)]="desde" 
-                [pageSize]="5"
-                (offsetChange)="cambiarPagina($event)">
-              </app-paginator>
+                <div *ngIf="txtTermino.value.length === 0"> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
+                  <app-paginator 
+                  [totalItems]="totalHistoriales" 
+                  [(offset)]="desde" 
+                  [pageSize]="5"
+                  (offsetChange)="cambiarPagina($event)">
+                </app-paginator>
+              </div>
 
             
             </div>
@@ -5782,14 +5860,13 @@ cambiarPagina(valor: number) {
                     </table>
                   </div>
                 <!--ESTA CONDICION SE HACE PARA QUE CUANDO SE TECLEA EN LA BARRA DE BUSQUEDA Y SE CARGAN LOS RESULTADOS DE BUSQUEDA DESAPARESCAN LOS BOTONES SIGUIENTES Y ANTERIOR EN LA PANTALLA-->
-                <div > <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
+                <div *ngIf="txtTermino.value.length === 0"> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
                   <app-paginator 
-                    [totalItems]="totalCitas" 
-                    [(offset)]="desde" 
-                    [pageSize]="5"
-                    (offsetChange)="cargarCitasMedicas(authService.medico.rut, $event)">
-                  </app-paginator>
-
+                  [totalItems]="totalCitas" 
+                  [(offset)]="desde" 
+                  [pageSize]="5"
+                  (offsetChange)="cambiarPagina($event)">
+                </app-paginator>
               </div>
             
             </div>
@@ -5799,7 +5876,130 @@ cambiarPagina(valor: number) {
 </div>
 
 
-export class InfoClinica {
+.modern-search {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 30px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    
+    &:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 12px rgba(52, 152, 219, 0.2);
+    }
+}
+
+.medical-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+    
+    thead {
+        th {
+            background: #f8f9fa;
+            color: #2c3e50;
+            padding: 1rem;
+            border-bottom: 2px solid #3498db;
+        }
+    }
+    
+    tbody tr {
+        background: white;
+        transition: transform 0.2s ease;
+        
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        td {
+            padding: 1rem;
+            vertical-align: middle;
+        }
+    }
+}
+
+.estado-container {
+    position: relative;
+    
+    .estado-select {
+        appearance: none;
+        width: 100%;
+        padding: 0.8rem 2rem 0.8rem 1rem;
+        border: none;
+        border-radius: 20px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        
+        &.en-curso {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+        
+        &.terminado {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        &.pagado {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        &:hover {
+            filter: brightness(0.95);
+        }
+        
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+        }
+    }
+    
+    .select-arrow {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid currentColor;
+        pointer-events: none;
+    }
+}
+
+.time-badge {
+    background: #f8f9fa;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+}
+
+.time-separator {
+    margin: 0 0.5rem;
+    color: #b0bec5;
+}
+
+.badge-count {
+    background: #3498db;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
+
+.medical-paginator {
+    margin-top: 2rem;
+    border-top: 2px solid #f1f1f1;
+    padding-top: 1.5rem;
+}export class InfoClinica {
     public nombreClinica: string;
     public direccion: string;
     public telefono: string;
@@ -5878,17 +6078,15 @@ import { AgendarCitaComponent } from './pages/agendar-cita/agendar-cita.componen
 import { FormularioCitaComponent } from './pages/formulario-cita/formulario-cita.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BusquedaMedicoComponent } from './pages/busqueda-medico/busqueda-medico.component';
-import { HistorialComponent } from '../medicos/historial/historial.component';
-import { HistorialPacienteComponent } from './pages/historial-paciente/historial-paciente.component';
+import { HistorialPacienteComponent } from './pages/Historial-medico/historial-paciente/historial-paciente.component';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { PaymentFailureComponent } from './pages/payment-failure/payment-failure.component';
 import { patientGuard } from '../auth/guards/patient.guard';
 import { CambiarPasswordComponent } from './pages/cambiar-password/cambiar-password.component';
 import { VerCitasPacienteComponent } from './pages/ver-citas-paciente/ver-citas-paciente.component';
-import { InicioComponent } from '../admin/pages/inicio/inicio.component';
 import { InicioPacienteComponent } from './pages/inicio-paciente/inicio-paciente.component';
-import { VerHistorialMedicoPacienteComponent } from './pages/ver-historial-medico-paciente/ver-historial-medico-paciente.component';
+import { VerHistorialMedicoPacienteComponent } from './pages/Historial-medico/ver-historial-medico-paciente/ver-historial-medico-paciente.component';
 
 
 const routes: Routes = [
@@ -5937,14 +6135,14 @@ import { RouterModule } from '@angular/router';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BusquedaMedicoComponent } from './pages/busqueda-medico/busqueda-medico.component';
-import { HistorialPacienteComponent } from './pages/historial-paciente/historial-paciente.component';
+import { HistorialPacienteComponent } from './pages/Historial-medico/historial-paciente/historial-paciente.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { PaymentFailureComponent } from './pages/payment-failure/payment-failure.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CambiarPasswordComponent } from './pages/cambiar-password/cambiar-password.component';
 import { VerCitasPacienteComponent } from './pages/ver-citas-paciente/ver-citas-paciente.component';
 import { InicioPacienteComponent } from './pages/inicio-paciente/inicio-paciente.component';
-import { VerHistorialMedicoPacienteComponent } from './pages/ver-historial-medico-paciente/ver-historial-medico-paciente.component'; 
+import { VerHistorialMedicoPacienteComponent } from './pages/Historial-medico/ver-historial-medico-paciente/ver-historial-medico-paciente.component'; 
 
 
 @NgModule({
@@ -6276,61 +6474,218 @@ export class CambiarPasswordComponent implements OnInit {
   }
 
 }
-<form *ngIf="miFormulario != null" [formGroup]="miFormulario" (ngSubmit)="cambiarPassword()" class="example-form">
-    <mat-card>
-        <mat-card-title>Cambiar Contraseña</mat-card-title>
-        <mat-card-content>
-            <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Contraseña Anterior</mat-label>
-                <input matInput [type]="mostrarPassword ? 'text' : 'password'" formControlName="password">
-                <button mat-icon-button matSuffix (click)="mostrarPassword = !mostrarPassword" type="button">
-                    <mat-icon>{{mostrarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
+<form *ngIf="miFormulario != null" [formGroup]="miFormulario" (ngSubmit)="cambiarPassword()" class="security-form">
+    <mat-card class="password-card">
+        <div class="security-header">
+            <mat-icon class="security-icon">lock_reset</mat-icon>
+            <mat-card-title class="security-title">Seguridad de la Cuenta</mat-card-title>
+            <p class="security-subtitle">Protege tu acceso al sistema médico</p>
         </div>
-        <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Nueva Contraseña</mat-label>
-                <input matInput [type]="mostrarNuevaPassword ? 'text' : 'password'" formControlName="newPassword">
-                <button mat-icon-button matSuffix (click)="mostrarNuevaPassword = !mostrarNuevaPassword" type="button">
-                    <mat-icon>{{mostrarNuevaPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
+
+        <mat-card-content class="password-content">
+            <div class="password-section">
+                <mat-form-field appearance="outline" class="security-input">
+                    <mat-label>Contraseña actual</mat-label>
+                    <input matInput 
+                           [type]="mostrarPassword ? 'text' : 'password'" 
+                           formControlName="password"
+                           required>
+                    <mat-icon matSuffix (click)="mostrarPassword = !mostrarPassword" class="toggle-icon">
+                        {{mostrarPassword ? 'visibility_off' : 'visibility'}}
+                    </mat-icon>
+                    <mat-error *ngIf="miFormulario.get('password')?.hasError('required')">
+                        Campo obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="security-input">
+                    <mat-label>Nueva contraseña</mat-label>
+                    <input matInput 
+                           [type]="mostrarNuevaPassword ? 'text' : 'password'" 
+                           formControlName="newPassword"
+                           required>
+                    <mat-icon matSuffix (click)="mostrarNuevaPassword = !mostrarNuevaPassword" class="toggle-icon">
+                        {{mostrarNuevaPassword ? 'visibility_off' : 'visibility'}}
+                    </mat-icon>
+                    <mat-hint>Mínimo 6 caracteres</mat-hint>
+                    <mat-error *ngIf="miFormulario.get('newPassword')?.hasError('minlength')">
+                        Mínimo 6 caracteres requeridos
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="security-input">
+                    <mat-label>Confirmar nueva contraseña</mat-label>
+                    <input matInput 
+                           [type]="mostrarConfirmacionPassword ? 'text' : 'password'" 
+                           formControlName="newPasswordConfirm"
+                           required>
+                    <mat-icon matSuffix (click)="mostrarConfirmacionPassword = !mostrarConfirmacionPassword" class="toggle-icon">
+                        {{mostrarConfirmacionPassword ? 'visibility_off' : 'visibility'}}
+                    </mat-icon>
+                    <mat-error *ngIf="miFormulario.hasError('mismatch')">
+                        Las contraseñas no coinciden
+                    </mat-error>
+                </mat-form-field>
             </div>
-            <!-- Confirme Nueva Contraseña -->
-            <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Confirme Nueva Contraseña</mat-label>
-                <input matInput [type]="mostrarConfirmacionPassword ? 'text' : 'password'" formControlName="newPasswordConfirm">
-                <button mat-icon-button matSuffix (click)="mostrarConfirmacionPassword = !mostrarConfirmacionPassword" type="button">
-                    <mat-icon>{{mostrarConfirmacionPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-        </div>
+
+            <div class="password-requirements">
+                <p class="requirements-title">Requisitos de seguridad:</p>
+                <ul class="requirements-list">
+                    <li><mat-icon>check_circle</mat-icon> Mínimo 6 caracteres</li>
+                    <li><mat-icon>check_circle</mat-icon> Sin espacios en blanco</li>
+                </ul>
+            </div>
         </mat-card-content>
-        <mat-card-actions>
-            <button mat-button color="primary" type="submit">Actualizar Contraseña</button>
-            <button mat-button color="warn" routerLink="/dashboard">Cancelar</button>
+
+        <mat-card-actions class="security-actions">
+            <button mat-raised-button 
+                    color="primary" 
+                    type="submit"
+                    class="security-button"
+                    [disabled]="miFormulario.invalid">
+                <mat-icon>lock_reset</mat-icon>
+                Actualizar Contraseña
+            </button>
+            
+            <button mat-stroked-button 
+                    color="warn" 
+                    routerLink="/dashboard"
+                    class="security-button">
+                <mat-icon>cancel</mat-icon>
+                Cancelar
+            </button>
         </mat-card-actions>
     </mat-card>
-</form>
-.example-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+</form>.security-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
 
-    .mat-card {
-        width: 100%; 
-        max-width: 600px; 
+.password-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
 
-        .mat-form-field {
+.security-header {
+    background: #f8f9fa;
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 3px solid #3498db;
+    
+    .security-icon {
+        font-size: 3rem;
+        width: auto;
+        height: auto;
+        color: #3498db;
+        margin-bottom: 1rem;
+    }
+    
+    .security-title {
+        color: #2c3e50;
+        font-weight: 600;
+        margin: 0.5rem 0;
+    }
+    
+    .security-subtitle {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+}
+
+.password-content {
+    padding: 2rem;
+    
+    .password-section {
+        margin-bottom: 2rem;
+        
+        .security-input {
             width: 100%;
+            margin: 1rem 0;
+            
+            .toggle-icon {
+                color: #7f8c8d;
+                cursor: pointer;
+                &:hover {
+                    color: #3498db;
+                }
+            }
+            
+            .mat-form-field-outline {
+                border-radius: 8px;
+            }
         }
     }
 }
 
+.password-requirements {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    
+    .requirements-title {
+        color: #2c3e50;
+        font-weight: 500;
+        margin: 0 0 1rem 0;
+    }
+    
+    .requirements-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        color: #7f8c8d;
+        
+        li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+            
+            mat-icon {
+                color: #3498db;
+                font-size: 1.2rem;
+                width: auto;
+                height: auto;
+            }
+        }
+    }
+}
+
+.security-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid #eee;
+    
+    .security-button {
+        border-radius: 25px;
+        padding: 0.5rem 1.5rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        
+        mat-icon {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            top: -1px;
+        }
+    }
+}
+
+.mat-error {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    
+    mat-icon {
+        font-size: 1.1rem;
+        margin-right: 0.3rem;
+    }
+}
 import { Component } from '@angular/core';
 import { TipoCitaService } from 'src/app/admin/pages/services/tipo-cita.service';
 import { Tipo_cita, tipoCitaResponse } from 'src/app/admin/pages/interface/tipoCita';
@@ -6567,8 +6922,8 @@ import { HistorialService } from 'src/app/medicos/services/historial.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Historial, HistorialResponse } from 'src/app/medicos/historial';
 import { Usuario } from 'src/app/models/usuario';
-import { BusquedaMedicoService } from '../../services/busqueda-medico.service';
-import { BusquedasService } from '../../../admin/pages/services/busquedas.service';
+import { BusquedaMedicoService } from '../../../services/busqueda-medico.service';
+import { BusquedasService } from '../../../../admin/pages/services/busquedas.service';
 @Component({
   selector: 'app-historial-paciente',
   templateUrl: './historial-paciente.component.html',
@@ -6627,81 +6982,476 @@ export class HistorialPacienteComponent implements OnInit {
 
 
 }
-
-
-
-
-
-<div class="row animated fadeIn fast"> <!--SI NO ESTA CARGADO-->
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Total de historiales: </h4>
-                <h6 class="card-subtitle">Historiales registrados en mi aplicacion</h6>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-         
-                          <th>ID </th>
-                          <th>Diagnostico</th>
-                          <th>Medicamento</th>
-                          <th>notas</th>
-                          <th>Medico</th>
-                          <th>Fecha de consulta</th>
-                          <th>Acciones</th>
-                          
-                         <!-- <th>Rut paciente</th> -->
-                      
-                        </tr>
+<div class="row animated fadeIn fast">
+  <div class="col-12">
+      <div class="card shadow-sm border-0" style="border-radius: 15px;">
+          <div class="card-header bg-primary text-white rounded-top">
+              <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                      <h4 class="card-title mb-0"><i class="fas fa-file-medical me-2"></i>Registro Clínico Digital</h4>
+                      <small class="card-subtitle">Sistema de Archivos Médicos Electrónicos (EMR v2.4)</small>
+                  </div>
+                  <div class="badge bg-light text-primary fs-6">
+                      <i class="fas fa-dna me-2"></i>Casos Registrados: {{totalHistoriales}}
+                  </div>
+              </div>
+          </div>
+          
+          <div class="card-body medical-table-container">
+              <div class="table-responsive">
+                  <table class="table table-hover table-medical">
+                      <thead class="medical-head">
+                          <tr>
+                              <th><i class="fas fa-id-badge medical-icon"></i> ID Caso</th>
+                              <th><i class="fas fa-diagnoses medical-icon"></i> Diagnóstico</th>
+                              <th><i class="fas fa-prescription-bottle medical-icon"></i> Terapia</th>
+                              <th><i class="fas fa-notes-medical medical-icon"></i> Observaciones</th>
+                              <th><i class="fas fa-user-md medical-icon"></i> Especialista</th>
+                              <th><i class="fas fa-calendar-check medical-icon"></i> Fecha Consulta</th>
+                              <th><i class="fas fa-microscope medical-icon"></i> Análisis</th>
+                          </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let historial of historialMedico">
-                          <td>{{historial.id_historial}}</td>
-                          <td>{{historial.diagnostico}}</td>
-                          <td>{{historial.medicamento}}</td>
-                          <td>{{historial.notas}}</td>
-                          <td>{{historial.medico.nombre}} {{historial.medico.apellidos}}</td>
-                          <td>{{ historial.fecha_consulta | date: 'MMM d, y' }}</td>
-
-                          <td>
-                            <div class="icon-container d-flex">
-                              <!-- Icono para ver historial -->
-                              <a class="cursor"
-                                 data-toggle="tooltip"
-                                 data-original-title="Ver Historial"
-                                 [routerLink]="['/ver-historial-paciente', historial.id_historial]">
-                                <i class="fa fa-eye text-info"></i>
-                              </a>
-                            </div>
-                          </td>
-                          
-                       <!--   <td>{{historial.rut_paciente}}</td> -->
-                   
-
-                
-                
-                
-                        </tr>
+                          <tr *ngFor="let historial of historialMedico" class="medical-row">
+                              <td class="fw-bold text-primary">CASO-{{historial.id_historial}}</td>
+                              <td>
+                                  <div class="diagnosis-tag">
+                                      {{historial.diagnostico}}
+                                  </div>
+                              </td>
+                              <td>
+                                  <span class="medication-badge">
+                                      <i class="fas fa-capsules me-2"></i>
+                                      {{historial.medicamento}}
+                                  </span>
+                              </td>
+                              <td class="notes-cell">
+                                  <div class="notes-content">
+                                      {{historial.notas}}
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="doctor-info">
+                                      <div class="doctor-name">{{historial.medico.nombre}} {{historial.medico.apellidos}}</div>
+                               
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="date-box">
+                                      <div class="date-day">{{ historial.fecha_consulta | date: 'd' }}</div>
+                                      <div class="date-month">{{ historial.fecha_consulta | date: 'MMM' }}</div>
+                                      <div class="date-year">{{ historial.fecha_consulta | date: 'y' }}</div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="icon-container d-flex">
+                                      <a class="medical-action" 
+                                         data-toggle="tooltip"
+                                         data-original-title="Examinar Detalles"
+                                         [routerLink]="['/ver-historial-paciente', historial.id_historial]">
+                                          <i class="fas fa-clipboard-list medical-icon-detail"></i>
+                                      </a>
+                                  </div>
+                              </td>
+                          </tr>
                       </tbody>
-                    </table>
-                  </div>
-             
-                <app-paginator 
-                [totalItems]="totalHistoriales" 
-                [(offset)]="desde" 
-                [pageSize]="5"
-                (offsetChange)="cambiarPagina($event)">
+                  </table>
+              </div>
+
+              <app-paginator 
+                  [totalItems]="totalHistoriales" 
+                  [(offset)]="desde" 
+                  [pageSize]="5"
+                  (offsetChange)="cambiarPagina($event)">
               </app-paginator>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+.medical-table-container {
+    background: #f8f9fa;
+    border-radius: 0 0 15px 15px;
+  }
+  
+  .table-medical {
+    border-collapse: separate;
+    border-spacing: 0 8px;
+  }
+  
+  .medical-head th {
+    background: #e9f7fe;
+    color: #1a237e;
+    font-weight: 600;
+    border-bottom: 2px solid #90caf9;
+  }
+  
+  .medical-icon {
+    color: #1976d2;
+    margin-right: 8px;
+  }
+  
+  .medical-row {
+    background: white;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+  }
+  
+  .medical-row:hover {
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
+    border-left-color: #1976d2;
+  }
+  
+  .diagnosis-tag {
+    background: #e3f2fd;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-weight: 500;
+    color: #0d47a1;
+  }
+  
+  .medication-badge {
+    background: #f3e5f5;
+    padding: 4px 10px;
+    border-radius: 15px;
+    color: #6a1b9a;
+  }
+  
+  .notes-content {
+    max-width: 250px;
+    white-space: pre-wrap;
+    font-size: 0.9em;
+    color: #455a64;
+  }
+  
+  .date-box {
+    background: #f5f5f5;
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+    line-height: 1.2;
+  }
+  
+  .date-day {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #1976d2;
+  }
+  
+  .date-month {
+    font-size: 0.8em;
+    text-transform: uppercase;
+  }
+  
+  .date-year {
+    font-size: 0.8em;
+    color: #666;
+  }
+  
+  .medical-icon-detail {
+    color: #1976d2;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+  }
+  
+  .medical-action:hover .medical-icon-detail {
+    transform: scale(1.2);
+    color: #0d47a1;
+  }
+  
+  .doctor-info {
+    line-height: 1.3;
+  }
+  
+  .doctor-name {
+    font-weight: 500;
+    color: #2c3e50;
+  }import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { VerHistorialMedicoPacienteComponent } from './ver-historial-medico-paciente.component';
+
+describe('VerHistorialMedicoPacienteComponent', () => {
+  let component: VerHistorialMedicoPacienteComponent;
+  let fixture: ComponentFixture<VerHistorialMedicoPacienteComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [VerHistorialMedicoPacienteComponent]
+    });
+    fixture = TestBed.createComponent(VerHistorialMedicoPacienteComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HistorialService } from '../../../../medicos/services/historial.service';
+
+@Component({
+  selector: 'app-ver-historial-medico-paciente',
+  templateUrl: './ver-historial-medico-paciente.component.html',
+  styleUrls: ['./ver-historial-medico-paciente.component.scss']
+})
+export class VerHistorialMedicoPacienteComponent implements OnInit {
+
+  historial: any = {};
+
+  constructor(
+    
+    private route: ActivatedRoute, private HistorialService: HistorialService
+) { }
+
+  ngOnInit(): void {
+    const idHistorial = this.route.snapshot.paramMap.get('id');
+    console.log('aqui esta el id del historial',idHistorial)
+    if (idHistorial) {
+      this.cargarHistorial(idHistorial);
+  } else {
+      console.error('No se proporcionó un ID de factura válido.');
+      
+  }
+}
+
+cargarHistorial(id: string) {
+  const idHistorial = +id;
+  this.HistorialService.getHistorialPorId(idHistorial)
+  .subscribe((response:any) => {
+        console.log('aqui esta la respuesta',response);
+        console.log('aqui esta la respuesta completa',response)
+          this.historial = response;
+          console.log('historial cargada:', this.historial);
+    
+  }, error => {
+      console.error('Error al cargar la factura:', error);
+  });
+}
+
+}
+<div class="historial-container">
+    <div class="header-medico">
+        <h2 class="titulo-seccion">HISTORIAL CLÍNICO</h2>
+        <div class="sello"></div>
+    </div>
+    
+    <div *ngIf="historial" class="documento-medico">
+        <div class="encabezado">
+            <div class="id-historial">
+                <span class="badge-id">ID# {{historial.id_historial}}</span>
+                <span class="fecha-consulta">{{historial.fecha_consulta | date: 'dd/MM/yyyy'}}</span>
+            </div>
+            <div class="linea-divisoria"></div>
+        </div>
+
+        <div class="seccion-datos">
+            <div class="columna-datos">
+                <div class="campo">
+                    <label>Paciente:</label>
+                    <p class="valor">{{historial.rut_paciente}}</p>
+                </div>
+                <div class="campo">
+                    <label>Médico tratante:</label>
+                    <p class="valor">{{historial.rut_medico}}</p>
+                </div>
+            </div>
             
+            <div class="columna-datos">
+                <div class="campo">
+                    <label>Fecha creación:</label>
+                    <p class="valor-fecha">{{historial.createdAt | date: 'dd/MM/yyyy HH:mm'}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="seccion-clinica">
+            <h3 class="subtitulo">INFORMACIÓN CLÍNICA</h3>
+            <div class="campo-vertical">
+                <label>Diagnóstico principal:</label>
+                <div class="cuadro-texto">{{historial.diagnostico}}</div>
+            </div>
+            
+            <div class="campo-vertical">
+                <label>Medicación recetada:</label>
+                <div class="cuadro-texto">{{historial.medicamento}}</div>
+            </div>
+            
+            <div class="campo-vertical">
+                <label>Observaciones:</label>
+                <div class="cuadro-texto notas">{{historial.notas}}</div>
             </div>
         </div>
     </div>
 
-</div>
+    <div *ngIf="!historial" class="error-carga">
+        <div class="icono-error">!</div>
+        <p>No se ha encontrado el historial médico solicitado</p>
+    </div>
+</div>.historial-container {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
+.header-medico {
+    position: relative;
+    margin-bottom: 2rem;
+    text-align: center;
+    
+    .titulo-seccion {
+        color: #2c3e50;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-bottom: 3px solid #3498db;
+        padding-bottom: 1rem;
+        margin: 0 0 2rem 0;
+    }
+    
+    .sello {
+        position: absolute;
+        top: -10px;
+        right: 20px;
+        width: 80px;
+        height: 80px;
+        border: 3px dashed #e74c3c;
+        border-radius: 50%;
+        opacity: 0.3;
+    }
+}
 
-import { Component } from '@angular/core';
+.documento-medico {
+    background: white;
+    padding: 2rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    position: relative;
+    
+    .encabezado {
+        margin-bottom: 1.5rem;
+        
+        .id-historial {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            
+            .badge-id {
+                background: #3498db;
+                color: white;
+                padding: 0.3rem 0.8rem;
+                border-radius: 15px;
+                font-size: 0.9rem;
+            }
+            
+            .fecha-consulta {
+                color: #7f8c8d;
+                font-weight: 500;
+            }
+        }
+        
+        .linea-divisoria {
+            border-bottom: 2px solid #ecf0f1;
+            margin-bottom: 1.5rem;
+        }
+    }
+}
+
+.seccion-datos {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    
+    .columna-datos {
+        flex: 1;
+        
+        .campo {
+            margin-bottom: 1rem;
+            
+            label {
+                display: block;
+                color: #95a5a6;
+                font-size: 0.9rem;
+                margin-bottom: 0.3rem;
+            }
+            
+            .valor {
+                margin: 0;
+                font-weight: 500;
+                color: #2c3e50;
+            }
+            
+            .valor-fecha {
+                color: #3498db;
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.seccion-clinica {
+    .subtitulo {
+        color: #3498db;
+        text-transform: uppercase;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .campo-vertical {
+        margin-bottom: 1.5rem;
+        
+        label {
+            display: block;
+            color: #7f8c8d;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .cuadro-texto {
+            background: #f8f9fa;
+            border: 1px solid #ecf0f1;
+            padding: 1rem;
+            border-radius: 4px;
+            min-height: 80px;
+            
+            &.notas {
+                white-space: pre-wrap;
+                line-height: 1.6;
+            }
+        }
+    }
+}
+
+.error-carga {
+    background: #ffe3e3;
+    border: 1px solid #ff8787;
+    padding: 1.5rem;
+    border-radius: 4px;
+    color: #ff0000;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    
+    .icono-error {
+        background: #ff0000;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+}import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-inicio-paciente',
@@ -7096,141 +7846,293 @@ cargarCitasMedicas(rutPaciente: string, desde: number) {
   buscar(termino: string){}
 
 }
-<div class="row animated fadeIn fast">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-
-                <input type="text"
-                        class="form-control"
-                        placeholder="Buscar Citas..."
-                        #txtTermino
-                        (keyup)="buscar( txtTermino.value )"/> <!--CUANDO SE PRESIONE UNA TECLA BUSQUE EL TERMINO KEYUP ES PARA VER LAS LETRAS QUE SE ESCRIBEN EN TIEMPO REAL MIENTRAS SE EPREISONA UNA LETRA-->
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="row animated fadeIn fast"> <!--SI NO ESTA CARGADO-->
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Total de Citas: ({{totalCitas}}) </h4>
-                <h6 class="card-subtitle">Citas medicas</h6>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-         
-                          <th> ID </th>
-                          <th>Motivo</th>
-                          <th>Fecha</th>
-                          <th>Hora inicio</th>
-                          <th>Hora Fin</th>
-                          <th>Nombre</th>
-                          <th>Apellidos</th>
-                    
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let cita of citasMedicas">
-                          <td>{{ cita.idCita }}</td>
-                          <td>{{ cita.motivo }}</td>
-                          <td>{{ cita.fecha | date: 'mediumDate' }}</td>
-                          <td>{{ cita.hora_inicio }}</td>
-                          <td>{{ cita.hora_fin }}</td>
-                          <td>{{ cita.medico.nombre }}</td>
-                          <td>{{ cita.medico.apellidos}}</td>
-                          
-                       
-
-                        </tr>
-                      </tbody>
-                      
-                    </table>
-                  </div>
-                <!--ESTA CONDICION SE HACE PARA QUE CUANDO SE TECLEA EN LA BARRA DE BUSQUEDA Y SE CARGAN LOS RESULTADOS DE BUSQUEDA DESAPARESCAN LOS BOTONES SIGUIENTES Y ANTERIOR EN LA PANTALLA-->
-                <app-paginator 
-                [totalItems]="totalCitas" 
-                [(offset)]="desde" 
-                [pageSize]="5"
-                (offsetChange)="cargarCitasMedicas(authService.usuario!.rut, $event)">
-              </app-paginator>
-              
-              
-            
-            </div>
-        </div>
-    </div>
-
-</div>
-
-
-
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HistorialService } from '../../../medicos/services/historial.service';
-
-@Component({
-  selector: 'app-ver-historial-medico-paciente',
-  templateUrl: './ver-historial-medico-paciente.component.html',
-  styleUrls: ['./ver-historial-medico-paciente.component.scss']
-})
-export class VerHistorialMedicoPacienteComponent implements OnInit {
-
-  historial: any = {};
-
-  constructor(
-    
-    private route: ActivatedRoute, private HistorialService: HistorialService
-) { }
-
-  ngOnInit(): void {
-    const idHistorial = this.route.snapshot.paramMap.get('id');
-    console.log('aqui esta el id del historial',idHistorial)
-    if (idHistorial) {
-      this.cargarHistorial(idHistorial);
-  } else {
-      console.error('No se proporcionó un ID de factura válido.');
+<div class="citas-container">
+  <div class="header-citas">
+      <div class="search-container">
+          <div class="search-bar">
+              <input type="text" 
+                     class="medical-search"
+                     placeholder="Buscar por motivo, médico o fecha..."
+                     #txtTermino
+                     (keyup)="buscar(txtTermino.value)">
+              <i class="fas fa-search-medical"></i>
+          </div>
+      </div>
       
-  }
+      <div class="resumen-citas">
+          <h2 class="titulo-citas">
+              Agenda Médica
+              <span class="badge-total">{{totalCitas}} citas</span>
+          </h2>
+          <p class="subtitulo-citas">Registro de consultas programadas</p>
+      </div>
+  </div>
+
+  <div *ngIf="citasMedicas.length > 0" class="listado-citas">
+      <div *ngFor="let cita of citasMedicas" class="cita-card">
+
+          
+          <div class="cita-body">
+              <div class="cita-info">
+                  <div class="info-item">
+                      <i class="fas fa-stethoscope"></i>
+                      <div>
+                          <label>Motivo</label>
+                          <p class="motivo">{{cita.motivo}}</p>
+                      </div>
+                  </div>
+                  
+                  <div class="info-item">
+                      <i class="fas fa-calendar-check"></i>
+                      <div>
+                          <label>Fecha y Hora</label>
+                          <p class="horario">
+                              {{cita.fecha | date: 'dd/MM/yyyy'}} 
+                              <span class="hora">{{cita.hora_inicio}} - {{cita.hora_fin}}</span>
+                          </p>
+                      </div>
+                  </div>
+                  
+                  <div class="info-item">
+                      <i class="fas fa-user-md"></i>
+                      <div>
+                          <label>Médico</label>
+                          <p class="medico">{{cita.medico.nombre}} {{cita.medico.apellidos}}</p>
+                      </div>
+                  </div>
+              </div>
+              
+
+          </div>
+      </div>
+  </div>
+
+  <div *ngIf="citasMedicas.length === 0" class="sin-citas">
+      <div class="empty-state">
+          <i class="fas fa-calendar-times"></i>
+          <p>No se encontraron citas programadas</p>
+      </div>
+  </div>
+
+  <app-paginator 
+      class="medical-paginator"
+      [totalItems]="totalCitas" 
+      [(offset)]="desde" 
+      [pageSize]="5"
+      (offsetChange)="cargarCitasMedicas(authService.usuario!.rut, $event)">
+  </app-paginator>
+</div>.citas-container {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem;
 }
 
-cargarHistorial(id: string) {
-  const idHistorial = +id;
-  this.HistorialService.getHistorialPorId(idHistorial)
-  .subscribe((response:any) => {
-        console.log('aqui esta la respuesta',response);
-        console.log('aqui esta la respuesta completa',response)
-          this.historial = response;
-          console.log('historial cargada:', this.historial);
+.header-citas {
+    margin-bottom: 2rem;
     
-  }, error => {
-      console.error('Error al cargar la factura:', error);
-  });
+    .search-container {
+        margin-bottom: 2rem;
+        
+        .search-bar {
+            position: relative;
+            
+            .medical-search {
+                width: 100%;
+                padding: 1rem 1.5rem 1rem 3rem;
+                border: 2px solid #e0e0e0;
+                border-radius: 30px;
+                font-size: 1rem;
+                background: #f8f9fa;
+                transition: all 0.3s ease;
+                
+                &:focus {
+                    outline: none;
+                    border-color: #3498db;
+                    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+                }
+            }
+            
+            .fa-search-medical {
+                position: absolute;
+                left: 1.5rem;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #7f8c8d;
+            }
+        }
+    }
 }
 
+.resumen-citas {
+    text-align: center;
+    margin-bottom: 2rem;
+    
+    .titulo-citas {
+        color: #2c3e50;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        
+        .badge-total {
+            background: #3498db;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 1.2rem;
+        }
+    }
+    
+    .subtitulo-citas {
+        color: #7f8c8d;
+        font-size: 1rem;
+    }
 }
-<div class="ver-historial-medico-paciente">
-    <h2>Detalle del Historial Médico</h2>
-    <div *ngIf="historial" class="detalle-historial">
-        <h3>ID Historial: {{ historial.id_historial }}</h3>
-        <p><strong>Diagnóstico:</strong> {{ historial.diagnostico }}</p>
-        <p><strong>Medicamento:</strong> {{ historial.medicamento }}</p>
-        <p><strong>Notas:</strong> {{ historial.notas }}</p>
-        <p><strong>Fecha de Consulta:</strong> {{ historial.fecha_consulta | date: 'MMM d, y' }}</p>
-        <p><strong>RUT Paciente:</strong> {{ historial.rut_paciente }}</p>
-        <p><strong>RUT Médico:</strong> {{ historial.rut_medico }}</p>
-        <p><strong>Fecha de Creación:</strong> {{ historial.createdAt | date: 'MMM d, y, h:mm a' }}</p>
-    </div>
-    <div *ngIf="!historial">
-        <p>No se ha podido cargar la información del historial médico.</p>
-    </div>
-</div>
 
-import { HttpClient } from '@angular/common/http';
+.listado-citas {
+    display: grid;
+    gap: 1.5rem;
+    
+    .cita-card {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+        
+        &:hover {
+            transform: translateY(-2px);
+        }
+        
+        .cita-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 2px solid #f1f1f1;
+            
+            .cita-id {
+                color: #3498db;
+                font-weight: 600;
+            }
+            
+            .cita-status {
+                font-size: 0.85rem;
+                padding: 0.3rem 0.8rem;
+                border-radius: 15px;
+                
+                &.pending {
+                    background: #fff3cd;
+                    color: #856404;
+                }
+                
+                &.completed {
+                    background: #d4edda;
+                    color: #155724;
+                }
+            }
+        }
+        
+        .cita-body {
+            padding: 1.5rem;
+            display: flex;
+            gap: 2rem;
+            
+            .cita-info {
+                flex: 1;
+                display: grid;
+                gap: 1.5rem;
+                
+                .info-item {
+                    display: flex;
+                    gap: 1rem;
+                    align-items: center;
+                    
+                    i {
+                        font-size: 1.5rem;
+                        color: #3498db;
+                        width: 40px;
+                        text-align: center;
+                    }
+                    
+                    label {
+                        display: block;
+                        color: #7f8c8d;
+                        font-size: 0.9rem;
+                        margin-bottom: 0.3rem;
+                    }
+                    
+                    p {
+                        margin: 0;
+                        color: #2c3e50;
+                        font-weight: 500;
+                        
+                        &.horario {
+                            .hora {
+                                color: #3498db;
+                                margin-left: 0.5rem;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            .cita-actions {
+                display: flex;
+                align-items: center;
+                
+                .btn-detalles {
+                    background: #3498db;
+                    color: white;
+                    border: none;
+                    padding: 0.8rem 1.5rem;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    transition: background 0.3s ease;
+                    
+                    &:hover {
+                        background: #2980b9;
+                    }
+                    
+                    i {
+                        font-size: 1.1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.sin-citas {
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: #f8f9fa;
+        border-radius: 10px;
+        
+        i {
+            font-size: 4rem;
+            color: #bdc3c7;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.medical-paginator {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environment/environment';
 import {  BehaviorSubject, Observable } from 'rxjs';

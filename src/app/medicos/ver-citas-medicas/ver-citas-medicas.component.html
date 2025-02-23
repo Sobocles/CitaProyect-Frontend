@@ -60,14 +60,13 @@
                     </table>
                   </div>
                 <!--ESTA CONDICION SE HACE PARA QUE CUANDO SE TECLEA EN LA BARRA DE BUSQUEDA Y SE CARGAN LOS RESULTADOS DE BUSQUEDA DESAPARESCAN LOS BOTONES SIGUIENTES Y ANTERIOR EN LA PANTALLA-->
-                <div > <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
+                <div *ngIf="txtTermino.value.length === 0"> <!--SI EL TERMINO ES IGUAL A 0 LOS BOTONES SIGUIENTE Y ANTERIOR SE VAN A MOSTRAR CASO CONTRARIO VAN A DESAPARECER-->
                   <app-paginator 
-                    [totalItems]="totalCitas" 
-                    [(offset)]="desde" 
-                    [pageSize]="5"
-                    (offsetChange)="cargarCitasMedicas(authService.medico.rut, $event)">
-                  </app-paginator>
-
+                  [totalItems]="totalCitas" 
+                  [(offset)]="desde" 
+                  [pageSize]="5"
+                  (offsetChange)="cambiarPagina($event)">
+                </app-paginator>
               </div>
             
             </div>
